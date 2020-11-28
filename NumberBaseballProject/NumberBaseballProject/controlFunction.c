@@ -2,24 +2,32 @@
 #include <stdio.h>
 #include <Windows.h>
 #include "declareFunction.h"
+#include "define.h"
 
 int arrowControl(void) {
 	cursorView(0);
-	char temp = _getch();
-	if (temp == 77) {
-		return 2; //Right
+	int temp = _getch();
+	if (temp == 0 || temp == 0xE0) {
+		temp = _getch();
+		switch (temp) {
+		case LEFT:
+			return LEFT; //Left
+			break;
+		case RIGHT:
+			return RIGHT; //Right
+			break;
+		case UP:
+			return UP; //Up
+			break;
+		case DOWN:
+			return DOWN; //Down
+			break;
+		default:
+			break;
+		}
 	}
-	else if(temp == 75){
-		return 1; //Left
-	}
-	else if (temp == 72) {
-		return 3; //Up
-	}
-	else if (temp == 80) {
-		return 4; //Down
-	}
-	else if (temp == 13 || temp == 32) {
-		return 0; //Enter
+	else if (temp == ENTER || temp == SPACE) {
+		return 0; //Enter & Spacebar
 	}
 }
 
@@ -28,27 +36,25 @@ int selectColumnMenu(int x, int y, int count) {
 
 	while (1) {
 		int temp = arrowControl();
-		if (temp == 3 && currentCurser > 1) {
+		if (temp == UP && currentCurser > 1) {
 			currentCurser--;
-			for (int i = 0; i < count; i++) {
-				setCurser(x, y + i);
-				printf("¢¹");
-			}
-			setCurser(x, y - 1 + currentCurser);
-			printf("¢º");
 		}
-		else if (temp == 4 && currentCurser < count) {
+		else if (temp == DOWN && currentCurser < count) {
 			currentCurser++;
-			for (int i = 0; i < count; i++) {
-				setCurser(x, y + i);
-				printf("¢¹");
-			}
-			setCurser(x, y - 1 + currentCurser);
-			printf("¢º");
 		}
 		else if (temp == 0) {
 			break;
 		}
+		else {
+			continue;
+		}
+
+		for (int i = 0; i < count; i++) {
+			setCurser(x, y + i);
+			printf("¢¹");
+		}
+		setCurser(x, y + currentCurser - 1);
+		printf("¢º");
 	}
 	return currentCurser;
 }
