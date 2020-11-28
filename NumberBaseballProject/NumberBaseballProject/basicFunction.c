@@ -4,6 +4,7 @@
 #include <conio.h>
 #include <time.h>
 #include "structure.h"
+#include "declareFunction.h"
 
 void getBaseballNumber(int* numberArr, int length) {
 	srand((unsigned int)time(NULL));

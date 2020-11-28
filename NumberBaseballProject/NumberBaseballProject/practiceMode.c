@@ -4,9 +4,13 @@
 #include "structure.h"
 
 void practiceMode(void) {
+	system("cls");
+	cursorView(1);
+
 	int baseballNumber[10];
 	int baseballLength = getBaseballLength();
 	int currentNumber[10];
+	int tryCount = 0;
 	struct resultData checkedData;
 
 	getBaseballNumber(baseballNumber, baseballLength);
@@ -22,5 +26,10 @@ void practiceMode(void) {
 		getCurrentNumber(currentNumber, baseballLength);
 		checkedData = checkData(currentNumber, baseballNumber, baseballLength);
 		printResult(checkedData.strike, checkedData.ball, checkedData.out, baseballLength);
+		tryCount++;
+		printf("try: %d\n\n", tryCount);
+		if (checkedData.strike == baseballLength)
+			break;
 	}
+	cursorView(0);
 }

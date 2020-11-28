@@ -11,3 +11,11 @@ struct resultData checkData(int* currentNumber, int* baseballNumber, int length)
 // Design Function
 void initialDesign(void);
 void setCurser(short x, short y);
+void cursorView(char show);
+
+// Control Function
+int arrowControl(void);
+int selectColumnMenu(int x, int y, int count);
+void printMainMenu(void);
+void printMode(void);
+void printHelp(void);
