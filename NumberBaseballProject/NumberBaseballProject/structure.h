@@ -3,3 +3,8 @@ struct resultData {
 	int ball;
 	int out;
 };
+
+struct rememberedData {
+	int baseballNumber[10];
+	struct resultData resultData;
+};

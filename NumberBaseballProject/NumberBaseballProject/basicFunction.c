@@ -32,7 +32,7 @@ int getBaseballLength(void) {
 	int count = 0;
 	char tempNumber[3];
 
-	printf("Set Number Baseball Length: ");
+	printf("Set Baseball Length: ");
 	while (1) {
 		char temp = _getch();
 		if (count == 0 && temp > 48 && temp <= 57) {
@@ -114,6 +114,43 @@ struct resultData checkData(int* currentNumber, int* baseballNumber, int length)
 		checkedData.out = 1;
 
 	return checkedData;
+}
+
+void storeData(struct rememberedData *storedData, int *currentNumber, int baseballLength, struct resultData currentData, int tryCount) {
+	if (tryCount <= 30) {
+		storedData[tryCount - 1].resultData = currentData;
+		for (int i = 0; i < baseballLength; i++) {
+			storedData[tryCount - 1].baseballNumber[i] = currentNumber[i];
+		}
+	}
+	else {
+		for (int i = 0; i < 29; i++) {
+			storedData[i] = storedData[i + 1];
+		}
+		storedData[29].resultData = currentData;
+		for (int i = 0; i < baseballLength; i++) {
+			storedData[29].baseballNumber[i] = currentNumber[i];
+		}
+	}
+}
+
+void printRememberedData(struct rememberedData *storedData, int baseballLength, int tryCount) {
+	for (int i = 0; i < (tryCount <= 30 ? tryCount : 30); i++) {
+		setCurser(171, 6 + i);
+		for (int j = 0; j < baseballLength; j++) {
+			printf("%d", storedData[i].baseballNumber[j]);
+		}
+		setCurser(190, 6 + i);
+		if (storedData[i].resultData.out == 1) {
+			printf("OUT");
+		}
+		else if (storedData[i].resultData.strike == baseballLength) {
+			printf("WIN");
+		}
+		else {
+			printf("%dS %dB", storedData[i].resultData.strike, storedData[i].resultData.ball);
+		}
+	}
 }
 
 void printResult(int strike, int ball, int out, int length) {
