@@ -13,22 +13,31 @@
       <UniqueIdentifier>{67DA6AB6-F800-4c08-8B7A-83BB121AAD01}</UniqueIdentifier>
       <Extensions>rc;ico;cur;bmp;dlg;rc2;rct;bin;rgs;gif;jpg;jpeg;jpe;resx;tiff;tif;png;wav;mfcribbon-ms</Extensions>
     </Filter>
+    <Filter Include="소스 파일\mode">
+      <UniqueIdentifier>{52e13765-c0dd-4e1f-b6b2-8de72a4a4a11}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="소스 파일\function">
+      <UniqueIdentifier>{4d5d8585-c904-467f-a9a8-8da8c3e46d4e}</UniqueIdentifier>
+    </Filter>
   </ItemGroup>
   <ItemGroup>
     <ClCompile Include="main.c">
       <Filter>소스 파일</Filter>
     </ClCompile>
+    <ClCompile Include="practiceMode.c">
+      <Filter>소스 파일\mode</Filter>
+    </ClCompile>
+    <ClCompile Include="signUpMode.c">
+      <Filter>소스 파일\mode</Filter>
+    </ClCompile>
+    <ClCompile Include="authFunction.c">
+      <Filter>소스 파일\function</Filter>
+    </ClCompile>
     <ClCompile Include="basicFunction.c">
-      <Filter>소스 파일</Filter>
+      <Filter>소스 파일\function</Filter>
     </ClCompile>
     <ClCompile Include="designFunction.c">
-      <Filter>소스 파일</Filter>
-    </ClCompile>
-    <ClCompile Include="practiceMode.c">
-      <Filter>소스 파일</Filter>
-    </ClCompile>
-    <ClCompile Include="controlFunction.c">
-      <Filter>소스 파일</Filter>
+      <Filter>소스 파일\function</Filter>
     </ClCompile>
   </ItemGroup>
   <ItemGroup>

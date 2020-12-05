@@ -10,11 +10,17 @@ int toInt(char character);
 
 struct resultData checkData(int* currentNumber, int* baseballNumber, int length);
 
+// Auth Function
+void inputID(char* ID);
+void inputPW(char* PW);
+void updateAuthDB(FILE* AuthDB, char* ID, char* PW);
+
 // Design Function
 void initialDesign(void);
 void setCurser(short x, short y);
 void cursorView(char show);
 void removeOneLine(int line);
+void removeArea(int rowStart, int rowEnd, int columnStart, int columnEnd);
 int arrowControl(void);
 int selectColumnMenu(int x, int y, int count);
 
@@ -23,5 +29,6 @@ void printLogin(void);
 void printMode(void);
 void printHelp(void);
 void printBaseballLength(void);
-void printFreeBaseballLength(void);
+void printFreeBaseballSetting(void);
 void printPracticeModeForm(void);
+void printSignUpModeForm(void);

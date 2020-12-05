@@ -12,12 +12,14 @@ void main(void) {
 	printLogin();
 	switch (selectColumnMenu(90, 24, 4)) {
 	case 1:
+		// Login
 		system("cls");
 		printf("로그인");
 		break;
 	case 2:
-		system("cls");
-		printf("회원가입");
+		// Sign Up
+		signUpMode();
+		goto Initial;
 		break;
 	case 3:
 		printMainMenu();

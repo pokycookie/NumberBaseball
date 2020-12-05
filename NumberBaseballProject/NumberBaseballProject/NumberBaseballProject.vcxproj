@@ -140,10 +140,11 @@
   </ItemDefinitionGroup>
   <ItemGroup>
     <ClCompile Include="basicFunction.c" />
-    <ClCompile Include="controlFunction.c" />
+    <ClCompile Include="authFunction.c" />
     <ClCompile Include="designFunction.c" />
     <ClCompile Include="main.c" />
     <ClCompile Include="practiceMode.c" />
+    <ClCompile Include="signUpMode.c" />
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="declareFunction.h" />

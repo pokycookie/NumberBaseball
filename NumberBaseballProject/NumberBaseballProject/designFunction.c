@@ -36,6 +36,15 @@ void removeOneLine(int line) {
 	}
 }
 
+void removeArea(int rowStart, int rowEnd, int columnStart, int columnEnd) {
+	for (int column = columnStart; column <= columnEnd; column++) {
+		for (int row = rowStart; row <= rowEnd; row++) {
+			setCurser(row, column);
+			printf(" ");
+		}
+	}
+}
+
 int arrowControl(void) {
 	cursorView(0);
 	int temp = _getch();
@@ -129,8 +138,8 @@ void printMode(void) {
 
 void printHelp(void) {
 	system("cls");
-	setCurser(70, 20);
-	printf("숫자야구 인터넷에서 찾아보고 오세요. 귀찮습니다.");
+	setCurser(80, 20);
+	printf("숫자야구 도움말 들어갈 예정");
 	setCurser(90, 24);
 	printf("▶Back");
 }
@@ -147,7 +156,7 @@ void printBaseballLength(void) {
 	printf("▷사용자지정");
 }
 
-void printFreeBaseballLength(void) {
+void printFreeBaseballSetting(void) {
 	system("cls");
 	setCurser(90, 24);
 	printf("▶Set Baseball Length");
@@ -168,4 +177,14 @@ void printPracticeModeForm(void) {
 		setCurser(170, i);
 		printf("|");
 	}
+}
+
+void printSignUpModeForm(void) {
+	system("cls");
+	setCurser(90, 24);
+	printf("▶     ID:");
+	setCurser(90, 25);
+	printf("▷     PW:");
+	setCurser(90, 26);
+	printf("▷PW 확인:");
 }

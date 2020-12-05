@@ -4,3 +4,4 @@
 #define DOWN 80
 #define ENTER 13
 #define SPACE 32
+#define BACKSPACE 8

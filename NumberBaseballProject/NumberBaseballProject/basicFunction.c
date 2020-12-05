@@ -31,8 +31,9 @@ void getBaseballNumber(int* numberArr, int length) {
 int getBaseballLength(void) {
 	int count = 0;
 	char tempNumber[3];
-
-	printf("Set Baseball Length: ");
+	
+	setCurser(90, 24);
+	printf("¢ºSet Baseball Length: ");
 	while (1) {
 		char temp = _getch();
 		if (count == 0 && temp > 48 && temp <= 57) {
@@ -135,7 +136,9 @@ void storeData(struct rememberedData *storedData, int *currentNumber, int baseba
 }
 
 void printRememberedData(struct rememberedData *storedData, int baseballLength, int tryCount) {
+	cursorView(0);
 	for (int i = 0; i < (tryCount <= 30 ? tryCount : 30); i++) {
+		removeArea(171, 200, 6 + i, 6 + i);
 		setCurser(171, 6 + i);
 		for (int j = 0; j < baseballLength; j++) {
 			printf("%d", storedData[i].baseballNumber[j]);
@@ -151,6 +154,7 @@ void printRememberedData(struct rememberedData *storedData, int baseballLength, 
 			printf("%dS %dB", storedData[i].resultData.strike, storedData[i].resultData.ball);
 		}
 	}
+	cursorView(1);
 }
 
 void printResult(int strike, int ball, int out, int length) {

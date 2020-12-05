@@ -25,7 +25,7 @@ void practiceMode(void) {
 		baseballLength = 5;
 		break;
 	case 4:
-		printFreeBaseballLength();
+		printFreeBaseballSetting();
 		switch (selectColumnMenu(90, 24, 2)) {
 		case 1:
 			cursorView(1);
