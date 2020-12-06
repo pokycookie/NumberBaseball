@@ -16,8 +16,8 @@ void signUpMode(void) {
 	setCurser(101, 24);
 	cursorView(1);
 	inputID(USER.ID);
-
 	cursorView(0);
+
 	setCurser(90, 24);
 	printf("▷");
 	setCurser(90, 25);
@@ -26,8 +26,8 @@ void signUpMode(void) {
 	setCurser(101, 25);
 	cursorView(1);
 	inputPW(USER.PW);
-
 	cursorView(0);
+
 	setCurser(90, 25);
 	printf("▷");
 	setCurser(90, 26);
@@ -36,15 +36,16 @@ void signUpMode(void) {
 	setCurser(101, 26);
 	cursorView(1);
 	inputPW(verifyPW);
+	cursorView(0);
 
 	setCurser(90, 30);
 	if (strcmp(USER.PW, verifyPW) == 0) {
-		printf("Verified!!!");
+		printf("회원가입이 정상적으로 처리되었습니다.");
 		updateAuthDB(AuthDB, USER.ID, USER.PW);
 	}
 	else {
-		printf("Fail!!!");
+		printf("비밀번호가 서로 일치하지 않습니다.");
 	}
 
-	Sleep(2000);
+	Sleep(200);
 }

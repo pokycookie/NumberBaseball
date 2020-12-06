@@ -39,6 +39,12 @@
     <ClCompile Include="designFunction.c">
       <Filter>소스 파일\function</Filter>
     </ClCompile>
+    <ClCompile Include="loginMode.c">
+      <Filter>소스 파일\mode</Filter>
+    </ClCompile>
+    <ClCompile Include="mainMenuMode.c">
+      <Filter>소스 파일\mode</Filter>
+    </ClCompile>
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="declareFunction.h">

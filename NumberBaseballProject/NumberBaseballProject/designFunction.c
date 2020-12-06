@@ -188,3 +188,11 @@ void printSignUpModeForm(void) {
 	setCurser(90, 26);
 	printf("¢πPW »Æ¿Œ:");
 }
+
+void printLoginModeForm(void) {
+	system("cls");
+	setCurser(90, 24);
+	printf("¢∫ID:");
+	setCurser(90, 25);
+	printf("¢πPW:");
+}

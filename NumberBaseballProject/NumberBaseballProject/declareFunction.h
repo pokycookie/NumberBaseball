@@ -14,6 +14,7 @@ struct resultData checkData(int* currentNumber, int* baseballNumber, int length)
 void inputID(char* ID);
 void inputPW(char* PW);
 void updateAuthDB(FILE* AuthDB, char* ID, char* PW);
+int authenticateUser(FILE* AuthDB, char* ID, char* PW);
 
 // Design Function
 void initialDesign(void);
@@ -32,3 +33,4 @@ void printBaseballLength(void);
 void printFreeBaseballSetting(void);
 void printPracticeModeForm(void);
 void printSignUpModeForm(void);
+void printLoginModeForm(void);

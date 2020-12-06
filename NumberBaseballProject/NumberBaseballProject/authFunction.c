@@ -1,5 +1,6 @@
 #include <stdio.h>
 #include <conio.h>
+#include <string.h>
 #include "declareFunction.h"
 #include "structure.h"
 #include "define.h"
@@ -57,7 +58,30 @@ void inputPW(char* PW) {
 
 void updateAuthDB(FILE *AuthDB, char *ID, char *PW) {
 	if (fopen_s(&AuthDB, "AuthDB.dat", "a") == 0) {
-		fprintf(AuthDB, "ID: %s - PW: %s\n", ID, PW);
+		fprintf(AuthDB, "%s %s\n", ID, PW);
 		fclose(AuthDB);
+	}
+}
+
+int authenticateUser(FILE* AuthDB, char* ID, char* PW) {
+	// return 0: Auth Success, 1: Wrong PW, 2: Wrong ID
+
+	char DB_ID[10];
+	char DB_PW[15];
+
+	if (fopen_s(&AuthDB, "AuthDB.dat", "r") == 0) {
+		for (int i = 0; i < 100; i++) {
+			fscanf_s(AuthDB, "%s %s", DB_ID, sizeof(DB_ID),DB_PW, sizeof(DB_PW));
+			if (strcmp(ID, DB_ID) == 0) {
+				if (strcmp(PW, DB_PW) == 0) {
+					return 0;
+				}
+				else {
+					return 1;
+				}
+			}
+		}
+		fclose(AuthDB);
+		return 2;
 	}
 }
