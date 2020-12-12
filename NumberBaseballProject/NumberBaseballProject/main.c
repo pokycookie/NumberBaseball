@@ -8,7 +8,6 @@ void main(void) {
 	initialDesign();
 
 	Initial:
-	system("cls");
 	printLogin();
 	switch (selectColumnMenu(90, 24, 4)) {
 	case 1:

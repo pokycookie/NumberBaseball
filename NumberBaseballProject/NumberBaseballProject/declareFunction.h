@@ -1,10 +1,11 @@
 // Basic Function
 void getBaseballNumber(int* result, int length);
-void getCurrentNumber(int* result, int length);
+void getCurrentNumber(int* result, int length, int option);
 void printResult(int strike, int ball, int out, int length);
 void storeData(struct rememberedData* storedData, int* currentNumber, int baseballLength, struct resultData currentData, int tryCount);
-void printRememberedData(struct rememberedData* storedData, int baseballLength, int tryCount);
+void printRememberedData(struct rememberedData* storedData, int baseballLength, int tryCount, int player);
 int getBaseballLength(void);
+int toggleTurn(int turn);
 
 int toInt(char character);
 char toChar(int integer);

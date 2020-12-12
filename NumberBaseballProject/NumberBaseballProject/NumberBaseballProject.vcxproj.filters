@@ -45,6 +45,9 @@
     <ClCompile Include="mainMenuMode.c">
       <Filter>소스 파일\mode</Filter>
     </ClCompile>
+    <ClCompile Include="multiMode.c">
+      <Filter>소스 파일\mode</Filter>
+    </ClCompile>
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="declareFunction.h">

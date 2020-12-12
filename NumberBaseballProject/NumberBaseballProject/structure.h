@@ -13,3 +13,11 @@ struct auth {
 	char ID[10];
 	char PW[15];
 };
+
+struct player {
+	int baseballNumber[10];
+	int currentNumber[10];
+	int tryCount;
+	struct resultData checkedData;
+	struct rememberedData rememberedData[30];
+};

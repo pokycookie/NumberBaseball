@@ -55,15 +55,15 @@ void practiceMode(void) {
 		removeOneLine(45);
 		setCurser(90, 45);
 		printf("input number: ");
-		getCurrentNumber(currentNumber, baseballLength);
+		getCurrentNumber(currentNumber, baseballLength, 0);
 		removeArea(31, 169, 6, 39);
 		checkedData = checkData(currentNumber, baseballNumber, baseballLength);
 		tryCount++;
 		printResult(checkedData.strike, checkedData.ball, checkedData.out, baseballLength);
 		storeData(rememberedData, currentNumber, baseballLength, checkedData, tryCount);
-		printRememberedData(rememberedData, baseballLength, tryCount);
+		printRememberedData(rememberedData, baseballLength, tryCount, 2);
 		setCurser(171, 39);
-		printf("TRY: %d\n\n", tryCount);
+		printf("TRY: %d", tryCount);
 		if (checkedData.strike == baseballLength)
 			break;
 	}

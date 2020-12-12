@@ -12,18 +12,19 @@ void mainMenuMode(void) {
 		printMode();
 		switch (selectColumnMenu(90, 24, 4)) {
 		case 1:
+			// Practice Mode
 			practiceMode();
 			Sleep(1000);
 			system("cls");
 			break;
 		case 2:
-			system("cls");
-			setCurser(90, 24);
-			printf("미구현");
+			// Multiplay Mode
+			multiMode();
 			Sleep(1000);
-			goto Initial;
+			system("cls");
 			break;
 		case 3:
+			// A.I Mode
 			system("cls");
 			setCurser(90, 24);
 			printf("미구현");

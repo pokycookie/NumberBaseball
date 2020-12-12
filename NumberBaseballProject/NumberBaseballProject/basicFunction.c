@@ -63,7 +63,9 @@ int getBaseballLength(void) {
 	return result;
 }
 
-void getCurrentNumber(int* currentNumber, int length) {
+void getCurrentNumber(int* currentNumber, int length, int option) {
+	// Option 0: Default, 1: Secret
+
 	int count = 0;
 
 	while (1) {
@@ -92,7 +94,12 @@ void getCurrentNumber(int* currentNumber, int length) {
 		}
 		if (check == 0) {
 			currentNumber[count] = toInt(temp);
-			printf("%d", currentNumber[count]);
+			if (option == 1) {
+				printf("*");
+			}
+			else {
+				printf("%d", currentNumber[count]);
+			}
 			count++;
 		}
 	}
@@ -136,15 +143,15 @@ void storeData(struct rememberedData *storedData, int *currentNumber, int baseba
 	}
 }
 
-void printRememberedData(struct rememberedData *storedData, int baseballLength, int tryCount) {
+void printRememberedData(struct rememberedData *storedData, int baseballLength, int tryCount, int player) {
 	cursorView(0);
 	for (int i = 0; i < (tryCount <= 30 ? tryCount : 30); i++) {
-		removeArea(171, 200, 6 + i, 6 + i);
-		setCurser(171, 6 + i);
+		removeArea(player == 1 ? 1 : 172, player == 1 ? 29 : 200, 6 + i, 6 + i);
+		setCurser(player == 1 ? 1 : 172, 6 + i);
 		for (int j = 0; j < baseballLength; j++) {
 			printf("%d", storedData[i].baseballNumber[j]);
 		}
-		setCurser(190, 6 + i);
+		setCurser(player == 1 ? 20 : 190, 6 + i);
 		if (storedData[i].resultData.out == 1) {
 			printf("OUT");
 		}
@@ -176,6 +183,15 @@ void printResult(int strike, int ball, int out, int length) {
 		printLargeNumber(ball, 3);
 		Sleep(200);
 		printLargeNumber('B', 4);
+	}
+}
+
+int toggleTurn(int turn) {
+	if (turn == 1) {
+		return 2;
+	}
+	else {
+		return 1;
 	}
 }
 

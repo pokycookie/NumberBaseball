@@ -145,6 +145,7 @@
     <ClCompile Include="loginMode.c" />
     <ClCompile Include="main.c" />
     <ClCompile Include="mainMenuMode.c" />
+    <ClCompile Include="multiMode.c" />
     <ClCompile Include="practiceMode.c" />
     <ClCompile Include="signUpMode.c" />
   </ItemGroup>

@@ -1,5 +1,6 @@
 // Mode
 void practiceMode(void);
+void multiMode(void);
 
 // Page
 void signUpMode(void);
