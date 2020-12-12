@@ -15,6 +15,10 @@ void setCurser(short x, short y) {
 	SetConsoleCursorPosition(GetStdHandle(STD_OUTPUT_HANDLE), position);
 }
 
+void setColor(unsigned short color, unsigned short background) {
+	SetConsoleTextAttribute(GetStdHandle(STD_OUTPUT_HANDLE), color | (background << 4));
+}
+
 void cursorView(char show)
 {
 	// 0: hide cursor, 1: show cursor
@@ -100,8 +104,328 @@ int selectColumnMenu(int x, int y, int count) {
 	return currentCurser;
 }
 
-// Print Select Menu
+// Print Large Number
+void printLargeNumber(char character, int displayNumber) {
+	switch (character){
+	case '1':
+		setColor(8, 7);
+		setCurser(LNX(displayNumber) + 29, 9);
+		printf("¡á");
+		for (int i = 0; i < 26; i++) {
+			setCurser(LNX(displayNumber) + 27, 10 + i);
+			printf("¡á¡á¡á");
+		}
+		setCurser(LNX(displayNumber) + 29, 36);
+		printf("¡á");
+		break;
+	case '2':
+		setColor(8, 7);
+		for (int i = 0; i < 3; i++) {
+			setCurser(LNX(displayNumber) + 3, 9 + i);
+			printf("¡á¡á¡á¡á¡á¡á¡á¡á¡á¡á¡á¡á¡á¡á¡á");
+		}
+		for (int i = 0; i < 9; i++) {
+			setCurser(LNX(displayNumber) + 27, 12 + i);
+			printf("¡á¡á¡á");
+		}
+		for (int i = 0; i < 3; i++) {
+			setCurser(LNX(displayNumber) + 3, 21 + i);
+			printf("¡á¡á¡á¡á¡á¡á¡á¡á¡á¡á¡á¡á¡á¡á¡á");
+		}
+		for (int i = 0; i < 10; i++) {
+			setCurser(LNX(displayNumber) + 3, 24 + i);
+			printf("¡á¡á¡á");
+		}
+		for (int i = 0; i < 3; i++) {
+			setCurser(LNX(displayNumber) + 3, 34 + i);
+			printf("¡á¡á¡á¡á¡á¡á¡á¡á¡á¡á¡á¡á¡á¡á¡á");
+		}
+		break;
+	case '3':
+		setColor(8, 7);
+		for (int i = 0; i < 3; i++) {
+			setCurser(LNX(displayNumber) + 3, 9 + i);
+			printf("¡á¡á¡á¡á¡á¡á¡á¡á¡á¡á¡á¡á¡á¡á¡á");
+		}
+		for (int i = 0; i < 9; i++) {
+			setCurser(LNX(displayNumber) + 27, 12 + i);
+			printf("¡á¡á¡á");
+		}
+		for (int i = 0; i < 3; i++) {
+			setCurser(LNX(displayNumber) + 3, 21 + i);
+			printf("¡á¡á¡á¡á¡á¡á¡á¡á¡á¡á¡á¡á¡á¡á¡á");
+		}
+		for (int i = 0; i < 10; i++) {
+			setCurser(LNX(displayNumber) + 27, 24 + i);
+			printf("¡á¡á¡á");
+		}
+		for (int i = 0; i < 3; i++) {
+			setCurser(LNX(displayNumber) + 3, 34 + i);
+			printf("¡á¡á¡á¡á¡á¡á¡á¡á¡á¡á¡á¡á¡á¡á¡á");
+		}
+		break;
+	case '4':
+		setColor(8, 7);
+		for (int i = 0; i < 12; i++) {
+			setCurser(LNX(displayNumber) + 3, 9 + i);
+			printf("¡á¡á¡á");
+		}
+		for (int i = 0; i < 3; i++) {
+			setCurser(LNX(displayNumber) + 3, 21 + i);
+			printf("¡á¡á¡á¡á¡á¡á¡á¡á¡á¡á¡á¡á");
+		}
+		for (int i = 0; i < 28; i++) {
+			setCurser(LNX(displayNumber) + 27, 9 + i);
+			printf("¡á¡á¡á");
+		}
+		break;
+	case '5':
+		setColor(8, 7);
+		for (int i = 0; i < 3; i++) {
+			setCurser(LNX(displayNumber) + 3, 9 + i);
+			printf("¡á¡á¡á¡á¡á¡á¡á¡á¡á¡á¡á¡á¡á¡á¡á");
+		}
+		for (int i = 0; i < 9; i++) {
+			setCurser(LNX(displayNumber) + 3, 12 + i);
+			printf("¡á¡á¡á");
+		}
+		for (int i = 0; i < 3; i++) {
+			setCurser(LNX(displayNumber) + 3, 21 + i);
+			printf("¡á¡á¡á¡á¡á¡á¡á¡á¡á¡á¡á¡á¡á¡á¡á");
+		}
+		for (int i = 0; i < 10; i++) {
+			setCurser(LNX(displayNumber) + 27, 24 + i);
+			printf("¡á¡á¡á");
+		}
+		for (int i = 0; i < 3; i++) {
+			setCurser(LNX(displayNumber) + 3, 34 + i);
+			printf("¡á¡á¡á¡á¡á¡á¡á¡á¡á¡á¡á¡á¡á¡á¡á");
+		}
+		break;
+	case '6':
+		setColor(8, 7);
+		for (int i = 0; i < 28; i++) {
+			setCurser(LNX(displayNumber) + 3, 9 + i);
+			printf("¡á¡á¡á");
+		}
+		for (int i = 0; i < 3; i++) {
+			setCurser(LNX(displayNumber) + 3, 21 + i);
+			printf("¡á¡á¡á¡á¡á¡á¡á¡á¡á¡á¡á¡á¡á¡á¡á");
+		}
+		for (int i = 0; i < 3; i++) {
+			setCurser(LNX(displayNumber) + 3, 34 + i);
+			printf("¡á¡á¡á¡á¡á¡á¡á¡á¡á¡á¡á¡á¡á¡á¡á");
+		}
+		for (int i = 0; i < 10; i++) {
+			setCurser(LNX(displayNumber) + 27, 24 + i);
+			printf("¡á¡á¡á");
+		}
+		break;
+	case '7':
+		setColor(8, 7);
+		for (int i = 0; i < 3; i++) {
+			setCurser(LNX(displayNumber) + 3, 9 + i);
+			printf("¡á¡á¡á¡á¡á¡á¡á¡á¡á¡á¡á¡á¡á¡á¡á");
+		}for (int i = 0; i < 28; i++) {
+			setCurser(LNX(displayNumber) + 27, 9 + i);
+			printf("¡á¡á¡á");
+		}
+		break;
+	case '8':
+		setColor(8, 7);
+		for (int i = 0; i < 3; i++) {
+			setCurser(LNX(displayNumber) + 3, 9 + i);
+			printf("¡á¡á¡á¡á¡á¡á¡á¡á¡á¡á¡á¡á¡á¡á¡á");
+		}
+		for (int i = 0; i < 28; i++) {
+			setCurser(LNX(displayNumber) + 3, 9 + i);
+			printf("¡á¡á¡á");
+		}
+		for (int i = 0; i < 3; i++) {
+			setCurser(LNX(displayNumber) + 3, 21 + i);
+			printf("¡á¡á¡á¡á¡á¡á¡á¡á¡á¡á¡á¡á¡á¡á¡á");
+		}
+		for (int i = 0; i < 28; i++) {
+			setCurser(LNX(displayNumber) + 27, 9 + i);
+			printf("¡á¡á¡á");
+		}
+		for (int i = 0; i < 3; i++) {
+			setCurser(LNX(displayNumber) + 3, 34 + i);
+			printf("¡á¡á¡á¡á¡á¡á¡á¡á¡á¡á¡á¡á¡á¡á¡á");
+		}
+		break;
+	case '9':
+		setColor(8, 7);
+		for (int i = 0; i < 3; i++) {
+			setCurser(LNX(displayNumber) + 3, 9 + i);
+			printf("¡á¡á¡á¡á¡á¡á¡á¡á¡á¡á¡á¡á¡á¡á¡á");
+		}
+		for (int i = 0; i < 12; i++) {
+			setCurser(LNX(displayNumber) + 3, 9 + i);
+			printf("¡á¡á¡á");
+		}
+		for (int i = 0; i < 3; i++) {
+			setCurser(LNX(displayNumber) + 3, 21 + i);
+			printf("¡á¡á¡á¡á¡á¡á¡á¡á¡á¡á¡á¡á¡á¡á¡á");
+		}
+		for (int i = 0; i < 28; i++) {
+			setCurser(LNX(displayNumber) + 27, 9 + i);
+			printf("¡á¡á¡á");
+		}
+		for (int i = 0; i < 3; i++) {
+			setCurser(LNX(displayNumber) + 3, 34 + i);
+			printf("¡á¡á¡á¡á¡á¡á¡á¡á¡á¡á¡á¡á¡á¡á¡á");
+		}
+		break;
+	case '0':
+		setColor(8, 7);
+		for (int i = 0; i < 3; i++) {
+			setCurser(LNX(displayNumber) + 3, 9 + i);
+			printf("¡á¡á¡á¡á¡á¡á¡á¡á¡á¡á¡á¡á¡á¡á¡á");
+		}
+		for (int i = 0; i < 28; i++) {
+			setCurser(LNX(displayNumber) + 3, 9 + i);
+			printf("¡á¡á¡á");
+		}
+		for (int i = 0; i < 28; i++) {
+			setCurser(LNX(displayNumber) + 27, 9 + i);
+			printf("¡á¡á¡á");
+		}
+		for (int i = 0; i < 3; i++) {
+			setCurser(LNX(displayNumber) + 3, 34 + i);
+			printf("¡á¡á¡á¡á¡á¡á¡á¡á¡á¡á¡á¡á¡á¡á¡á");
+		}
+		break;
+	case 'S':
+		setColor(6, 15);
+		for (int i = 0; i < 3; i++) {
+			setCurser(LNX(displayNumber) + 3, 9 + i);
+			printf("¡á¡á¡á¡á¡á¡á¡á¡á¡á¡á¡á¡á¡á¡á¡á");
+		}
+		for (int i = 0; i < 9; i++) {
+			setCurser(LNX(displayNumber) + 3, 12 + i);
+			printf("¡á¡á¡á");
+		}
+		for (int i = 0; i < 3; i++) {
+			setCurser(LNX(displayNumber) + 3, 21 + i);
+			printf("¡á¡á¡á¡á¡á¡á¡á¡á¡á¡á¡á¡á¡á¡á¡á");
+		}
+		for (int i = 0; i < 10; i++) {
+			setCurser(LNX(displayNumber) + 27, 24 + i);
+			printf("¡á¡á¡á");
+		}
+		for (int i = 0; i < 3; i++) {
+			setCurser(LNX(displayNumber) + 3, 34 + i);
+			printf("¡á¡á¡á¡á¡á¡á¡á¡á¡á¡á¡á¡á¡á¡á¡á");
+		}
+		setCurser(LNX(displayNumber) + 3, 9); printf("  ");
+		setCurser(LNX(displayNumber) + 31, 9); printf("  ");
+		setCurser(LNX(displayNumber) + 9, 12); printf("¡á");
+		setCurser(LNX(displayNumber) + 27, 12); printf("¡á¡á¡á");
+		setCurser(LNX(displayNumber) + 29, 13); printf("¡á¡á");
+		for (int i = 0; i < 3; i++) {
+			setCurser(LNX(displayNumber) + 31, 14 + i);
+			printf("¡á");
+		}
+		setCurser(LNX(displayNumber) + 9, 20); printf("¡á");
+		setCurser(LNX(displayNumber) + 31, 21); printf("  ");
+		setCurser(LNX(displayNumber) + 3, 23); printf("  ");
+		setCurser(LNX(displayNumber) + 25, 24); printf("¡á");
+		setCurser(LNX(displayNumber) + 25, 33); printf("¡á");
+		setCurser(LNX(displayNumber) + 31, 36); printf("  ");
+		setCurser(LNX(displayNumber) + 3, 36); printf("  ");
+		setCurser(LNX(displayNumber) + 3, 33); printf("¡á¡á¡á");
+		setCurser(LNX(displayNumber) + 3, 32); printf("¡á¡á");
+		for (int i = 0; i < 3; i++) {
+			setCurser(LNX(displayNumber) + 3, 29 + i);
+			printf("¡á");
+		}
+		break;
+	case 'B':
+		setColor(6, 15);
+		for (int i = 0; i < 3; i++) {
+			setCurser(LNX(displayNumber) + 3, 9 + i);
+			printf("¡á¡á¡á¡á¡á¡á¡á¡á¡á¡á¡á¡á");
+			setCurser(LNX(displayNumber) + 3, 21 + i);
+			printf("¡á¡á¡á¡á¡á¡á¡á¡á¡á¡á¡á¡á¡á¡á¡á");
+			setCurser(LNX(displayNumber) + 3, 34 + i);
+			printf("¡á¡á¡á¡á¡á¡á¡á¡á¡á¡á¡á¡á¡á¡á¡á");
+		}
+		for (int i = 0; i < 28; i++) {
+			setCurser(LNX(displayNumber) + 3, 9 + i);
+			printf("¡á¡á¡á");
+		}
+		for (int i = 0; i < 9; i++) {
+			setCurser(LNX(displayNumber) + 21, 12 + i);
+			printf("¡á¡á¡á");
+		}
+		for (int i = 0; i < 10; i++) {
+			setCurser(LNX(displayNumber) + 27, 24 + i);
+			printf("¡á¡á¡á");
+		}
+		break;
+	case 'O':
+		setColor(6, 15);
+		// O
+		for (int i = 0; i < 3; i++) {
+			setCurser(LNX(1) + 7, 9 + i);
+			printf("¡á¡á¡á¡á¡á¡á¡á¡á¡á¡á¡á¡á¡á¡á¡á¡á");
+			setCurser(LNX(1) + 7, 34 + i);
+			printf("¡á¡á¡á¡á¡á¡á¡á¡á¡á¡á¡á¡á¡á¡á¡á¡á");
+		}
+		for (int i = 0; i < 22; i++) {
+			setCurser(LNX(1) + 7, 12 + i);
+			printf("¡á¡á¡á");
+			setCurser(LNX(1) + 33, 12 + i);
+			printf("¡á¡á¡á");
+		}
+		// U
+		for (int i = 0; i < 28; i++) {
+			setCurser(LNX(1) + 53, 9 + i);
+			printf("¡á¡á¡á");
+			setCurser(LNX(1) + 79, 9 + i);
+			printf("¡á¡á¡á");
+		}
+		for (int i = 0; i < 3; i++) {
+			setCurser(LNX(1) + 59, 34 + i);
+			printf("¡á¡á¡á¡á¡á¡á¡á¡á¡á¡á");
+		}
+		// T
+		for (int i = 0; i < 3; i++) {
+			setCurser(LNX(1) + 99, 9 + i);
+			printf("¡á¡á¡á¡á¡á¡á¡á¡á¡á¡á¡á¡á¡á¡á¡á¡á¡á");
+		}
+		for (int i = 0; i < 25; i++) {
+			setCurser(LNX(1) + 113, 12 + i);
+			printf("¡á¡á¡á");
+		}
+		break;
+	default:
+		break;
+	}
+	setColor(0, 15);
+}
+int LNX(int displayNumber) {
+	switch (displayNumber) {
+	case 1:
+		return 31 - 1;
+		break;
+	case 2:
+		return 66 - 1;
+		break;
+	case 3:
+		return 101 - 1;
+		break;
+	case 4:
+		return 136 - 1;
+		break;
+	default:
+		return 0;
+		break;
+	}
+}
 
+// Print Select Menu
 void printLogin(void) {
 	system("cls");
 	setCurser(90, 24);

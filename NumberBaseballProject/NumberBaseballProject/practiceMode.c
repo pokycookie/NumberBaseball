@@ -41,6 +41,7 @@ void practiceMode(void) {
 	system("cls");
 	cursorView(1);
 	getBaseballNumber(baseballNumber, baseballLength);
+
 	/*
 	printf("\nRandom Number: ");
 	for (int i = 0; i < baseballLength; i++) {
@@ -55,8 +56,10 @@ void practiceMode(void) {
 		setCurser(90, 45);
 		printf("input number: ");
 		getCurrentNumber(currentNumber, baseballLength);
+		removeArea(31, 169, 6, 39);
 		checkedData = checkData(currentNumber, baseballNumber, baseballLength);
 		tryCount++;
+		printResult(checkedData.strike, checkedData.ball, checkedData.out, baseballLength);
 		storeData(rememberedData, currentNumber, baseballLength, checkedData, tryCount);
 		printRememberedData(rememberedData, baseballLength, tryCount);
 		setCurser(171, 39);

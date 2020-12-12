@@ -3,6 +3,7 @@
 #include <string.h>
 #include <conio.h>
 #include <time.h>
+#include <Windows.h>
 #include "structure.h"
 #include "declareFunction.h"
 
@@ -159,19 +160,22 @@ void printRememberedData(struct rememberedData *storedData, int baseballLength, 
 
 void printResult(int strike, int ball, int out, int length) {
 	if (strike == length) {
-		printf("You Win\n");
+		// PRINT WIN
 	}
 	else if (out == 1) {
-		printf("OUT!\n");
-	}
-	else if (strike == 0) {
-		printf("%dB\n", ball);
-	}
-	else if (ball == 0) {
-		printf("%dS\n", strike);
+		printLargeNumber('O', 1);
 	}
 	else {
-		printf("%dS %dB\n", strike, ball);
+		strike = toChar(strike);
+		ball = toChar(ball);
+
+		printLargeNumber(strike, 1);
+		Sleep(200);
+		printLargeNumber('S', 2);
+		Sleep(200);
+		printLargeNumber(ball, 3);
+		Sleep(200);
+		printLargeNumber('B', 4);
 	}
 }
 
@@ -187,5 +191,20 @@ int toInt(char character) {
 	case '8': return 8;
 	case '9': return 9;
 	case '0': return 0;
+	}
+}
+
+char toChar(int integer) {
+	switch (integer) {
+	case 1: return '1';
+	case 2: return '2';
+	case 3: return '3';
+	case 4: return '4';
+	case 5: return '5';
+	case 6: return '6';
+	case 7: return '7';
+	case 8: return '8';
+	case 9: return '9';
+	case 0: return '0';
 	}
 }
