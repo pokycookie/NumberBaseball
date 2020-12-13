@@ -9,7 +9,8 @@ void main(void) {
 
 	Initial:
 	printLogin();
-	switch (selectColumnMenu(90, 24, 4)) {
+	printMainLogo(0, 0);
+	switch (selectColumnMenu(90, 44, 4)) {
 	case 1:
 		// Login
 		loginMode();

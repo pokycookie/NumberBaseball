@@ -30,6 +30,7 @@ int selectColumnMenu(int x, int y, int count);
 
 void printLargeNumber(char character, int displayNumber);
 int LNX(int displayNumber);
+void printMainLogo(int x, int y);
 
 void printMainMenu(void);
 void printLogin(void);
