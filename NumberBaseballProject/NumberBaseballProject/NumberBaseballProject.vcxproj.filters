@@ -48,6 +48,12 @@
     <ClCompile Include="multiMode.c">
       <Filter>소스 파일\mode</Filter>
     </ClCompile>
+    <ClCompile Include="AiMode.c">
+      <Filter>소스 파일\mode</Filter>
+    </ClCompile>
+    <ClCompile Include="AiFunction.c">
+      <Filter>소스 파일\function</Filter>
+    </ClCompile>
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="declareFunction.h">

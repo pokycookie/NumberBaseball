@@ -4,35 +4,46 @@
 #include "declareMode.h"
 #include "declareFunction.h"
 
-void mainMenuMode(void) {
+int mainMenuMode(void) {
 	Initial:
 	printMainMenu();
 	switch (selectColumnMenu(90, 24, 3)) {
 	case 1:
+		CASE1:
 		printMode();
 		switch (selectColumnMenu(90, 24, 4)) {
 		case 1:
 			// Practice Mode
-			practiceMode();
-			Sleep(1000);
-			system("cls");
+			if (practiceMode() == 0) {
+				Sleep(1000);
+				system("cls");
+			}
+			else {
+				goto CASE1;
+			}
 			break;
 		case 2:
 			// Multiplay Mode
-			multiMode();
-			Sleep(1000);
-			system("cls");
+			if (multiMode() == 0) {
+				Sleep(1000);
+				system("cls");
+			}
+			else {
+				goto CASE1;
+			}
 			break;
 		case 3:
 			// A.I Mode
-			system("cls");
-			setCurser(90, 24);
-			printf("¹Ì±¸Çö");
-			Sleep(1000);
-			goto Initial;
+			if (AiMode() == 0) {
+				Sleep(3000);
+				system("cls");
+			}
+			else {
+				goto CASE1;
+			}
 			break;
 		case 4:
-			break;
+			goto Initial;
 		}
 		break;
 	case 2:

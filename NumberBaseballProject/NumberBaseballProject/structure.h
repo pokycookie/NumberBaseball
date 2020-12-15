@@ -21,3 +21,13 @@ struct player {
 	struct resultData checkedData;
 	struct rememberedData rememberedData[30];
 };
+
+struct AI {
+	int baseballNumber[10];
+	int currentNumber[10];
+	int tryCount;
+	int possibilityArr[3628800][10]; // 10! = 3628800
+	int possibilityCount;
+	struct rememberedData previousData;
+	struct rememberedData rememberedData[30];
+};

@@ -19,7 +19,7 @@ void inputID(char *ID) {
 			printf("%c", temp);
 			count++;
 		}
-		else if (temp == ENTER) {
+		else if (temp == ENTER && count > 0) {
 			ID[count] = '\0';
 			break;
 		}
@@ -45,7 +45,7 @@ void inputPW(char* PW) {
 			printf("*");
 			count++;
 		}
-		else if (temp == ENTER) {
+		else if (temp == ENTER && count > 0) {
 			PW[count] = '\0';
 			break;
 		}
@@ -63,8 +63,23 @@ void updateAuthDB(FILE *AuthDB, char *ID, char *PW) {
 	}
 }
 
+int checkUsedID(FILE* AuthDB, char* ID) {
+	// Return 0: Success, 1: Already Used
+	char DB_ID[10];
+	char DB_PW[15];
+	if (fopen_s(&AuthDB, "AuthDB.dat", "r") == 0) {
+		while (1) {
+			if (feof(AuthDB)) break;
+			fscanf_s(AuthDB, "%s %s", DB_ID, sizeof(DB_ID), DB_PW, sizeof(DB_PW));
+			if (strcmp(DB_ID, ID) == 0) return 1;
+		}
+		fclose(AuthDB);
+	}
+	return 0;
+}
+
 int authenticateUser(FILE* AuthDB, char* ID, char* PW) {
-	// return 0: Auth Success, 1: Wrong PW, 2: Wrong ID
+	// Return 0: Auth Success, 1: Wrong PW, 2: Wrong ID
 
 	char DB_ID[10];
 	char DB_PW[15];

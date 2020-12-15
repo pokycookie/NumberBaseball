@@ -39,13 +39,19 @@ void signUpMode(void) {
 	cursorView(0);
 
 	setCurser(90, 30);
-	if (strcmp(USER.PW, verifyPW) == 0) {
+	if ((strcmp(USER.PW, verifyPW) == 0) && checkUsedID(AuthDB, USER.ID) == 0) {
 		printf("회원가입이 정상적으로 처리되었습니다.");
 		updateAuthDB(AuthDB, USER.ID, USER.PW);
 	}
-	else {
+	else if(strcmp(USER.PW, verifyPW) != 0) {
 		printf("비밀번호가 서로 일치하지 않습니다.");
 	}
+	else if (checkUsedID(AuthDB, USER.ID) == 1) {
+		printf("해당 ID는 이미 사용중입니다.");
+	}
+	else {
+		printf("알수없는 오류입니다.");
+	}
 
-	Sleep(200);
+	Sleep(500);
 }

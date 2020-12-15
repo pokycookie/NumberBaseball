@@ -3,7 +3,7 @@
 #include "declareFunction.h"
 #include "structure.h"
 
-void practiceMode(void) {
+int practiceMode(void) {
 	int baseballNumber[10];
 	int currentNumber[10];
 	int baseballLength;
@@ -14,7 +14,7 @@ void practiceMode(void) {
 
 	baseballLengthPoint:
 	printBaseballLength();
-	switch (selectColumnMenu(90, 24, 4)) {
+	switch (selectColumnMenu(90, 24, 5)) {
 	case 1:
 		baseballLength = 3;
 		break;
@@ -35,6 +35,9 @@ void practiceMode(void) {
 			goto baseballLengthPoint;
 			break;
 		}
+		break;
+	case 5:
+		return 1;
 		break;
 	}
 
@@ -67,5 +70,6 @@ void practiceMode(void) {
 		if (checkedData.strike == baseballLength)
 			break;
 	}
+	return 0;
 	cursorView(0);
 }

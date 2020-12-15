@@ -6,6 +6,7 @@
 #include <Windows.h>
 #include "structure.h"
 #include "declareFunction.h"
+#include "define.h"
 
 void getBaseballNumber(int* numberArr, int length) {
 	srand((unsigned int)time(NULL));
@@ -27,6 +28,18 @@ void getBaseballNumber(int* numberArr, int length) {
 			numberArr[i] = randomNumber;
 		}
 	}
+}
+
+int getRandomNumber(int min, int max) {
+	srand((unsigned int)time(NULL));
+	int randomNumber = rand() / 10;
+	if (randomNumber < min) {
+		randomNumber = min;
+	}
+	else if (randomNumber >= max) {
+		randomNumber = max - 1;
+	}
+	return randomNumber;
 }
 
 int getBaseballLength(void) {
@@ -186,6 +199,26 @@ void printResult(int strike, int ball, int out, int length) {
 	}
 }
 
+int baseballNumberFilter(int* baseballNumber, int baseballLength) {
+	for (int i = 0; i < baseballLength - 1; i++) {
+		for (int j = i + 1; j < baseballLength; j++) {
+			if (baseballNumber[i] == baseballNumber[j]) {
+				return FALSE;
+			}
+		}
+	}
+	return TRUE;
+}
+
+int compareResultData(struct resultData A, struct resultData B) {
+	if (A.strike == B.strike && A.ball == B.ball && A.out == B.out) {
+		return TRUE;
+	}
+	else {
+		return FALSE;
+	}
+}
+
 int toggleTurn(int turn) {
 	if (turn == 1) {
 		return 2;
@@ -195,6 +228,8 @@ int toggleTurn(int turn) {
 	}
 }
 
+
+// Char <=> Int
 int toInt(char character) {
 	switch (character) {
 	case '1': return 1;
@@ -222,5 +257,26 @@ char toChar(int integer) {
 	case 8: return '8';
 	case 9: return '9';
 	case 0: return '0';
+	}
+}
+
+
+// Array
+int checkNumberInArray(int number, int* arr, int arrLength) {
+	for (int i = 0; i < arrLength; i++) {
+		if (number == arr[i]) return TRUE;
+	}
+	return FALSE;
+}
+
+void copyIntArray(int* copiedArray, int copiedArraySize, int* resultArray, int resultArraySize) {
+	// Initailize
+	for (int i = 0; i < resultArraySize; i++) {
+		resultArray[i] = 0;
+	}
+
+	// Copy
+	for (int i = 0; i < copiedArraySize; i++) {
+		resultArray[i] = copiedArray[i];
 	}
 }
