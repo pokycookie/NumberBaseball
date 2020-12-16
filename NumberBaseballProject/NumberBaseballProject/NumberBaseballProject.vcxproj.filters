@@ -54,6 +54,12 @@
     <ClCompile Include="AiFunction.c">
       <Filter>소스 파일\function</Filter>
     </ClCompile>
+    <ClCompile Include="rankMode.c">
+      <Filter>소스 파일\mode</Filter>
+    </ClCompile>
+    <ClCompile Include="rankFunction.c">
+      <Filter>소스 파일\function</Filter>
+    </ClCompile>
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="declareFunction.h">

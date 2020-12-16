@@ -593,19 +593,22 @@ void printPracticeModeForm(void) {
 }
 
 void printSignUpModeForm(void) {
-	system("cls");
-	setCurser(90, 24);
+	setCurser(90, 44);
 	printf("¢∫     ID:");
-	setCurser(90, 25);
+	setCurser(90, 45);
 	printf("¢π     PW:");
-	setCurser(90, 26);
+	setCurser(90, 46);
 	printf("¢πPW »Æ¿Œ:");
 }
 
 void printLoginModeForm(void) {
-	system("cls");
-	setCurser(90, 24);
+	setCurser(90, 44);
 	printf("¢∫ID:");
-	setCurser(90, 25);
+	setCurser(90, 45);
 	printf("¢πPW:");
+}
+
+void printOkButton(int x, int y) {
+	setCurser(x, y);
+	printf("¢∫OK");
 }

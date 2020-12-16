@@ -1,3 +1,5 @@
+#include <time.h>
+
 struct resultData {
 	int strike;
 	int ball;
@@ -30,4 +32,38 @@ struct AI {
 	int possibilityCount;
 	struct rememberedData previousData;
 	struct rememberedData rememberedData[30];
+};
+
+struct time {
+	int minute;
+	int second;
+};
+
+// Rank Information
+struct rank {
+	int mode; // 1: Single, 2: Multi, 3: A.I
+	int baseballLength;
+	int aiDifficulty; // 0: NULL 1: Easy, 2: Normal, 3: Hard, 4: Extream
+
+	int tryCount;
+	struct time recordTime;
+	struct tm realTime;
+};
+
+// Rank DB Contents
+struct rankDB {
+	char ID[10];
+	int tryCount;
+	int recordMin;
+	int recordSec;
+	int realYear;
+	int realMonth;
+	int realDate;
+	int realHour;
+	int realMin;
+	int realSec;
+};
+
+struct fileName {
+	char fileName[25];
 };

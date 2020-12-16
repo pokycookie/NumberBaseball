@@ -3,6 +3,7 @@
 #include <Windows.h>
 #include "declareMode.h"
 #include "declareFunction.h"
+#include "define.h"
 
 void main(void) {
 	initialDesign();
@@ -13,17 +14,20 @@ void main(void) {
 	switch (selectColumnMenu(90, 44, 4)) {
 	case 1:
 		// Login
+		system("cls");
 		loginMode();
 		goto Initial;
 		break;
 	case 2:
 		// Sign Up
+		system("cls");
 		signUpMode();
 		goto Initial;
 		break;
 	case 3:
 		// Non-Login
-		mainMenuMode();
+		system("cls");
+		mainMenuMode("NULL", FALSE);
 		goto Initial;
 		break;
 	case 4:

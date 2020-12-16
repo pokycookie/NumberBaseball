@@ -13,32 +13,32 @@ void signUpMode(void) {
 	cursorView(0);
 	printSignUpModeForm();
 
-	setCurser(101, 24);
+	setCurser(101, 44);
 	cursorView(1);
 	inputID(USER.ID);
 	cursorView(0);
 
-	setCurser(90, 24);
+	setCurser(90, 44);
 	printf("▷");
-	setCurser(90, 25);
+	setCurser(90, 45);
 	printf("▶");
 
-	setCurser(101, 25);
+	setCurser(101, 45);
 	cursorView(1);
 	inputPW(USER.PW);
 	cursorView(0);
 
-	setCurser(90, 25);
+	setCurser(90, 45);
 	printf("▷");
-	setCurser(90, 26);
+	setCurser(90, 46);
 	printf("▶");
 
-	setCurser(101, 26);
+	setCurser(101, 46);
 	cursorView(1);
 	inputPW(verifyPW);
 	cursorView(0);
 
-	setCurser(90, 30);
+	setCurser(90, 48);
 	if ((strcmp(USER.PW, verifyPW) == 0) && checkUsedID(AuthDB, USER.ID) == 0) {
 		printf("회원가입이 정상적으로 처리되었습니다.");
 		updateAuthDB(AuthDB, USER.ID, USER.PW);

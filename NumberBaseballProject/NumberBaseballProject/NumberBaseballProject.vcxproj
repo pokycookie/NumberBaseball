@@ -150,6 +150,8 @@
     <ClCompile Include="mainMenuMode.c" />
     <ClCompile Include="multiMode.c" />
     <ClCompile Include="practiceMode.c" />
+    <ClCompile Include="rankFunction.c" />
+    <ClCompile Include="rankMode.c" />
     <ClCompile Include="signUpMode.c" />
   </ItemGroup>
   <ItemGroup>

@@ -4,6 +4,7 @@
 #include "declareFunction.h"
 #include "declareMode.h"
 #include "structure.h"
+#include "define.h"
 
 void loginMode(void) {
 	struct auth USER;
@@ -12,28 +13,28 @@ void loginMode(void) {
 
 	printLoginModeForm();
 
-	setCurser(96, 24);
+	setCurser(96, 44);
 	cursorView(1);
 	inputID(USER.ID);
 	cursorView(0);
 
-	setCurser(90, 24);
+	setCurser(90, 44);
 	printf("▷");
-	setCurser(90, 25);
+	setCurser(90, 45);
 	printf("▶");
 
-	setCurser(96, 25);
+	setCurser(96, 45);
 	cursorView(1);
 	inputPW(USER.PW);
 	cursorView(0);
 
-	setCurser(90, 26);
+	setCurser(90, 47);
 
 	int authCode = authenticateUser(AuthDB, USER.ID, USER.PW);
 	if (authCode == 0) {
 		printf("로그인이 정상적으로 처리되었습니다.");
 		Sleep(200);
-		mainMenuMode();
+		mainMenuMode(USER.ID, TRUE);
 	}
 	else if (authCode == 1) {
 		printf("잘못된 비밀번호입니다.");

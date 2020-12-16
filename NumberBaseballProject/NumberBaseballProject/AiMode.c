@@ -3,12 +3,14 @@
 #include "declareFunction.h"
 #include "structure.h"
 
-int AiMode(void) {
+int AiMode(char* ID) {
 	struct player player1; player1.tryCount = 0;
 	static struct AI AI; AI.tryCount = 0;
 
 	int baseballLength = 0;
 	int turn = 1;
+	int winner; // 1: Player, 2: AI
+	int startTime, endTime;
 
 	baseballLengthPoint:
 	printBaseballLength();
@@ -52,6 +54,8 @@ int AiMode(void) {
 
 	getBaseballNumber(AI.baseballNumber, baseballLength);
 
+	startTime = clock();
+
 	// Game Start
 	while (1) {
 		if (turn == 1) {
@@ -68,6 +72,7 @@ int AiMode(void) {
 			setCurser(171, 39);
 			printf("TRY: %d", player1.tryCount);
 			if (player1.checkedData.strike == baseballLength)
+				winner = 1;
 				break;
 			cursorView(0);
 		}
@@ -83,11 +88,26 @@ int AiMode(void) {
 			copyIntArray(AI.currentNumber, baseballLength, AI.previousData.baseballNumber, baseballLength);
 			AI.possibilityCount = getPossibilityArr_prototypeAI(AI.possibilityArr, AI.possibilityCount, AI.previousData, baseballLength);
 			if (AI.previousData.resultData.strike == baseballLength)
+				winner = 2;
 				break;
 			cursorView(0);
 		}
 		turn = toggleTurn(turn);
 	}
+
+	endTime = clock();
+	struct time recordTime = convertTimeUnit((endTime - startTime) / 1000);
+
+	if (winner == 1) {
+		struct rank rank;
+		rank.mode = 3, rank.baseballLength = baseballLength, rank.aiDifficulty = 3, rank.tryCount = player1.tryCount, rank.recordTime = recordTime;
+
+		time_t now = time(NULL);
+		localtime_s(&rank.realTime, &now);
+	
+		rankMode(ID, rank);
+	}
+
+	cursorView(FALSE);
 	return 0;
-	cursorView(0);
 }

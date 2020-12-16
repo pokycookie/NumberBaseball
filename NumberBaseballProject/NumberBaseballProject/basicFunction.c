@@ -260,6 +260,15 @@ char toChar(int integer) {
 	}
 }
 
+// Time
+struct time convertTimeUnit(int sec) {
+	struct time result;
+	result.minute = sec / 60;
+	result.second = sec - (result.minute * 60);
+
+	return result;
+}
+
 
 // Array
 int checkNumberInArray(int number, int* arr, int arrLength) {

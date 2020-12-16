@@ -16,6 +16,8 @@ int toggleTurn(int turn);
 int toInt(char character);
 char toChar(int integer);
 
+struct time convertTimeUnit(int sec);
+
 struct resultData checkData(int* currentNumber, int* baseballNumber, int length);
 
 // AI Function
@@ -29,6 +31,12 @@ void inputPW(char* PW);
 void updateAuthDB(FILE* AuthDB, char* ID, char* PW);
 int authenticateUser(FILE* AuthDB, char* ID, char* PW);
 int checkUsedID(FILE* AuthDB, char* ID);
+
+// Rank Function
+struct fileName getFileName(struct rank rank);
+void setRankDB(FILE* RankDB, struct rank rank);
+void updateRankDB(FILE* RankDB, char* ID, struct rank rank);
+void printRankBoard(FILE* RankDB, struct rank rank);
 
 // Design Function
 void initialDesign(void);
@@ -53,3 +61,4 @@ void printFreeBaseballSetting(void);
 void printPracticeModeForm(void);
 void printSignUpModeForm(void);
 void printLoginModeForm(void);
+void printOkButton(int x, int y);

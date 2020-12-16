@@ -4,7 +4,7 @@
 #include "declareMode.h"
 #include "declareFunction.h"
 
-int mainMenuMode(void) {
+int mainMenuMode(char *ID, int isLogin) {
 	Initial:
 	printMainMenu();
 	switch (selectColumnMenu(90, 24, 3)) {
@@ -14,8 +14,7 @@ int mainMenuMode(void) {
 		switch (selectColumnMenu(90, 24, 4)) {
 		case 1:
 			// Practice Mode
-			if (practiceMode() == 0) {
-				Sleep(1000);
+			if (practiceMode(ID) == 0) {
 				system("cls");
 			}
 			else {
@@ -34,8 +33,7 @@ int mainMenuMode(void) {
 			break;
 		case 3:
 			// A.I Mode
-			if (AiMode() == 0) {
-				Sleep(3000);
+			if (AiMode(ID) == 0) {
 				system("cls");
 			}
 			else {
