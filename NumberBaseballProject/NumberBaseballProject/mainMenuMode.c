@@ -1,58 +1,23 @@
 #include <stdio.h>
-#include <conio.h>
 #include <Windows.h>
 #include "declareMode.h"
 #include "declareFunction.h"
+#include "define.h"
 
-int mainMenuMode(char *ID, int isLogin) {
-	Initial:
-	printMainMenu();
-	switch (selectColumnMenu(90, 24, 3)) {
-	case 1:
-		CASE1:
-		printMode();
-		switch (selectColumnMenu(90, 24, 4)) {
-		case 1:
-			// Practice Mode
-			if (practiceMode(ID) == 0) {
-				system("cls");
-			}
-			else {
-				goto CASE1;
-			}
-			break;
-		case 2:
-			// Multiplay Mode
-			if (multiMode() == 0) {
-				Sleep(1000);
-				system("cls");
-			}
-			else {
-				goto CASE1;
-			}
-			break;
-		case 3:
-			// A.I Mode
-			if (AiMode(ID) == 0) {
-				system("cls");
-			}
-			else {
-				goto CASE1;
-			}
-			break;
-		case 4:
-			goto Initial;
+void mainMenuMode(char *ID, int isLogin) {
+	int END = FALSE;
+
+	while (TRUE) {
+	system("cls");
+	printMode();
+	printMainLogo(0, 0);
+		switch (selectColumnMenu(MENUX, MENUY, 5)) {
+		case 1: setGameOptionMode(SINGLEMODE, ID, isLogin); break;
+		case 2: setGameOptionMode(MULTIMODE, ID, isLogin); break;
+		case 3: setGameOptionMode(AIMODE, ID, isLogin);  break;
+		case 4: printHelp(); selectColumnMenu(MENUX, MENUY, 1); break;
+		case 5: END = TRUE; break;
 		}
-		break;
-	case 2:
-		printHelp();
-		switch (selectColumnMenu(90, 24, 1)) {
-		case 1:
-			goto Initial;
-			break;
-		}
-		break;
-	case 3:
-		break;
+		if(END) break;
 	}
 }

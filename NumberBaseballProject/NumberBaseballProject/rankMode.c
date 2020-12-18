@@ -1,21 +1,24 @@
 #include <stdio.h>
-#include <string.h>
 #include <Windows.h>
 #include "structure.h"
 #include "declareFunction.h"
 #include "define.h"
 
-void rankMode(char* ID, struct rank rank) {
+void rankMode(char* ID, int isLogin, struct rank rank) {
 	FILE* RankDB = NULL;
 
 	system("cls");
 	cursorView(FALSE);
 
 	setRankDB(RankDB, rank);
-	updateRankDB(RankDB, ID, rank);
 
-	printRankBoard(RankDB, rank);
+	if (isLogin) updateRankDB(RankDB, ID, rank);
 
-	printOkButton(90, 40);
-	selectColumnMenu(90, 40, 1);
+	printRankBoardForm(rank.mode, rank.baseballLength, rank.aiDifficulty);
+	printRankBoard(RankDB, ID, rank, isLogin);
+	if (isLogin) printMyRanking(RankDB, ID, rank);
+	
+	Sleep(500);
+	printOkButton(MENUX, MENUY);
+	selectColumnMenu(MENUX, MENUY, 1);
 }

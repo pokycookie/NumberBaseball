@@ -76,10 +76,12 @@ int getBaseballLength(void) {
 	return result;
 }
 
-void getCurrentNumber(int* currentNumber, int length, int option) {
+int getCurrentNumber(int* currentNumber, int length, int option) {
 	// Option 0: Default, 1: Secret
+	// Return 0: Default, 1: ESC
 
 	int count = 0;
+	cursorView(TRUE);
 
 	while (1) {
 		int check = 0;
@@ -97,13 +99,16 @@ void getCurrentNumber(int* currentNumber, int length, int option) {
 		}
 		if (count >= length)
 			check = 1;
-		if (temp == 8 && count > 0) {
+		if (temp == BACKSPACE && count > 0) {
 			printf("\b \b");
 			count--;
 		}
-		if (temp == 13 && count == length) {
+		if (temp == ENTER && count == length) {
 			printf("\n");
 			break;
+		}
+		if (temp == ESC) {
+			return TRUE;
 		}
 		if (check == 0) {
 			currentNumber[count] = toInt(temp);
@@ -116,6 +121,7 @@ void getCurrentNumber(int* currentNumber, int length, int option) {
 			count++;
 		}
 	}
+	return FALSE;
 }
 
 struct resultData checkData(int* currentNumber, int* baseballNumber, int length) {
@@ -159,12 +165,12 @@ void storeData(struct rememberedData *storedData, int *currentNumber, int baseba
 void printRememberedData(struct rememberedData *storedData, int baseballLength, int tryCount, int player) {
 	cursorView(0);
 	for (int i = 0; i < (tryCount <= 30 ? tryCount : 30); i++) {
-		removeArea(player == 1 ? 1 : 172, player == 1 ? 29 : 200, 6 + i, 6 + i);
-		setCurser(player == 1 ? 1 : 172, 6 + i);
+		removeArea(player == 1 ? 1 : 161, player == 1 ? 19 : 180, 6 + i, 6 + i);
+		setCurser(player == 1 ? 1 : 161, 6 + i);
 		for (int j = 0; j < baseballLength; j++) {
 			printf("%d", storedData[i].baseballNumber[j]);
 		}
-		setCurser(player == 1 ? 20 : 190, 6 + i);
+		setCurser(player == 1 ? 14 : 174, 6 + i);
 		if (storedData[i].resultData.out == 1) {
 			printf("OUT");
 		}
@@ -217,6 +223,17 @@ int compareResultData(struct resultData A, struct resultData B) {
 	else {
 		return FALSE;
 	}
+}
+
+int compareRankDBAndRank(struct rankDB rankDB, struct rank rank, char* ID) {
+	if (strcmp(rankDB.ID, ID) == 0 && rankDB.tryCount == rank.tryCount &&
+		rankDB.recordMin == rank.recordTime.minute && rankDB.recordSec == rank.recordTime.second &&
+		rankDB.realYear == rank.realTime.tm_year + 1900 && rankDB.realMonth == rank.realTime.tm_mon + 1 && rankDB.realDate == rank.realTime.tm_mday &&
+		rankDB.realHour == rank.realTime.tm_hour && rankDB.realMin == rank.realTime.tm_min && rankDB.realSec == rank.realTime.tm_sec
+		) {
+		return TRUE;
+	}
+	return FALSE;
 }
 
 int toggleTurn(int turn) {

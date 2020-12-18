@@ -6,7 +6,7 @@
 
 void initialDesign(void) {
 	system("title Number Baseball");
-	system("mode con: cols=200 lines=50");
+	system("mode con: cols=180 lines=50");
 	system("color F0");
 }
 
@@ -104,8 +104,42 @@ int selectColumnMenu(int x, int y, int count) {
 	return currentCurser;
 }
 
+int makeGameMenu() {
+	removeArea(22, 158, 6, 39);
+	cursorView(FALSE);
+	
+	// Print Form
+	setCurser(61, 12);
+	for (int i = 0; i < 59; i++) {
+		printf("━");
+	}
+	setCurser(61, 33);
+	for (int i = 0; i < 59; i++) {
+		printf("━");
+	}
+	for (int i = 0; i < 20; i++) {
+		setCurser(60, 13 + i);
+		printf("┃");
+		setCurser(120, 13 + i);
+		printf("┃");
+	}
+	setCurser(60, 12); printf("┏");
+	setCurser(120, 12); printf("┓");
+	setCurser(60, 33); printf("┗");
+	setCurser(120, 33); printf("┛");
+
+	// Print Menu
+	setCurser(MENUX + 5, 14);
+	printf("▶계속하기");
+	setCurser(MENUX + 5, 15);
+	printf("▷포기하기");
+	
+	return selectColumnMenu(MENUX + 5, 14, 2);
+}
+
 // Print Large Number
 void printLargeNumber(char character, int displayNumber) {
+	cursorView(FALSE);
 	switch (character){
 	case '1':
 		setColor(8, 7);
@@ -404,20 +438,21 @@ void printLargeNumber(char character, int displayNumber) {
 		break;
 	}
 	setColor(0, 15);
+	cursorView(TRUE);
 }
 int LNX(int displayNumber) {
 	switch (displayNumber) {
 	case 1:
-		return 31 - 1;
+		return 22;
 		break;
 	case 2:
-		return 66 - 1;
+		return 55;
 		break;
 	case 3:
-		return 101 - 1;
+		return 90;
 		break;
 	case 4:
-		return 136 - 1;
+		return 123;
 		break;
 	default:
 		return 0;
@@ -427,188 +462,230 @@ int LNX(int displayNumber) {
 // Print Logo
 void printMainLogo(int x, int y) {
 	setCurser(x, y + 0);
-	printf("WWWWWWWWWWWWWWWWWWWWWWWWWWWWWWWWWWWWWWWWWWWWWWWWWWWWWWWWWWWWWWWWWWWWWWWWWWWWWWWWWWWWWWWWWWWWWWWWWWWWWWWWWWWWWWWWWWWWWWWWWWWWWWWWWWWWWWWWWWWWWWWWWWWWWWWWWWWWWWWWWWWWWWWWWWWWWWWWWWWWWWWWWWWWWWWWWWWWWWWW");
+	printf("WWWWWWWWWWWWWWWWWWWWWWWWWWWWWWWWWWWWWWWWWWWWWWWWWWWWWWWWWWWWWWWWWWWWWWWWWWWWWWWWWWWWWWWWWWWWWWWWWWWWWWWWWWWWWWWWWWWWWWWWWWWWWWWWWWWWWWWWWWWWWWWWWWWWWWWWWWWWWWWWWWWWWWWWWWWWWWWWWWWW");
 	setCurser(x, y + 1);
-	printf("WWWWWWWWWWWWWWWWWWWWWWWWWWWW##::                                                                                                                                        ..##WWWWWWWWWWWWWWWWWWWWWWWWWWWW");
+	printf("WWWWWWWWWWWWWWWWWW##::                                                                                                                                        ..##WWWWWWWWWWWWWWWWWW");
 	setCurser(x, y + 2);
-	printf("WWWWWWWWWWWWWWWWWWWWWWWWWL      E####WWWWWWWWWWWWWWWWWWWWWWWWWWWWWWWWWWWWWWWWWWWWWWWWWWWWWWWWWWWWWWWWWWWWWWWWWWWWWW#            EEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEL      tWWWWWWWWWWWWWWWWWWWWWWWWW");
+	printf("WWWWWWWWWWWWWWWL      E####WWWWWWWWWWWWWWWWWWWWWWWWWWWWWWWWWWWWWWWWWWWWWWWWWWWWWWWWWWWWWWWWWWWWWWWWWWWWWW#            EEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEL      tWWWWWWWWWWWWWWW");
 	setCurser(x, y + 3);
-	printf("WWWWWWWWWWWWWWWWWWWWWWW#    .WWWWWWWWWWWWWWWWWWWWWWWWWWWWWWWWWWWWWWWWWWWWWWWWWWWWWWWWWWWWWWWWWWWWWWWWWWWWWWWWWWWWWWWW#            DDEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEE:    #WWWWWWWWWWWWWWWWWWWWWWW");
+	printf("WWWWWWWWWWWWW#    .WWWWWWWWWWWWWWWWWWWWWWWWWWWWWWWWWWWWWWWWWWWWWWWWWWWWWWWWWWWWWWWWWWWWWWWWWWWWWWWWWWWWWWWW#            DDEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEE:    #WWWWWWWWWWWWW");
 	setCurser(x, y + 4);
-	printf("WWWWWWWWWWWWWWWWWWWWWWWj    #WWWWWWWWWWWWWWWWWWWWWWWWWWWWWWWWWWWWWWWWWWWWWWWWWWWWWWWWWWWWWWWWWWWWWWWWWWWWWWWWWWWWWWWWWW#          ;DEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEE    iWWWWWWWWWWWWWWWWWWWWWWW");
+	printf("WWWWWWWWWWWWWj    #WWWWWWWWWWWWWWWWWWWWWWWWWWWWWWWWWWWWWWWWWWWWWWWWWWWWWWWWWWWWWWWWWWWWWWWWWWWWWWWWWWWWWWWWWW#          ;DEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEE    iWWWWWWWWWWWWW");
 	setCurser(x, y + 5);
-	printf("WWWWWWWWWWWWWWWWWWWWWW    ;KWWWWWWWWWWWWWWWWWWWWWWWWWWWWWWWWWWWWWWWWWWWWWWWWWWWWWWWWWWWWWWWWWWWWWWWWWWWWWWWWWWWWWWWWWWWWKL          KEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEj    WWWWWWWWWWWWWWWWWWWWWW");
+	printf("WWWWWWWWWWWW    ;KWWWWWWWWWWWWWWWWWWWWWWWWWWWWWWWWWWWWWWWWWWWWWWWWWWWWWWWWWWWWWWWWWWWWWWWWWWWWWWWWWWWWWWWWWWWWKL          KEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEj    WWWWWWWWWWWW");
 	setCurser(x, y + 6);
-	printf("WWWWWWWWWWWWWWWWWWWWWW    fWWWWWWWWWWWWWWWWWWWWWWWWWWWWWWWWWWWWWWWWWWWWWWWWWWWWWWWWWWWWWWWWWWW#t          i#WWWWWWWWWWWWWWK.          EEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEG    WWWWWWWWWWWWWWWWWWWWWW");
+	printf("WWWWWWWWWWWW    fWWWWWWWWWWWWWWWWWWWWWWWWWWWWWWWWWWWWWWWWWWWWWWWWWWWWWWWWWWWWWWWWWWW#t          i#WWWWWWWWWWWWWWK.          EEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEG    WWWWWWWWWWWW");
 	setCurser(x, y + 7);
-	printf("WWWWWWWWWWWWWWWWWWWWWW    fWWWWWWWWWWWWWWWWWWWWWWWWWWWWWWWWWWWWWWWWWWWWWWWWWWWWWWWWWWWWWWWWD                    #WWWWWWWWWW#          DEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEG    WWWWWWWWWWWWWWWWWWWWWW");
+	printf("WWWWWWWWWWWW    fWWWWWWWWWWWWWWWWWWWWWWWWWWWWWWWWWWWWWWWWWWWWWWWWWWWWWWWWWWWWWWWWD                    #WWWWWWWWWW#          DEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEG    WWWWWWWWWWWW");
 	setCurser(x, y + 8);
-	printf("WWWWWWWWWWWWWWWWWWWWWW    fWWWWWWWWWWWWWWWWWWWWWWWWWWWWWWWWWWWWWWWWWWWWWWWWWWWWWWWWWWWWWWG                        fWWWWWWWWWW#          EEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEG    WWWWWWWWWWWWWWWWWWWWWW");
+	printf("WWWWWWWWWWWW    fWWWWWWWWWWWWWWWWWWWWWWWWWWWWWWWWWWWWWWWWWWWWWWWWWWWWWWWWWWWWWWG                        fWWWWWWWWWW#          EEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEG    WWWWWWWWWWWW");
 	setCurser(x, y + 9);
-	printf("WWWWWWWWWWWWWWWWWWWWWW    fWWWWWWWWWWWWWWWWWWWWWWWWWWWWWWWWWWWWWWWWWWWWWWWWWWWWWWWWWWWW#                            WWWWWWWWWWWE        ,EEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEG    WWWWWWWWWWWWWWWWWWWWWW");
+	printf("WWWWWWWWWWWW    fWWWWWWWWWWWWWWWWWWWWWWWWWWWWWWWWWWWWWWWWWWWWWWWWWWWWWWWWWWWW#                            WWWWWWWWWWWE        ,EEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEG    WWWWWWWWWWWW");
 	setCurser(x, y + 10);
-	printf("WWWWWWWWWWWWWWWWWWWWWW    fWWWWWWWWWWWWWWWWWWWWWWWWWWWWWWWWWWWWWWWWWWWWWWWWWWWWWWWWWWWWt                              #WWWWWWWWWW:        KDEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEG    WWWWWWWWWWWWWWWWWWWWWW");
+	printf("WWWWWWWWWWWW    fWWWWWWWWWWWWWWWWWWWWWWWWWWWWWWWWWWWWWWWWWWWWWWWWWWWWWWWWWWWWt                              #WWWWWWWWWW:        KDEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEG    WWWWWWWWWWWW");
 	setCurser(x, y + 11);
-	printf("WWWWWWWWWWWWWWWWWWWWWW    fWWWWWWWWWWWWWWWWWWWWWWWWWWWWWWWWWWWWWWWWWWWWWWWWWWWWWWWWWWW                                WWWWWWWWWWWW          EEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEG    WWWWWWWWWWWWWWWWWWWWWW");
+	printf("WWWWWWWWWWWW    fWWWWWWWWWWWWWWWWWWWWWWWWWWWWWWWWWWWWWWWWWWWWWWWWWWWWWWWWWWW                                WWWWWWWWWWWW          EEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEG    WWWWWWWWWWWW");
 	setCurser(x, y + 12);
-	printf("WWWWWWWWWWWWWWWWWWWWWW    fWWWWWWWWWWWWWWWWWWWWWWWWWWWWWWWWWWWWWWWWWWWWWWWWWWWWWWWWWW#                                ,WWWWWWWWWWWW#        DDEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEG    WWWWWWWWWWWWWWWWWWWWWW");
+	printf("WWWWWWWWWWWW    fWWWWWWWWWWWWWWWWWWWWWWWWWWWWWWWWWWWWWWWWWWWWWWWWWWWWWWWWWW#                                ,WWWWWWWWWWWW#        DDEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEG    WWWWWWWWWWWW");
 	setCurser(x, y + 13);
-	printf("WWWWWWWWWWWWWWWWWWWWWW    fWWWWWWWWWWWWWWWWWWWWWWWWWWWWWWWWWWWWWWWWWWWWWWWWWWWWWWWWWW#                                  WWWWWWWWWWWWK#        EEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEG    WWWWWWWWWWWWWWWWWWWWWW");
+	printf("WWWWWWWWWWWW    fWWWWWWWWWWWWWWWWWWWWWWWWWWWWWWWWWWWWWWWWWWWWWWWWWWWWWWWWWW#                                  WWWWWWWWWWWWK#        EEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEG    WWWWWWWWWWWW");
 	setCurser(x, y + 14);
-	printf("WWWWWWWWWWWWWWWWWWWWWW    fWWWWWWWWWWWWWWWWWWWWWWWWWWWWWWWWWWWWWWWWWWWWWWWWWWWWWWW#t                                    WWWWWWWWWWWWWWWt      ;DEEEEEEEEEEEEEEEEEEEEEEEEEEEEEG    WWWWWWWWWWWWWWWWWWWWWW");
+	printf("WWWWWWWWWWWW    fWWWWWWWWWWWWWWWWWWWWWWWWWWWWWWWWWWWWWWWWWWWWWWWWWWWWWWW#t                                    WWWWWWWWWWWWWWWt      ;DEEEEEEEEEEEEEEEEEEEEEEEEEEEEEG    WWWWWWWWWWWW");
 	setCurser(x, y + 15);
-	printf("WWWWWWWWWWWWWWWWWWWWWW    fWWWWWWWWWWWWWWWWWWWWWWWWWWWWWWWWWWWWWWWWWWWWWWWWWWWW#                                        WWWWWWWWWWWWWWWW        KEEEEEEEEEEEEEEEEEEEEEEEEEEEEG    WWWWWWWWWWWWWWWWWWWWWW");
+	printf("WWWWWWWWWWWW    fWWWWWWWWWWWWWWWWWWWWWWWWWWWWWWWWWWWWWWWWWWWWWWWWWWWW#                                        WWWWWWWWWWWWWWWW        KEEEEEEEEEEEEEEEEEEEEEEEEEEEEG    WWWWWWWWWWWW");
 	setCurser(x, y + 16);
-	printf("WWWWWWWWWWWWWWWWWWWWWW    fWWWWWWWWWWWWWWWWWWWWWWWWWWWWWWWWWWWWWWWWWWWWWWWWWWWK,                                        WWWWWWWWWWWWWWWWW#        DEEEEEEEEEEEEEEEEEEEEEEEEEEG    WWWWWWWWWWWWWWWWWWWWWW");
+	printf("WWWWWWWWWWWW    fWWWWWWWWWWWWWWWWWWWWWWWWWWWWWWWWWWWWWWWWWWWWWWWWWWWK,                                        WWWWWWWWWWWWWWWWW#        DEEEEEEEEEEEEEEEEEEEEEEEEEEG    WWWWWWWWWWWW");
 	setCurser(x, y + 17);
-	printf("WWWWWWWWWWWWWWWWWWWWWW    fWWWWWWWWWWWWWWWWWWWWWWWWWWWWWWWWWWWWWWWWWWWWWWWWWWWWWWWWWWWW#                              #WWWWWWWWWWWWWWWWWWWW#      EDEEEEEEEEEEEEEEEEEEEEEEEEEG    WWWWWWWWWWWWWWWWWWWWWW");
+	printf("WWWWWWWWWWWW    fWWWWWWWWWWWWWWWWWWWWWWWWWWWWWWWWWWWWWWWWWWWWWWWWWWWWWWWWWWWW#                              #WWWWWWWWWWWWWWWWWWWW#      EDEEEEEEEEEEEEEEEEEEEEEEEEEG    WWWWWWWWWWWW");
 	setCurser(x, y + 18);
-	printf("WWWWWWWWWWWWWWWWWWWWWW    fWWWWWWWWWWWWWWWWWWWWWWWWWWWWWWWWWWWWWWWWWWWWWWWWWWWWWWWWWWWWD                              WWWWWWWWWWWWWWWWWWWWWWKG      EEEEEEEEEEEEEEEEEEEEEEEEEG    WWWWWWWWWWWWWWWWWWWWWW");
+	printf("WWWWWWWWWWWW    fWWWWWWWWWWWWWWWWWWWWWWWWWWWWWWWWWWWWWWWWWWWWWWWWWWWWWWWWWWWWD                              WWWWWWWWWWWWWWWWWWWWWWKG      EEEEEEEEEEEEEEEEEEEEEEEEEG    WWWWWWWWWWWW");
 	setCurser(x, y + 19);
-	printf("WWWWWWWWWWWWWWWWWWWWWW    fWWWWWWWWWWWWWWWWWWWWWWWWWWWWWWWWWWWWWWWWWWWWWWWWWWWWWWWWWWW                                ########################      ;KEEEEEEEEEEEEEEEEEEEEEEEG    WWWWWWWWWWWWWWWWWWWWWW");
+	printf("WWWWWWWWWWWW    fWWWWWWWWWWWWWWWWWWWWWWWWWWWWWWWWWWWWWWWWWWWWWWWWWWWWWWWWWWW                                ########################      ;KEEEEEEEEEEEEEEEEEEEEEEEG    WWWWWWWWWWWW");
 	setCurser(x, y + 20);
-	printf("WWWWWWWWWWWWWWWWWWWWWW    fWWWWWWWWWWWWWWWWWWWWWWWWWWWWWWWWWWWWWWWWWWWWWWWWWWWWWWWWWKW                                                    ####          EEEEEEEEEEEEEEEEEEEEEG    WWWWWWWWWWWWWWWWWWWWWW");
+	printf("WWWWWWWWWWWW    fWWWWWWWWWWWWWWWWWWWWWWWWWWWWWWWWWWWWWWWWWWWWWWWWWWWWWWWWWKW                                                    ####          EEEEEEEEEEEEEEEEEEEEEG    WWWWWWWWWWWW");
 	setCurser(x, y + 21);
-	printf("WWWWWWWWWWWWWWWWWWWWWW    fWWWWWWWWWWWWWWWWWWWWWWWWWWWWWWWWWWWWWWWWWWWWWWWWWWWWWWWWWWWWW##                                                              :EEEEEEEEEEEEEEEEEEEEG    WWWWWWWWWWWWWWWWWWWWWW");
+	printf("WWWWWWWWWWWW    fWWWWWWWWWWWWWWWWWWWWWWWWWWWWWWWWWWWWWWWWWWWWWWWWWWWWWWWWWWWWW##                                                              :EEEEEEEEEEEEEEEEEEEEG    WWWWWWWWWWWW");
 	setCurser(x, y + 22);
-	printf("WWWWWWWWWWWWWWWWWWWWWW    fWWWWWWWWWWWWWWWWWWWWWWWWWWWWWWWWWWWWWWWWWWWWWWWWWWWWWWWWWWWWWWW                                                                jDEEEEEEEEEEEEEEEEEG    WWWWWWWWWWWWWWWWWWWWWW");
+	printf("WWWWWWWWWWWW    fWWWWWWWWWWWWWWWWWWWWWWWWWWWWWWWWWWWWWWWWWWWWWWWWWWWWWWWWWWWWWWW                                                                jDEEEEEEEEEEEEEEEEEG    WWWWWWWWWWWW");
 	setCurser(x, y + 23);
-	printf("WWWWWWWWWWWWWWWWWWWWWW    fWWWWWWWWWWWWWWWWWWWWWWWWWWWWWWWWWWWWWWWWWWWWWWWWWWWWWWWWWWWWWW#                                                                  jEEEEEEEEEEEEEEEEG    WWWWWWWWWWWWWWWWWWWWWW");
+	printf("WWWWWWWWWWWW    fWWWWWWWWWWWWWWWWWWWWWWWWWWWWWWWWWWWWWWWWWWWWWWWWWWWWWWWWWWWWWW#                                                                  jEEEEEEEEEEEEEEEEG    WWWWWWWWWWWW");
 	setCurser(x, y + 24);
-	printf("WWWWWWWWWWWWWWWWWWWWWW    fWWWWWWWWWWWWWWWWWWWWWWWWWWWWWWWWWWWWWWWWWWWWWWWWWWWWWWWWWWWWW                                                                      DEEEEEEEEEEEEEEG    WWWWWWWWWWWWWWWWWWWWWW");
+	printf("WWWWWWWWWWWW    fWWWWWWWWWWWWWWWWWWWWWWWWWWWWWWWWWWWWWWWWWWWWWWWWWWWWWWWWWWWWW                                                                      DEEEEEEEEEEEEEEG    WWWWWWWWWWWW");
 	setCurser(x, y + 25);
-	printf("WWWWWWWWWWWWWWWWWWWWWW    fWWWWWWWWWWWWWWWWWWWWWWWWWWWWWWWWWWWWWWWWWWWWWWWWWWWWWWWWWWt                                                                        EEEEEEEEEEEEEEEG    WWWWWWWWWWWWWWWWWWWWWW");
+	printf("WWWWWWWWWWWW    fWWWWWWWWWWWWWWWWWWWWWWWWWWWWWWWWWWWWWWWWWWWWWWWWWWWWWWWWWWt                                                                        EEEEEEEEEEEEEEEG    WWWWWWWWWWWW");
 	setCurser(x, y + 26);
-	printf("WWWWWWWWWWWWWWWWWWWWWW    fWWWWWWWWWWWWWWWWWWWWWWWWWWWWWWWWWWWWWWWWWWWWWWWWWWWWWWWWW                                                                            KEEEEEEEEEEEEG    WWWWWWWWWWWWWWWWWWWWWW");
+	printf("WWWWWWWWWWWW    fWWWWWWWWWWWWWWWWWWWWWWWWWWWWWWWWWWWWWWWWWWWWWWWWWWWWWWWWW                                                                            KEEEEEEEEEEEEG    WWWWWWWWWWWW");
 	setCurser(x, y + 27);
-	printf("WWWWWWWWWWWWWWWWWWWWWW    fWWWWWWWWWWWWWWWWWWWWWWWWWWWWWWWWWWWWWWWWWWWWWWWWWWWWWW#                                                                                .EEEEEEEEEEG    WWWWWWWWWWWWWWWWWWWWWW");
+	printf("WWWWWWWWWWWW    fWWWWWWWWWWWWWWWWWWWWWWWWWWWWWWWWWWWWWWWWWWWWWWWWWWWWWW#                                                                                .EEEEEEEEEEG    WWWWWWWWWWWW");
 	setCurser(x, y + 28);
-	printf("WWWWWWWWWWWWWWWWWWWWWW    fWWWWWWWWWWWWWW:    .WWWWWWWWWWWWWWWWWWWWWWWWWWWWWWWWWWL                                                                                  jEEEEEEEDG    WWWWWWWWWWWWWWWWWWWWWW");
+	printf("WWWWWWWWWWWW    fWWWWWWWWWWWWWW:    .WWWWWWWWWWWWWWWWWWWWWWWWWWWWWWWWWWL                                                                                  jEEEEEEEDG    WWWWWWWWWWWW");
 	setCurser(x, y + 29);
-	printf("WWWWWWWWWWWWWWWWWWWWWW    fWWWWWWWWWWWWi        ,WWWWWWWWWWWWWWWWWWWWWWWWWWWWWWW                                                                                      DEEEEEDG    WWWWWWWWWWWWWWWWWWWWWW");
+	printf("WWWWWWWWWWWW    fWWWWWWWWWWWWi        ,WWWWWWWWWWWWWWWWWWWWWWWWWWWWWWW                                                                                      DEEEEEDG    WWWWWWWWWWWW");
 	setCurser(x, y + 30);
-	printf("WWWWWWWWWWWWWWWWWWWWWW    fWWWWWWWWWWW            #WWWWWWWWWWWWWWWWWWWWWWWWWWWW#                                                                                      tDEEEEEG    WWWWWWWWWWWWWWWWWWWWWW");
+	printf("WWWWWWWWWWWW    fWWWWWWWWWWW            #WWWWWWWWWWWWWWWWWWWWWWWWWWWW#                                                                                      tDEEEEEG    WWWWWWWWWWWW");
 	setCurser(x, y + 31);
-	printf("WWWWWWWWWWWWWWWWWWWWWW    fWWWWWWWWWWW            #WWWWWWWWWWWWWWWWWWWWWWWWWWWWE                                                                                        GEEEEG    WWWWWWWWWWWWWWWWWWWWWW");
+	printf("WWWWWWWWWWWW    fWWWWWWWWWWW            #WWWWWWWWWWWWWWWWWWWWWWWWWWWWE                                                                                        GEEEEG    WWWWWWWWWWWW");
 	setCurser(x, y + 32);
-	printf("WWWWWWWWWWWWWWWWWWWWWW    fWWWWWWWWWWWWK        EWWWWWWWWWWWWWWWWWWWWWWWWWWWWWW;                                                                                        iEEEEG    WWWWWWWWWWWWWWWWWWWWWW");
+	printf("WWWWWWWWWWWW    fWWWWWWWWWWWWK        EWWWWWWWWWWWWWWWWWWWWWWWWWWWWWW;                                                                                        iEEEEG    WWWWWWWWWWWW");
 	setCurser(x, y + 33);
-	printf("WWWWWWWWWWWWWWWWWWWWWW    fWWWWWWWWWWWWWWW    WWWWWWWWWWWWWWWWWWWWWWWWWWWWWWWW                                                                                          EEEEEG    WWWWWWWWWWWWWWWWWWWWWW");
+	printf("WWWWWWWWWWWW    fWWWWWWWWWWWWWWW    WWWWWWWWWWWWWWWWWWWWWWWWWWWWWWWW                                                                                          EEEEEG    WWWWWWWWWWWW");
 	setCurser(x, y + 34);
-	printf("WWWWWWWWWWWWWWWWWWWWWW    fWWWWWWWWWWWWWWWWWWWWWWWWWWWWWWWWWWWWWWWWWWWWWWWWWWW                                                                                        ;DEEEEEG    WWWWWWWWWWWWWWWWWWWWWW");
+	printf("WWWWWWWWWWWW    fWWWWWWWWWWWWWWWWWWWWWWWWWWWWWWWWWWWWWWWWWWWWWWWWWWW                                                                                        ;DEEEEEG    WWWWWWWWWWWW");
 	setCurser(x, y + 35);
-	printf("WWWWWWWWWWWWWWWWWWWWWW    LWWWWWWWWWWWWWWWWWWWWWWWWWWWWWWWWWWWWWWWWWWWWWWWWWWW                                                                                        EEEEEEEG    WWWWWWWWWWWWWWWWWWWWWW");
+	printf("WWWWWWWWWWWW    LWWWWWWWWWWWWWWWWWWWWWWWWWWWWWWWWWWWWWWWWWWWWWWWWWWW                                                                                        EEEEEEEG    WWWWWWWWWWWW");
 	setCurser(x, y + 36);
-	printf("WWWWWWWWWWWWWWWWWWWWWW    ;WWWWWWWWWWWWWWWWWWWWWWWWWWWWWWWWWWWWWWWWWWWWWWWWWWW                                                                                      EEEEEEEEEt    WWWWWWWWWWWWWWWWWWWWWW");
+	printf("WWWWWWWWWWWW    ;WWWWWWWWWWWWWWWWWWWWWWWWWWWWWWWWWWWWWWWWWWWWWWWWWWW                                                                                      EEEEEEEEEt    WWWWWWWWWWWW");
 	setCurser(x, y + 37);
-	printf("WWWWWWWWWWWWWWWWWWWWWWWt    #WWWWWWWWWWWWWWWWWWWWWWWWWWWWWWWWWWWWWWWWWWWWWWWWWWWWW###D                                                              KEEEEEEEEEEEEEEEEEEEEEEE    ;WWWWWWWWWWWWWWWWWWWWWWW");
+	printf("WWWWWWWWWWWWWt    #WWWWWWWWWWWWWWWWWWWWWWWWWWWWWWWWWWWWWWWWWWWWWWWWWWWWW###D                                                              KEEEEEEEEEEEEEEEEEEEEEEE    ;WWWWWWWWWWWWW");
 	setCurser(x, y + 38);
-	printf("WWWWWWWWWWWWWWWWWWWWWWW#      #WWWWWWWWWWWWWWWWWWWWWWWWWWWWWWWWWWWWWWWWWWWWWWWWWWWWWW#                                                              KEEEEEEEEEEEEEEEEEEEEEE:    #WWWWWWWWWWWWWWWWWWWWWWW");
+	printf("WWWWWWWWWWWWW#      #WWWWWWWWWWWWWWWWWWWWWWWWWWWWWWWWWWWWWWWWWWWWWWWWWWWWWW#                                                              KEEEEEEEEEEEEEEEEEEEEEE:    #WWWWWWWWWWWWW");
 	setCurser(x, y + 39);
-	printf("WWWWWWWWWWWWWWWWWWWWWWWWWL      G#######################################################                                                            WEEEEEEEEEEEEEEEEEEL      fWWWWWWWWWWWWWWWWWWWWWWWWW");
+	printf("WWWWWWWWWWWWWWWL      G#######################################################                                                            WEEEEEEEEEEEEEEEEEEL      fWWWWWWWWWWWWWWW");
 	setCurser(x, y + 40);
-	printf("WWWWWWWWWWWWWWWWWWWWWWWWWWWj                                                                                                                                                iWWWWWWWWWWWWWWWWWWWWWWWWWWW");
+	printf("WWWWWWWWWWWWWWWWWj                                                                                                                                                iWWWWWWWWWWWWWWWWW");
 	setCurser(x, y + 41);
-	printf("WWWWWWWWWWWWWWWWWWWWWWWWWWWWWWWWWWWWWWWWWWWWWWWWWWWWWWWWWWWWWWWWWWWWWWWWWWWWWWWWWWWWWWWWWWWWWWWWWWWWWWWWWWWWWWWWWWWWWWWWWWWWWWWWWWWWWWWWWWWWWWWWWWWWWWWWWWWWWWWWWWWWWWWWWWWWWWWWWWWWWWWWWWWWWWWWWWWWWWWW");
+	printf("WWWWWWWWWWWWWWWWWWWWWWWWWWWWWWWWWWWWWWWWWWWWWWWWWWWWWWWWWWWWWWWWWWWWWWWWWWWWWWWWWWWWWWWWWWWWWWWWWWWWWWWWWWWWWWWWWWWWWWWWWWWWWWWWWWWWWWWWWWWWWWWWWWWWWWWWWWWWWWWWWWWWWWWWWWWWWWWWWWWW");
 }
 
 // Print Select Menu
 void printLogin(void) {
 	system("cls");
-	setCurser(90, 44);
+	setCurser(MENUX, MENUY);
 	printf("▶로그인");
-	setCurser(90, 45);
+	setCurser(MENUX, MENUY + 1);
 	printf("▷회원가입");
-	setCurser(90, 46);
+	setCurser(MENUX, MENUY + 2);
 	printf("▷비로그인");
-	setCurser(90, 47);
+	setCurser(MENUX, MENUY + 3);
 	printf("▷Exit");
-}
-
-void printMainMenu(void) {
-	system("cls");
-	setCurser(90, 24);
-	printf("▶Game Start");
-	setCurser(90, 25);
-	printf("▷Help");
-	setCurser(90, 26);
-	printf("▷Back");
 }
 
 void printMode(void) {
 	system("cls");
-	setCurser(90, 24);
+	setCurser(MENUX, MENUY);
 	printf("▶Single Mode");
-	setCurser(90, 25);
+	setCurser(MENUX, MENUY + 1);
 	printf("▷Multi Mode");
-	setCurser(90, 26);
+	setCurser(MENUX, MENUY + 2);
 	printf("▷A.I Mode");
-	setCurser(90, 27);
-	printf("▷Back");
+	setCurser(MENUX, MENUY + 3);
+	printf("▷HELP");
+	setCurser(MENUX, MENUY + 4);
+	printf("▷LOGOUT");
 }
 
 void printHelp(void) {
 	system("cls");
-	setCurser(80, 20);
+	setCurser(70, 20);
 	printf("숫자야구 도움말 들어갈 예정");
-	setCurser(90, 24);
+	setCurser(MENUX, MENUY);
 	printf("▶Back");
 }
 
 void printBaseballLength(void) {
 	system("cls");
-	setCurser(90, 24);
+	setCurser(MENUX, MENUY);
 	printf("▶Easy");
-	setCurser(90, 25);
+	setCurser(MENUX, MENUY + 1);
 	printf("▷Normal");
-	setCurser(90, 26);
+	setCurser(MENUX, MENUY + 2);
 	printf("▷Hard");
-	setCurser(90, 27);
+	setCurser(MENUX, MENUY + 3);
 	printf("▷사용자지정");
-	setCurser(90, 28);
+	setCurser(MENUX, MENUY + 4);
 	printf("▷Back");
 }
 
 void printFreeBaseballSetting(void) {
 	system("cls");
-	setCurser(90, 24);
+	setCurser(MENUX, MENUY);
 	printf("▶Set Baseball Length");
-	setCurser(90, 25);
+	setCurser(MENUX, MENUY + 1);
 	printf("▷Back");
 }
 
 void printPracticeModeForm(void) {
-	for (int i = 0; i < 200; i++) {
+	for (int i = 0; i < 180; i++) {
 		setCurser(i, 5);
-		printf("-");
+		printf("─");
 		setCurser(i, 40);
-		printf("-");
+		printf("─");
 	}
 	for (int i = 6; i < 40; i++) {
-		setCurser(30, i);
-		printf("|");
-		setCurser(170, i);
-		printf("|");
+		setCurser(20, i);
+		printf("│");
+		setCurser(159, i);
+		printf("│");
 	}
+	setCurser(20, 5); printf("┌");
+	setCurser(159, 5); printf("┐");
+	setCurser(20, 40); printf("└");
+	setCurser(159, 40); printf("┘");
 }
 
 void printSignUpModeForm(void) {
-	setCurser(90, 44);
+	setCurser(MENUX, MENUY);
 	printf("▶     ID:");
-	setCurser(90, 45);
+	setCurser(MENUX, MENUY + 1);
 	printf("▷     PW:");
-	setCurser(90, 46);
+	setCurser(MENUX, MENUY + 2);
 	printf("▷PW 확인:");
 }
 
 void printLoginModeForm(void) {
-	setCurser(90, 44);
+	setCurser(MENUX, MENUY);
 	printf("▶ID:");
-	setCurser(90, 45);
+	setCurser(MENUX, MENUY + 1);
 	printf("▷PW:");
 }
 
 void printOkButton(int x, int y) {
 	setCurser(x, y);
 	printf("▶OK");
+}
+
+void printRankBoardForm(int mode, int length, int aiDifficulty) {
+
+	setCurser(87, 4);
+	printf("RANKING");
+	setCurser(20, 6);
+	for (int i = 0; i < 140; i++) {
+		printf("-");
+	}
+	setCurser(22, 7); printf("RANK");
+	setCurser(30, 7); printf("ID");
+	setCurser(44, 7); printf("Try Count");
+	setCurser(60, 7); printf("Record Time");
+	setCurser(140, 7); printf("DATE");
+
+	setCurser(20, 8);
+	for (int i = 0; i < 140; i++) {
+		printf("-");
+	}
+	setCurser(20, 31);
+	for (int i = 0; i < 140; i++) {
+		printf("-");
+	}
+
+	char MODE[10], DIFFICULTY[10];
+	switch (mode) {
+	case 1: strcpy_s(MODE, sizeof(MODE), "SINGLE"); break;
+	case 2: strcpy_s(MODE, sizeof(MODE), "MULTY"); break;
+	case 3: strcpy_s(MODE, sizeof(MODE), "AI"); break;
+	}
+	switch (aiDifficulty) {
+	case 0: strcpy_s(DIFFICULTY, sizeof(DIFFICULTY), "NULL"); break;
+	case 1: strcpy_s(DIFFICULTY, sizeof(DIFFICULTY), "EASY"); break;
+	case 2: strcpy_s(DIFFICULTY, sizeof(DIFFICULTY), "NORMAL"); break;
+	case 3: strcpy_s(DIFFICULTY, sizeof(DIFFICULTY), "HARD"); break;
+	case 4: strcpy_s(DIFFICULTY, sizeof(DIFFICULTY), "EXTREAM"); break;
+	}
+
+	setCurser(20, 5);
+	if (aiDifficulty == 0) {
+		printf("%2d자리 %s MODE ", length, MODE);
+	}
+	else {
+		printf("%2d자리 %s MODE %s", length, MODE, DIFFICULTY);
+	}
 }

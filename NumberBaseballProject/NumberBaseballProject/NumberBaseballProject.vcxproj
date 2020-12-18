@@ -152,6 +152,7 @@
     <ClCompile Include="practiceMode.c" />
     <ClCompile Include="rankFunction.c" />
     <ClCompile Include="rankMode.c" />
+    <ClCompile Include="setGameOptionMode.c" />
     <ClCompile Include="signUpMode.c" />
   </ItemGroup>
   <ItemGroup>

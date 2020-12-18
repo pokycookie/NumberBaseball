@@ -2,42 +2,13 @@
 #include <Windows.h>
 #include "declareFunction.h"
 #include "structure.h"
+#include "define.h"
 
-int multiMode(void) {
+void multiMode(int baseballLength) {
 	struct player player1; player1.tryCount = 0;
 	struct player player2; player2.tryCount = 0;
 	
-	int baseballLength;
 	int turn = 1;
-
-	baseballLengthPoint:
-	printBaseballLength();
-	switch (selectColumnMenu(90, 24, 5)) {
-	case 1:
-		baseballLength = 3;
-		break;
-	case 2:
-		baseballLength = 4;
-		break;
-	case 3:
-		baseballLength = 5;
-		break;
-	case 4:
-		printFreeBaseballSetting();
-		switch (selectColumnMenu(90, 24, 2)) {
-		case 1:
-			cursorView(1);
-			baseballLength = getBaseballLength();
-			break;
-		case 2:
-			goto baseballLengthPoint;
-			break;
-		}
-		break;
-	case 5:
-		return 1;
-		break;
-	}
 
 	system("cls");
 	printPracticeModeForm();
@@ -48,7 +19,7 @@ int multiMode(void) {
 	getCurrentNumber(player1.baseballNumber, baseballLength, 1);
 	removeOneLine(45);
 
-	setCurser(173, 45);
+	setCurser(153, 45);
 	printf("Set Number: ");
 	getCurrentNumber(player2.baseballNumber, baseballLength, 1);
 	removeOneLine(45);
@@ -60,7 +31,7 @@ int multiMode(void) {
 			setCurser(3, 45);
 			printf("input number: ");
 			getCurrentNumber(player1.currentNumber, baseballLength, 0);
-			removeArea(31, 169, 6, 39);
+			removeArea(22, 158, 6, 39);
 			player1.checkedData = checkData(player1.currentNumber, player2.baseballNumber, baseballLength);
 			player1.tryCount++;
 			printResult(player1.checkedData.strike, player1.checkedData.ball, player1.checkedData.out, baseballLength);
@@ -74,16 +45,16 @@ int multiMode(void) {
 		}
 		else {
 			removeOneLine(45);
-			setCurser(173, 45);
+			setCurser(163, 45);
 			printf("input number: ");
 			getCurrentNumber(player2.currentNumber, baseballLength, 0);
-			removeArea(31, 169, 6, 39);
+			removeArea(22, 158, 6, 39);
 			player2.checkedData = checkData(player2.currentNumber, player1.baseballNumber, baseballLength);
 			player2.tryCount++;
 			printResult(player2.checkedData.strike, player2.checkedData.ball, player2.checkedData.out, baseballLength);
 			storeData(player2.rememberedData, player2.currentNumber, baseballLength, player2.checkedData, player2.tryCount);
 			printRememberedData(player2.rememberedData, baseballLength, player2.tryCount, 2);
-			setCurser(171, 39);
+			setCurser(161, 39);
 			printf("TRY: %d", player2.tryCount);
 			if (player2.checkedData.strike == baseballLength)
 				break;
@@ -91,6 +62,7 @@ int multiMode(void) {
 		}
 		turn = toggleTurn(turn);
 	}
-	return 0;
-	cursorView(0);
+	printOkButton(MENUX, MENUY + 2);
+	selectColumnMenu(MENUX, MENUY + 2, 1);
+	cursorView(FALSE);
 }

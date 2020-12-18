@@ -6,32 +6,35 @@
 #include "define.h"
 
 void main(void) {
+	int EXIT = FALSE;
+
 	initialDesign();
 
-	Initial:
-	printLogin();
-	printMainLogo(0, 0);
-	switch (selectColumnMenu(90, 44, 4)) {
-	case 1:
-		// Login
+	while (TRUE) {
 		system("cls");
-		loginMode();
-		goto Initial;
-		break;
-	case 2:
-		// Sign Up
-		system("cls");
-		signUpMode();
-		goto Initial;
-		break;
-	case 3:
-		// Non-Login
-		system("cls");
-		mainMenuMode("NULL", FALSE);
-		goto Initial;
-		break;
-	case 4:
-		system("cls");
-		break;
+		printLogin();
+		printMainLogo(0, 0);
+		switch (selectColumnMenu(MENUX, MENUY, 4)) {
+		case 1:
+			// Login
+			system("cls");
+			loginMode();
+			break;
+		case 2:
+			// Sign Up
+			system("cls");
+			signUpMode();
+			break;
+		case 3:
+			// Non-Login
+			system("cls");
+			mainMenuMode("NULL", FALSE);
+			break;
+		case 4:
+			system("cls");
+			EXIT = TRUE;
+			break;
+		}
+		if (EXIT == TRUE) break;
 	}
 }

@@ -1,12 +1,13 @@
 // Basic Function
 void getBaseballNumber(int* result, int length);
-void getCurrentNumber(int* result, int length, int option);
+int getCurrentNumber(int* currentNumber, int length, int option);
 void printResult(int strike, int ball, int out, int length);
 void storeData(struct rememberedData* storedData, int* currentNumber, int baseballLength, struct resultData currentData, int tryCount);
 void printRememberedData(struct rememberedData* storedData, int baseballLength, int tryCount, int player);
 int getBaseballLength(void);
 int baseballNumberFilter(int* baseballNumber, int baseballLength);
 int compareResultData(struct resultData A, struct resultData B);
+int compareRankDBAndRank(struct rankDB rankDB, struct rank rank, char* ID);
 int getRandomNumber(int min, int max);
 
 int checkNumberInArray(int number, int* arr, int arrLength);
@@ -36,7 +37,10 @@ int checkUsedID(FILE* AuthDB, char* ID);
 struct fileName getFileName(struct rank rank);
 void setRankDB(FILE* RankDB, struct rank rank);
 void updateRankDB(FILE* RankDB, char* ID, struct rank rank);
-void printRankBoard(FILE* RankDB, struct rank rank);
+void printRankBoard(FILE* RankDB, char* ID, struct rank rank, int isLogin);
+void printMyRanking(FILE* RankDB, char* ID, struct rank rank);
+
+struct rankDB findRankDB(FILE* RankDB, char* ID, struct rank rank);
 
 // Design Function
 void initialDesign(void);
@@ -47,12 +51,12 @@ void removeOneLine(int line);
 void removeArea(int rowStart, int rowEnd, int columnStart, int columnEnd);
 int arrowControl(void);
 int selectColumnMenu(int x, int y, int count);
+int makeGameMenu();
 
 void printLargeNumber(char character, int displayNumber);
 int LNX(int displayNumber);
 void printMainLogo(int x, int y);
 
-void printMainMenu(void);
 void printLogin(void);
 void printMode(void);
 void printHelp(void);
@@ -62,3 +66,5 @@ void printPracticeModeForm(void);
 void printSignUpModeForm(void);
 void printLoginModeForm(void);
 void printOkButton(int x, int y);
+int checkNumberInArray(int number, int* arr, int arrLength);
+void printRankBoardForm(int mode, int length, int aiDifficulty);

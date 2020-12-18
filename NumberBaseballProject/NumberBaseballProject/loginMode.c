@@ -11,37 +11,39 @@ void loginMode(void) {
 
 	FILE* AuthDB = NULL;
 
+	printMainLogo(0, 0);
 	printLoginModeForm();
 
-	setCurser(96, 44);
-	cursorView(1);
+	setCurser(MENUX + 6, MENUY);
+	cursorView(TRUE);
 	inputID(USER.ID);
-	cursorView(0);
+	cursorView(FALSE);
 
-	setCurser(90, 44);
+	setCurser(MENUX, MENUY);
 	printf("▷");
-	setCurser(90, 45);
+	setCurser(MENUX, MENUY + 1);
 	printf("▶");
 
-	setCurser(96, 45);
-	cursorView(1);
+	setCurser(MENUX + 6, MENUY + 1);
+	cursorView(TRUE);
 	inputPW(USER.PW);
-	cursorView(0);
+	cursorView(FALSE);
 
-	setCurser(90, 47);
+	removeArea(MENUX, MENUX + 100, MENUY, MENUY + 1);
 
+	setCurser(MENUX, MENUY);
 	int authCode = authenticateUser(AuthDB, USER.ID, USER.PW);
 	if (authCode == 0) {
 		printf("로그인이 정상적으로 처리되었습니다.");
-		Sleep(200);
 		mainMenuMode(USER.ID, TRUE);
 	}
 	else if (authCode == 1) {
 		printf("잘못된 비밀번호입니다.");
-		Sleep(200);
 	}
 	else {
 		printf("존재하지 않는 아이디입니다.");
-		Sleep(200);
 	}
+
+	printOkButton(MENUX, MENUY + 2);
+	selectColumnMenu(MENUX, MENUY + 2, 1);
 }

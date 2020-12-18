@@ -31,7 +31,8 @@ int getPossibilityArr_prototypeAI(int possibilityArr[][10], int possibilityCount
 	}
 	removeOneLine(1);
 	setCurser(0, 1);
-	printf("Number of Case: %d", count);
+	double percent = (1 / (double)count) * 100;
+	printf("½Â¸®È®·ü: %.2f%%", percent);
 	return count;
 }
 
@@ -65,8 +66,6 @@ int makeAllPossibilityArr(int possibilityArr[][10], int baseballLength) {
 		if (possibilityArr[arr][0] == 10) break;
 		count++;
 	}
-	setCurser(0,0);
-	printf("CACULATE FINISH: %d", count);
 
 	return count;
 }

@@ -59,12 +59,12 @@ void inputPW(char* PW) {
 void updateAuthDB(FILE *AuthDB, char *ID, char *PW) {
 	if (fopen_s(&AuthDB, "AuthDB.dat", "a") == 0) {
 		fprintf(AuthDB, "%s %s\n", ID, PW);
-		fclose(AuthDB);
 	}
+	_fcloseall();
 }
 
 int checkUsedID(FILE* AuthDB, char* ID) {
-	// Return 0: Success, 1: Already Used
+	// Return TRUE: Success, FALSE: Already Used
 	char DB_ID[10];
 	char DB_PW[15];
 	while (TRUE) {
@@ -72,10 +72,10 @@ int checkUsedID(FILE* AuthDB, char* ID) {
 			while (TRUE) {
 				if (feof(AuthDB) != 0) break;
 				fscanf_s(AuthDB, "%s %s", DB_ID, sizeof(DB_ID), DB_PW, sizeof(DB_PW));
-				if (strcmp(DB_ID, ID) == 0) return 1;
+				if (strcmp(DB_ID, ID) == 0) return FALSE;
 			}
 			fclose(AuthDB);
-			return 0;
+			return TRUE;
 		}
 		else {
 			fopen_s(&AuthDB, "AuthDB.dat", "w");

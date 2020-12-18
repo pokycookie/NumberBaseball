@@ -60,6 +60,9 @@
     <ClCompile Include="rankFunction.c">
       <Filter>소스 파일\function</Filter>
     </ClCompile>
+    <ClCompile Include="setGameOptionMode.c">
+      <Filter>소스 파일\mode</Filter>
+    </ClCompile>
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="declareFunction.h">

@@ -39,6 +39,10 @@ struct time {
 	int second;
 };
 
+struct fileName {
+	char fileName[25];
+};
+
 // Rank Information
 struct rank {
 	int mode; // 1: Single, 2: Multi, 3: A.I
@@ -53,6 +57,7 @@ struct rank {
 // Rank DB Contents
 struct rankDB {
 	char ID[10];
+	int ranking;
 	int tryCount;
 	int recordMin;
 	int recordSec;
@@ -62,8 +67,4 @@ struct rankDB {
 	int realHour;
 	int realMin;
 	int realSec;
-};
-
-struct fileName {
-	char fileName[25];
 };

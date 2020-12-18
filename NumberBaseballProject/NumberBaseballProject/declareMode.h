@@ -1,10 +1,11 @@
 // Mode
-int practiceMode(char* ID); // Return 0: Game End, 1: Back
-int multiMode(void); // Return 0: Game End, 1: Back
-int AiMode(char* ID); // Return 0: Game End, 1: Back
+void practiceMode(char* ID, int isLogin, int baseballLength);
+void multiMode(int baseballLength);
+void AiMode(char* ID, int isLogin, int baseballLength);
 
 // Page
 void signUpMode(void);
 void loginMode(void);
-void rankMode(char* ID, struct rank rank);
-int mainMenuMode(char* ID, int isLogin);
+void rankMode(char* ID, int isLogin, struct rank rank);
+void mainMenuMode(char* ID, int isLogin);
+void setGameOptionMode(int gameMode, char* ID, int isLogin);
