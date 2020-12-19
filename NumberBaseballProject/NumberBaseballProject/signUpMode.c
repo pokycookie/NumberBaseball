@@ -42,21 +42,24 @@ void signUpMode(void) {
 
 	removeArea(MENUX, MENUX + 100, MENUY, MENUY + 2);
 
-	setCurser(MENUX, MENUY);
+	
 	if (strcmp(USER.PW, verifyPW) == 0 && checkUsedID(AuthDB, USER.ID)) {
+		setCurser(MENUX - 6, MENUY);
 		printf("회원가입이 정상적으로 처리되었습니다.");
 		updateAuthDB(AuthDB, USER.ID, USER.PW);
 	}
 	else if(strcmp(USER.PW, verifyPW) != 0) {
+		setCurser(MENUX - 6, MENUY);
 		printf("비밀번호가 서로 일치하지 않습니다.");
 	}
 	else if (!checkUsedID(AuthDB, USER.ID)) {
+		setCurser(MENUX - 4, MENUY);
 		printf("해당 ID는 이미 사용중입니다.");
 	}
 	else {
 		printf("알수없는 오류입니다.");
 	}
 
-	printOkButton(MENUX, MENUY + 2);
-	selectColumnMenu(MENUX, MENUY + 2, 1);
+	printOkButton(MENUX - 2, MENUY + 2);
+	selectColumnMenu(MENUX - 2, MENUY + 2, 1);
 }

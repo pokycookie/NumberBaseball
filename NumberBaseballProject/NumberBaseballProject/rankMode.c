@@ -19,6 +19,6 @@ void rankMode(char* ID, int isLogin, struct rank rank) {
 	if (isLogin) printMyRanking(RankDB, ID, rank);
 	
 	Sleep(500);
-	printOkButton(MENUX, MENUY);
-	selectColumnMenu(MENUX, MENUY, 1);
+	printOkButton(MENUX - 2, MENUY);
+	selectColumnMenu(MENUX - 2, MENUY, 1);
 }

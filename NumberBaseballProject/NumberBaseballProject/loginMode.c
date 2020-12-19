@@ -31,7 +31,7 @@ void loginMode(void) {
 
 	removeArea(MENUX, MENUX + 100, MENUY, MENUY + 1);
 
-	setCurser(MENUX, MENUY);
+	setCurser(MENUX - 2, MENUY);
 	int authCode = authenticateUser(AuthDB, USER.ID, USER.PW);
 	if (authCode == 0) {
 		printf("로그인이 정상적으로 처리되었습니다.");
@@ -44,6 +44,6 @@ void loginMode(void) {
 		printf("존재하지 않는 아이디입니다.");
 	}
 
-	printOkButton(MENUX, MENUY + 2);
-	selectColumnMenu(MENUX, MENUY + 2, 1);
+	printOkButton(MENUX - 2, MENUY + 2);
+	selectColumnMenu(MENUX - 2, MENUY + 2, 1);
 }

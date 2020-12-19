@@ -32,13 +32,33 @@ void getBaseballNumber(int* numberArr, int length) {
 
 int getRandomNumber(int min, int max) {
 	srand((unsigned int)time(NULL));
-	int randomNumber = rand() / 10;
-	if (randomNumber < min) {
-		randomNumber = min;
+
+	int length = 0;
+	int maxNumber = max;
+	int temp[10];
+	int randomNumber = 0;
+	int limit;
+
+	while (TRUE) {
+		maxNumber /= 10;
+		length++;
+		if (maxNumber == 0)
+			break;
 	}
-	else if (randomNumber >= max) {
-		randomNumber = max - 1;
+
+	int randLength = rand() % (length + 1);
+	if (randLength > length) {
+		randLength = length;
 	}
+
+	for (int i = 0; i < (length > 10 ? 10 : length); i++) {
+		limit = max / power(10, i) % 10;
+		temp[i] = rand() % (limit + 1);
+	}
+	for (int i = 0; i < (length > 10 ? 10 : length); i++) {
+		randomNumber += temp[i] * power(10, i);
+	}
+
 	return randomNumber;
 }
 
@@ -46,8 +66,6 @@ int getBaseballLength(void) {
 	int count = 0;
 	char tempNumber[3];
 	
-	setCurser(90, 24);
-	printf("¢ºSet Baseball Length: ");
 	while (1) {
 		char temp = _getch();
 		if (count == 0 && temp > 48 && temp <= 57) {
@@ -165,12 +183,12 @@ void storeData(struct rememberedData *storedData, int *currentNumber, int baseba
 void printRememberedData(struct rememberedData *storedData, int baseballLength, int tryCount, int player) {
 	cursorView(0);
 	for (int i = 0; i < (tryCount <= 30 ? tryCount : 30); i++) {
-		removeArea(player == 1 ? 1 : 161, player == 1 ? 19 : 180, 6 + i, 6 + i);
-		setCurser(player == 1 ? 1 : 161, 6 + i);
+		removeArea(player == 1 ? 1 : 161, player == 1 ? 19 : 180, 8 + i, 8 + i);
+		setCurser(player == 1 ? 1 : 161, 8 + i);
 		for (int j = 0; j < baseballLength; j++) {
 			printf("%d", storedData[i].baseballNumber[j]);
 		}
-		setCurser(player == 1 ? 14 : 174, 6 + i);
+		setCurser(player == 1 ? 14 : 174, 8 + i);
 		if (storedData[i].resultData.out == 1) {
 			printf("OUT");
 		}
@@ -305,4 +323,19 @@ void copyIntArray(int* copiedArray, int copiedArraySize, int* resultArray, int r
 	for (int i = 0; i < copiedArraySize; i++) {
 		resultArray[i] = copiedArray[i];
 	}
+}
+
+int power(int x, int y) {
+	int result = 1;
+
+	if (y == 0) {
+		result = 1;
+	}
+	else {
+		for (int i = 0; i < y; i++) {
+			result *= x;
+		}
+	}
+
+	return result;
 }

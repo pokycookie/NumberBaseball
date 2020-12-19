@@ -1,7 +1,7 @@
 // Mode
 void practiceMode(char* ID, int isLogin, int baseballLength);
 void multiMode(int baseballLength);
-void AiMode(char* ID, int isLogin, int baseballLength);
+void AiMode(char* ID, int isLogin, int baseballLength, int aiDifficulty);
 
 // Page
 void signUpMode(void);

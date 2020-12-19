@@ -5,7 +5,7 @@
 #include "structure.h"
 #include "define.h"
 
-void getNextNumber_prototypeAI(int* result, int possibilityArr[][10], int possibilityCount, int tryCount, int baseballLength) {
+void getNextNumber(int* result, int possibilityArr[][10], int possibilityCount, int tryCount, int baseballLength) {
 	int randNumber[10];
 	struct resultData resultData;
 
@@ -13,26 +13,50 @@ void getNextNumber_prototypeAI(int* result, int possibilityArr[][10], int possib
 		getBaseballNumber(result, baseballLength);
 	}
 	else {
-		copyIntArray(possibilityArr[getRandomNumber(0, possibilityCount)], baseballLength, result, baseballLength);
+		copyIntArray(possibilityArr[getRandomNumber(0, possibilityCount - 1)], baseballLength, result, baseballLength);
 	}
 }
 
-int getPossibilityArr_prototypeAI(int possibilityArr[][10], int possibilityCount, struct rememberedData previousData, int baseballLength) {
+int getPossibilityArr(int possibilityArr[][10], int possibilityCount, struct rememberedData previousData, int baseballLength, int aiDifficulty, int limit) {
 	int count = 0;
-	static int temp[100000][10];
+	static int temp[10000000][10];
+
 	for (int i = 0; i < possibilityCount; i++) {
-		if (compareResultData(checkData(possibilityArr[i], previousData.baseballNumber, baseballLength), previousData.resultData) == TRUE) {
+		if (compareResultData(checkData(possibilityArr[i], previousData.baseballNumber, baseballLength), previousData.resultData)) {
 			copyIntArray(possibilityArr[i], baseballLength, temp[count], baseballLength);
 			count++;
 		}
 	}
-	for (int i = 0; i < possibilityCount; i++) {
+
+	for (int i = 0; i < count; i++) {
 		copyIntArray(temp[i], baseballLength, possibilityArr[i], baseballLength);
 	}
-	removeOneLine(1);
-	setCurser(0, 1);
+
+	switch (aiDifficulty)
+	{
+	case EASY:
+		if (count < (limit / 2 - 1) && count > 10) {
+			count *= 2;
+		}
+		else {
+			count += 1;
+		}
+		break;
+	case NORMAL:
+		if (count < (limit / 1.5 - 1) && count > 10) {
+			count *= 1.5;
+		}
+		else {
+			count += 1;
+		}
+		break;
+	}
+
+	removeArea(0, 19, 39, 39);
+	setCurser(0, 39);
 	double percent = (1 / (double)count) * 100;
-	printf("½Â¸®È®·ü: %.2f%%", percent);
+	printf("WIN PERCENT: %.2f%%", percent);
+
 	return count;
 }
 

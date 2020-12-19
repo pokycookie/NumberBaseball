@@ -596,16 +596,300 @@ void printBaseballLength(void) {
 	printf("▷Back");
 }
 
-void printFreeBaseballSetting(void) {
-	system("cls");
-	setCurser(MENUX, MENUY);
-	printf("▶Set Baseball Length");
-	setCurser(MENUX, MENUY + 1);
-	printf("▷Back");
+void printGameOption(int gameMode) {
+	for (int i = 0; i < 165; i++) {
+		setCurser(i + 7, 5);
+		printf("─");
+	}
+
+	setCurser(7, 4);
+	switch (gameMode) {
+	case SINGLEMODE: printf("SINGLE MODE"); break;
+	case MULTIMODE: printf("MULTI MODE"); break;
+	case AIMODE: printf("AI MODE"); break;
+	}
+	setCurser(150, 4);
+	printf("게임 옵션을 선택하세요");
+
+	for (int n = 0; n < 4; n++) {
+		for (int i = 0; i < 41; i++) {
+			if (i > 4 && i < 37) {
+				setCurser(GOX(n) + i, 13);
+				printf("─");
+				if (gameMode != AIMODE) {
+					setCurser(GOX(n) + i, 17);
+					printf("─");
+				}
+				else {
+					setCurser(GOX(n) + i, 18);
+					printf("─");
+				}
+			}
+			setCurser(GOX(n) + i, 7);
+			printf("─");
+			setCurser(GOX(n) + i, 43);
+			printf("─");
+		}
+		for (int i = 0; i < 37; i++) {
+			setCurser(GOX(n), 7 + i);
+			printf("│");
+			setCurser(GOX(n) + 40, 7 + i);
+			printf("│");
+		}
+		setCurser(GOX(n), 7); printf("┌");
+		setCurser(GOX(n) + 40, 7); printf("┐");
+		setCurser(GOX(n), 43); printf("└");
+		setCurser(GOX(n) + 40, 43); printf("┘");
+	}
+
+	for (int i = 0; i < 23; i++) {
+		setCurser(78 + i, 45);
+		printf("─");
+		setCurser(78 + i, 47);
+		printf("─");
+	}
+	for (int i = 0; i < 3; i++) {
+		setCurser(78, 45 + i);
+		printf("│");
+		setCurser(100, 45 + i);
+		printf("│");
+	}
+	setCurser(78, 45); printf("┌");
+	setCurser(100, 45); printf("┐");
+	setCurser(78, 47); printf("└");
+	setCurser(100, 47); printf("┘");
+	setCurser(88, 46); printf("BACK");
+
+	setCurser(25, 11); printf("EASY");
+	setCurser(66, 11); printf("NORMAL");
+	setCurser(109, 11); printf("HARD");
+	setCurser(148, 11); printf("사용자 지정");
+	
+	setCurser(20, 15); printf("숫자야구 3자리");
+	setCurser(62, 15); printf("숫자야구 4자리");
+	setCurser(104, 15); printf("숫자야구 5자리");
+	setCurser(142, 15); printf("숫자야구 자릿수 자유");
+
+	if (gameMode == AIMODE) {
+		setCurser(20, 16); printf("인공지능 EASY");
+		setCurser(62, 16); printf("인공지능 NORMAL");
+		setCurser(104, 16); printf("인공지능 HARD");
+		setCurser(146, 16); printf("인공지능 자유");
+
+		setCurser(16, 20); printf("숫자야구 초급자용 입니다.");
+		setCurser(8, 22); printf("숫자야구를 처음 접하는분께 추천합니다.");
+
+		setCurser(58, 20); printf("숫자야구 중급자용 입니다.");
+		setCurser(52, 22); printf("숫자야구에 익숙한분께 추천합니다.");
+
+		setCurser(99, 20); printf("숫자야구 상급자용 입니다.");
+		setCurser(96, 22); printf("숫자야구 고수에게 추천합니다.");
+
+		setCurser(144, 20); printf("사용자 설정 입니다.");
+		setCurser(138, 22); printf("숫자야구 자릿수와 인공지능을");
+		setCurser(144, 23); printf("자유롭게 설정하세요");
+
+		for (int i = 0; i < 32; i++) {
+			setCurser(137 + i ,38);
+			printf("─");
+		}
+	}
+	else {
+		setCurser(16, 19); printf("숫자야구 초급자용 입니다.");
+		setCurser(8, 21); printf("숫자야구를 처음 접하는분께 추천합니다.");
+
+		setCurser(58, 19); printf("숫자야구 중급자용 입니다.");
+		setCurser(52, 21); printf("숫자야구에 익숙한분께 추천합니다.");
+
+		setCurser(99, 19); printf("숫자야구 상급자용 입니다.");
+		setCurser(96, 21); printf("숫자야구 고수에게 추천합니다.");
+
+		setCurser(144, 19); printf("사용자 설정 입니다.");
+		setCurser(134, 21); printf("숫자야구 자릿수를 자유롭게 설정하세요");
+
+		for (int i = 0; i < 32; i++) {
+			setCurser(137 + i, 38);
+			printf("─");
+		}
+	}
 }
 
-void printPracticeModeForm(void) {
+int selectGameOption(void) {
+	int currentCurser = 1;
+
+	for (int i = 0; i < 41; i++) {
+		setCurser(GOX(0) + i, 7);
+		printf("━");
+		setCurser(GOX(0) + i, 43);
+		printf("━");
+	}
+	for (int i = 0; i < 37; i++) {
+		setCurser(GOX(0), 7 + i);
+		printf("┃");
+		setCurser(GOX(0) + 40, 7 + i);
+		printf("┃");
+	}
+	setCurser(GOX(0), 7); printf("┏");
+	setCurser(GOX(0) + 40, 7); printf("┓");
+	setCurser(GOX(0), 43); printf("┗");
+	setCurser(GOX(0) + 40, 43); printf("┛");
+
+	while (TRUE) {
+		int temp = arrowControl();
+		if (temp == LEFT && currentCurser > 1 && currentCurser != 5) {
+			currentCurser--;
+		}
+		else if (temp == RIGHT && currentCurser < 4) {
+			currentCurser++;
+		}
+		else if (temp == UP && currentCurser == 5) {
+			currentCurser = 1;
+		}
+		else if (temp == DOWN) {
+			currentCurser = 5;
+		}
+		else if (temp == 0) {
+			break;
+		}
+		else {
+			continue;
+		}
+
+		for (int n = 0; n < 4; n++) {
+			for (int i = 0; i < 41; i++) {
+				if (i > 4 && i < 37) {
+					setCurser(GOX(n) + i, 13);
+					printf("─");
+				}
+				setCurser(GOX(n) + i, 7);
+				printf("─");
+				setCurser(GOX(n) + i, 43);
+				printf("─");
+			}
+			for (int i = 0; i < 37; i++) {
+				setCurser(GOX(n), 7 + i);
+				printf("│");
+				setCurser(GOX(n) + 40, 7 + i);
+				printf("│");
+			}
+			setCurser(GOX(n), 7); printf("┌");
+			setCurser(GOX(n) + 40, 7); printf("┐");
+			setCurser(GOX(n), 43); printf("└");
+			setCurser(GOX(n) + 40, 43); printf("┘");
+		}
+
+		for (int i = 0; i < 23; i++) {
+			setCurser(78 + i, 45);
+			printf("─");
+			setCurser(78 + i, 47);
+			printf("─");
+		}
+		for (int i = 0; i < 3; i++) {
+			setCurser(78, 45 + i);
+			printf("│");
+			setCurser(100, 45 + i);
+			printf("│");
+		}
+		setCurser(78, 45); printf("┌");
+		setCurser(100, 45); printf("┐");
+		setCurser(78, 47); printf("└");
+		setCurser(100, 47); printf("┘");
+		setCurser(88, 46); printf("BACK");
+
+		if (currentCurser < 5) {
+			for (int i = 0; i < 41; i++) {
+				setCurser(GOX(currentCurser - 1) + i, 7);
+				printf("━");
+				setCurser(GOX(currentCurser - 1) + i, 43);
+				printf("━");
+			}
+			for (int i = 0; i < 37; i++) {
+				setCurser(GOX(currentCurser - 1), 7 + i);
+				printf("┃");
+				setCurser(GOX(currentCurser - 1) + 40, 7 + i);
+				printf("┃");
+			}
+			setCurser(GOX(currentCurser - 1), 7); printf("┏");
+			setCurser(GOX(currentCurser - 1) + 40, 7); printf("┓");
+			setCurser(GOX(currentCurser - 1), 43); printf("┗");
+			setCurser(GOX(currentCurser - 1) + 40, 43); printf("┛");
+		}
+		else {
+			for (int i = 0; i < 23; i++) {
+				setCurser(78 + i, 45);
+				printf("━");
+				setCurser(78 + i, 47);
+				printf("━");
+			}
+			for (int i = 0; i < 3; i++) {
+				setCurser(78, 45 + i);
+				printf("┃");
+				setCurser(100, 45 + i);
+				printf("┃");
+			}
+			setCurser(78, 45); printf("┏");
+			setCurser(100, 45); printf("┓");
+			setCurser(78, 47); printf("┗");
+			setCurser(100, 47); printf("┛");
+			setCurser(88, 46); printf("BACK");
+		}
+	}
+	return currentCurser;
+}
+
+int GOX(int displayNumber) {
+	switch (displayNumber) {
+	case 0: return 6; break;
+	case 1: return 48; break;
+	case 2: return 90; break;
+	case 3: return 132; break;
+	}
+}
+
+int selectAiDifficulty(void) {
+	int currentCurser = EASY;
+
+	setCurser(148, 42);
+	printf("◁  EASY  ▶");
+
+	while (1) {
+		int temp = arrowControl();
+		if (temp == LEFT && currentCurser > 1) {
+			currentCurser--;
+		}
+		else if (temp == RIGHT && currentCurser < 3) {
+			currentCurser++;
+		}
+		else if (temp == 0) {
+			break;
+		}
+		removeArea(137, 169, 42, 42);
+		switch (currentCurser) {
+		case EASY: setCurser(148, 42); printf("◁  EASY  ▶"); break;
+		case NORMAL: setCurser(148, 42); printf("◀ NORMAL ▶"); break;
+		case HARD: setCurser(148, 42); printf("◀  HARD  ▷"); break;
+		}
+	}
+	return currentCurser;
+}
+
+void printPracticeModeForm(int mode, int aiDifficulty ,int baseballLength) {
+	// Basic Form
 	for (int i = 0; i < 180; i++) {
+		if (i < 20 || i > 170) {
+			setCurser(i, 3);
+			printf("─");
+		}
+		else {
+			setCurser(i, 4);
+			printf("─");
+		}
+		if (i < 20 || i > 159) {
+			setCurser(i, 7);
+			printf("─");
+			setCurser(i, 38);
+			printf("─");
+		}
 		setCurser(i, 5);
 		printf("─");
 		setCurser(i, 40);
@@ -621,6 +905,32 @@ void printPracticeModeForm(void) {
 	setCurser(159, 5); printf("┐");
 	setCurser(20, 40); printf("└");
 	setCurser(159, 40); printf("┘");
+
+	setCurser(20, 3); printf("┐");
+	setCurser(20, 4); printf("└");
+	setCurser(170, 3); printf("┌");
+	setCurser(170, 4); printf("┘");
+	
+	// Game's Mode
+	setCurser(1, 4);
+	if (!aiDifficulty) {
+		switch (mode) {
+		case SINGLEMODE: printf("SINGLE MODE"); break;
+		case MULTIMODE: printf("MULTI MODE"); break;
+		}
+	}
+	else {
+		switch (aiDifficulty) {
+		case EASY: printf("AI MODE - EASY"); break;
+		case NORMAL: printf("AI MODE - NORMAL"); break;
+		case HARD: printf("AI MODE - HARD"); break;
+		case EXTREAM: printf("AI MODE - EXTREAM"); break;
+		}
+	}
+
+	// Game's Baseball Length
+	setCurser(173, 4);
+	printf("%2d자리", baseballLength);
 }
 
 void printSignUpModeForm(void) {
@@ -641,16 +951,32 @@ void printLoginModeForm(void) {
 
 void printOkButton(int x, int y) {
 	setCurser(x, y);
-	printf("▶OK");
+	for (int i = 0; i < 23; i++) {
+		setCurser(x + i, y);
+		printf("━");
+		setCurser(x + i, y + 2);
+		printf("━");
+	}
+	for (int i = 0; i < 3; i++) {
+		setCurser(x, y + i);
+		printf("┃");
+		setCurser(x + 22, y + i);
+		printf("┃");
+	}
+	setCurser(x, y); printf("┏");
+	setCurser(x + 22, y); printf("┓");
+	setCurser(x, y + 2); printf("┗");
+	setCurser(x + 22, y + 2); printf("┛");
+	setCurser(x + 11, y + 1); printf("OK");
 }
 
 void printRankBoardForm(int mode, int length, int aiDifficulty) {
 
-	setCurser(87, 4);
+	setCurser(87, 3);
 	printf("RANKING");
 	setCurser(20, 6);
 	for (int i = 0; i < 140; i++) {
-		printf("-");
+		printf("─");
 	}
 	setCurser(22, 7); printf("RANK");
 	setCurser(30, 7); printf("ID");
@@ -660,25 +986,25 @@ void printRankBoardForm(int mode, int length, int aiDifficulty) {
 
 	setCurser(20, 8);
 	for (int i = 0; i < 140; i++) {
-		printf("-");
+		printf("─");
 	}
 	setCurser(20, 31);
 	for (int i = 0; i < 140; i++) {
-		printf("-");
+		printf("─");
 	}
 
 	char MODE[10], DIFFICULTY[10];
 	switch (mode) {
-	case 1: strcpy_s(MODE, sizeof(MODE), "SINGLE"); break;
-	case 2: strcpy_s(MODE, sizeof(MODE), "MULTY"); break;
-	case 3: strcpy_s(MODE, sizeof(MODE), "AI"); break;
+	case SINGLEMODE: strcpy_s(MODE, sizeof(MODE), "SINGLE"); break;
+	case MULTIMODE: strcpy_s(MODE, sizeof(MODE), "MULTY"); break;
+	case AIMODE: strcpy_s(MODE, sizeof(MODE), "AI"); break;
 	}
 	switch (aiDifficulty) {
-	case 0: strcpy_s(DIFFICULTY, sizeof(DIFFICULTY), "NULL"); break;
-	case 1: strcpy_s(DIFFICULTY, sizeof(DIFFICULTY), "EASY"); break;
-	case 2: strcpy_s(DIFFICULTY, sizeof(DIFFICULTY), "NORMAL"); break;
-	case 3: strcpy_s(DIFFICULTY, sizeof(DIFFICULTY), "HARD"); break;
-	case 4: strcpy_s(DIFFICULTY, sizeof(DIFFICULTY), "EXTREAM"); break;
+	case FALSE: strcpy_s(DIFFICULTY, sizeof(DIFFICULTY), "NULL"); break;
+	case EASY: strcpy_s(DIFFICULTY, sizeof(DIFFICULTY), "EASY"); break;
+	case NORMAL: strcpy_s(DIFFICULTY, sizeof(DIFFICULTY), "NORMAL"); break;
+	case HARD: strcpy_s(DIFFICULTY, sizeof(DIFFICULTY), "HARD"); break;
+	case EXTREAM: strcpy_s(DIFFICULTY, sizeof(DIFFICULTY), "EXTREAM"); break;
 	}
 
 	setCurser(20, 5);
@@ -688,4 +1014,52 @@ void printRankBoardForm(int mode, int length, int aiDifficulty) {
 	else {
 		printf("%2d자리 %s MODE %s", length, MODE, DIFFICULTY);
 	}
+}
+
+void printUserName(int mode, char* ID, int isLogin) {
+	switch (mode) {
+	case SINGLEMODE: 
+		setCurser(161, 6);
+		isLogin ? printf("%s", ID) : printf("NON-LOGIN PLAYER");
+		break;
+	case MULTIMODE: break;
+	case AIMODE:
+		setCurser(161, 6);
+		isLogin ? printf("%s", ID) : printf("NON-LOGIN PLAYER");
+		setCurser(1, 6);
+		printf("AI");
+		break;
+	}
+}
+
+void printUserInputArea(int mode, int isMyTurn) {
+	if (mode != MULTIMODE) {
+		for (int i = 0; i < 40; i++) {
+			setCurser(70 + i, 41);
+			printf("─");
+			setCurser(70 + i, 49);
+			printf("─");
+			if (i > 4 && i < 36) {
+				setCurser(70 + i, 48);
+				printf("─");
+			}
+		}
+		for (int i = 0; i < 8; i++) {
+			setCurser(70, 42 + i);
+			printf("│");
+			setCurser(109, 42 + i);
+			printf("│");
+		}
+		setCurser(70, 41); printf("┌");
+		setCurser(70, 49); printf("└");
+		setCurser(109, 41); printf("┐");
+		setCurser(109, 49); printf("┘");
+	}
+	else {
+		
+	}
+}
+
+int getInputX(int baseballLength) {
+	return 90 - (baseballLength / 2);
 }

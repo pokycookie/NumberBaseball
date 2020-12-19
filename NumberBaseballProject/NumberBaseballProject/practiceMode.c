@@ -20,34 +20,39 @@ void practiceMode(char* ID, int isLogin, int baseballLength) {
 	cursorView(TRUE);
 	getBaseballNumber(baseballNumber, baseballLength);
 
+	// For Debug -+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+
 	setCurser(0, 0);
 	printf("Random Number: ");
 	for (int i = 0; i < baseballLength; i++) {
 		printf("%d", baseballNumber[i]);
 	}
 	
-	printPracticeModeForm();
+	printPracticeModeForm(SINGLEMODE, FALSE ,baseballLength);
+	printUserName(SINGLEMODE, ID, isLogin);
+	printUserInputArea(SINGLEMODE, FALSE);
+	// For Debug -+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+
 
 	startTime = clock();
 
 	while (1) {
-		removeOneLine(45);
-		setCurser(80, 45);
-		printf("input number: ");
+		setCurser(82, 42);
+		printf("숫자를 입력하세요");
+		removeArea(75, 105, 47, 47);
 		while (TRUE) {
 			if (lose) break;
+			setCurser(getInputX(baseballLength), 47);
 			if (getCurrentNumber(currentNumber, baseballLength, 0)) {
 				switch (makeGameMenu()) {
 				case 1: removeArea(22, 158, 6, 39); break;
-				case 2: lose = TRUE; break;
+				case 2: lose = TRUE; removeArea(22, 158, 6, 39); break;
 				}
 			}
 			else {
 				break;
 			}
-			removeOneLine(45);
-			setCurser(80, 45);
-			printf("input number: ");
+			setCurser(82, 42);
+			printf("숫자를 입력하세요");
+			removeArea(75, 105, 47, 47);
 		}
 		if (!lose) {
 			checkedData = checkData(currentNumber, baseballNumber, baseballLength);
@@ -71,9 +76,14 @@ void practiceMode(char* ID, int isLogin, int baseballLength) {
 	
 	time_t now = time(NULL);
 	localtime_s(&rank.realTime, &now);
+	
 
-	printOkButton(MENUX, MENUY + 2);
-	selectColumnMenu(MENUX, MENUY + 2, 1);
+	setCurser(80, 42);
+	printf("게임이 종료되었습니다");
+	removeArea(75, 105, 43, 48);
+	printOkButton(MENUX - 2, MENUY + 2);
+	selectColumnMenu(MENUX - 2, MENUY + 2, 1);
+
 	rankMode(ID, lose ? FALSE : isLogin, rank);
 	
 	cursorView(FALSE);

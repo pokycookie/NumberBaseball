@@ -11,7 +11,7 @@ void multiMode(int baseballLength) {
 	int turn = 1;
 
 	system("cls");
-	printPracticeModeForm();
+	printPracticeModeForm(MULTIMODE, FALSE, baseballLength);
 
 	// Set Player's Baseball Number
 	setCurser(3, 45);

@@ -20,3 +20,9 @@
 #define SINGLEMODE 1
 #define MULTIMODE 2
 #define AIMODE 3
+
+// AI DIFFICULTY
+#define EASY 1
+#define NORMAL 2
+#define HARD 3
+#define EXTREAM 4

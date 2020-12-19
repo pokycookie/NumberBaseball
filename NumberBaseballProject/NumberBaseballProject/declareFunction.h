@@ -16,14 +16,15 @@ void copyIntArray(int* copiedArray, int copiedArraySize, int* resultArray, int r
 int toggleTurn(int turn);
 int toInt(char character);
 char toChar(int integer);
+int power(int x, int y);
 
 struct time convertTimeUnit(int sec);
 
 struct resultData checkData(int* currentNumber, int* baseballNumber, int length);
 
 // AI Function
-void getNextNumber_prototypeAI(int* result, int possibilityArr[][10], int possibilityCount, int tryCount, int baseballLength);
-int getPossibilityArr_prototypeAI(int possibilityArr[][10], int possibilityCount, struct rememberedData previousData, int baseballLength);
+void getNextNumber(int* result, int possibilityArr[][10], int possibilityCount, int tryCount, int baseballLength);
+int getPossibilityArr(int possibilityArr[][10], int possibilityCount, struct rememberedData previousData, int baseballLength, int aiDifficulty, int limit);
 int makeAllPossibilityArr(int possibilityArr[][10], int baseballLength);
 
 // Auth Function
@@ -55,16 +56,23 @@ int makeGameMenu();
 
 void printLargeNumber(char character, int displayNumber);
 int LNX(int displayNumber);
-void printMainLogo(int x, int y);
 
+void printGameOption(int gameMode);
+int selectGameOption(void);
+int selectAiDifficulty(void);
+int GOX(int displayNumber);
+
+void printMainLogo(int x, int y);
 void printLogin(void);
 void printMode(void);
 void printHelp(void);
 void printBaseballLength(void);
-void printFreeBaseballSetting(void);
-void printPracticeModeForm(void);
+void printPracticeModeForm(int mode, int aiDifficulty, int baseballLength);
 void printSignUpModeForm(void);
 void printLoginModeForm(void);
 void printOkButton(int x, int y);
 int checkNumberInArray(int number, int* arr, int arrLength);
 void printRankBoardForm(int mode, int length, int aiDifficulty);
+void printUserName(int mode, char* ID, int isLogin);
+void printUserInputArea(int mode, int isMyTurn);
+int getInputX(int baseballLength);

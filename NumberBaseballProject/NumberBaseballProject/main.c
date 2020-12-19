@@ -7,7 +7,6 @@
 
 void main(void) {
 	int EXIT = FALSE;
-
 	initialDesign();
 
 	while (TRUE) {

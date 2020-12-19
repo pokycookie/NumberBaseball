@@ -5,26 +5,31 @@
 #include "structure.h"
 #include "define.h"
 
-void AiMode(char* ID, int isLogin, int baseballLength) {
+void AiMode(char* ID, int isLogin, int baseballLength, int aiDifficulty) {
 	struct player player1; player1.tryCount = 0;
 	static struct AI AI; AI.tryCount = 0;
 
+	int limit;
 	int turn = 1; // 1: Player, 2: AI
 	int lose = FALSE;
 	int startTime, endTime;
-
+	
 	system("cls");
-	printPracticeModeForm();
+	printPracticeModeForm(AIMODE, aiDifficulty, baseballLength);
+	printUserName(AIMODE, ID, isLogin);
+	printUserInputArea(AIMODE, FALSE);
 
 	AI.possibilityCount = makeAllPossibilityArr(AI.possibilityArr, baseballLength);
+	limit = AI.possibilityCount;
 
 	// Set Player's Baseball Number
-	setCurser(80, 45);
-	printf("당신의 숫자를 정하세요: ");
+	setCurser(80, 42);
+	printf("당신의 숫자를 정하세요");
 
 	while (TRUE) {
 		if (lose) break;
 		cursorView(TRUE);
+		setCurser(getInputX(baseballLength), 47);
 		if (getCurrentNumber(player1.baseballNumber, baseballLength, 0)) {
 			switch (makeGameMenu()) {
 			case 1: break;
@@ -34,11 +39,12 @@ void AiMode(char* ID, int isLogin, int baseballLength) {
 		else {
 			break;
 		}
-		removeArea(21, 159, 6, 39);
-		removeOneLine(45);
-		setCurser(80, 45);
-		printf("당신의 숫자를 정하세요: ");
+		removeArea(22, 159, 6, 39);
+		setCurser(80, 42);
+		printf("당신의 숫자를 정하세요");
+		removeArea(75, 105, 47, 47);
 	}
+	removeArea(72, 107, 42, 42);
 
 	getBaseballNumber(AI.baseballNumber, baseballLength);
 
@@ -47,24 +53,25 @@ void AiMode(char* ID, int isLogin, int baseballLength) {
 	// Game Start
 	while (TRUE) {
 		if (turn == 1) {
-			removeOneLine(45);
-			setCurser(80, 45);
-			printf("input number: ");
+			setCurser(82, 42);
+			printf("숫자를 입력하세요");
+			removeArea(75, 105, 47, 47);
 			while (TRUE) {
 				if (lose) break;
 				cursorView(TRUE);
+				setCurser(getInputX(baseballLength), 47);
 				if (getCurrentNumber(player1.currentNumber, baseballLength, 0)) {
 					switch (makeGameMenu()) {
 					case 1: removeArea(22, 158, 6, 39); break;
-					case 2: lose = TRUE; break;
+					case 2: lose = TRUE; removeArea(22, 158, 6, 39); break;
 					}
 				}
 				else {
 					break;
 				}
-				removeOneLine(45);
-				setCurser(80, 45);
-				printf("input number: ");
+				setCurser(82, 42);
+				printf("숫자를 입력하세요");
+				removeArea(75, 105, 47, 47);
 			}
 			if (!lose) {
 				player1.checkedData = checkData(player1.currentNumber, AI.baseballNumber, baseballLength);
@@ -80,25 +87,31 @@ void AiMode(char* ID, int isLogin, int baseballLength) {
 				lose = FALSE;
 				break;
 			}
+			if (lose) {
+				break;
+			}
 		}
 		else {
 			Sleep(1000);
 			cursorView(FALSE);
-			getNextNumber_prototypeAI(AI.currentNumber, AI.possibilityArr, AI.possibilityCount, AI.tryCount, baseballLength);
+			getNextNumber(AI.currentNumber, AI.possibilityArr, AI.possibilityCount, AI.tryCount, baseballLength);
 			AI.previousData.resultData = checkData(AI.currentNumber, player1.baseballNumber, baseballLength);
 			AI.tryCount++;
-			removeArea(21, 159, 6, 39);
+			removeArea(22, 158, 6, 39);
 			printResult(AI.previousData.resultData.strike, AI.previousData.resultData.ball, AI.previousData.resultData.out, baseballLength);
 			storeData(AI.rememberedData, AI.currentNumber, baseballLength, AI.previousData.resultData, AI.tryCount);
 			printRememberedData(AI.rememberedData, baseballLength, AI.tryCount, 1);
 			copyIntArray(AI.currentNumber, baseballLength, AI.previousData.baseballNumber, baseballLength);
-			AI.possibilityCount = getPossibilityArr_prototypeAI(AI.possibilityArr, AI.possibilityCount, AI.previousData, baseballLength);
+			AI.possibilityCount = getPossibilityArr(AI.possibilityArr, AI.possibilityCount, AI.previousData, baseballLength, aiDifficulty, limit);
 			if (AI.previousData.resultData.strike == baseballLength) {
 				lose = TRUE;
 				break;
 			}
 		}
 		turn = toggleTurn(turn);
+		cursorView(FALSE);
+		removeArea(75, 105, 47, 47);
+		removeArea(71, 108, 42, 42);
 	}
 
 	endTime = clock();
@@ -110,8 +123,12 @@ void AiMode(char* ID, int isLogin, int baseballLength) {
 	time_t now = time(NULL);
 	localtime_s(&rank.realTime, &now);
 	
-	printOkButton(MENUX, MENUY + 2);
-	selectColumnMenu(MENUX, MENUY + 2, 1);
+	setCurser(80, 42);
+	printf("게임이 종료되었습니다");
+	removeArea(75, 105, 43, 48);
+	printOkButton(MENUX - 2, MENUY + 2);
+	selectColumnMenu(MENUX - 2, MENUY + 2, 1);
+
 	rankMode(ID, lose ? FALSE : isLogin, rank);
 
 	cursorView(FALSE);
