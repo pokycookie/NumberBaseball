@@ -39,7 +39,7 @@ int getPossibilityArr(int possibilityArr[][10], int possibilityCount, struct rem
 			count *= 2;
 		}
 		else {
-			count += 1;
+			count += 10;
 		}
 		break;
 	case NORMAL:

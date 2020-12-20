@@ -17,7 +17,6 @@ void practiceMode(char* ID, int isLogin, int baseballLength) {
 	struct rememberedData rememberedData[30];
 
 	system("cls");
-	cursorView(TRUE);
 	getBaseballNumber(baseballNumber, baseballLength);
 
 	// For Debug -+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+
@@ -26,21 +25,22 @@ void practiceMode(char* ID, int isLogin, int baseballLength) {
 	for (int i = 0; i < baseballLength; i++) {
 		printf("%d", baseballNumber[i]);
 	}
+	// For Debug -+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+
 	
 	printPracticeModeForm(SINGLEMODE, FALSE ,baseballLength);
 	printUserName(SINGLEMODE, ID, isLogin);
 	printUserInputArea(SINGLEMODE, FALSE);
-	// For Debug -+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+
 
 	startTime = clock();
 
-	while (1) {
+	while (TRUE) {
 		setCurser(82, 42);
 		printf("숫자를 입력하세요");
 		removeArea(75, 105, 47, 47);
 		while (TRUE) {
 			if (lose) break;
 			setCurser(getInputX(baseballLength), 47);
+			cursorView(TRUE);
 			if (getCurrentNumber(currentNumber, baseballLength, 0)) {
 				switch (makeGameMenu()) {
 				case 1: removeArea(22, 158, 6, 39); break;
@@ -53,6 +53,7 @@ void practiceMode(char* ID, int isLogin, int baseballLength) {
 			setCurser(82, 42);
 			printf("숫자를 입력하세요");
 			removeArea(75, 105, 47, 47);
+			cursorView(FALSE);
 		}
 		if (!lose) {
 			checkedData = checkData(currentNumber, baseballNumber, baseballLength);
@@ -77,6 +78,7 @@ void practiceMode(char* ID, int isLogin, int baseballLength) {
 	time_t now = time(NULL);
 	localtime_s(&rank.realTime, &now);
 	
+	printGameResult(rank, "COMPUTER", baseballNumber, ID, FALSE, lose ? "COMPUTER" : ID, isLogin);
 
 	setCurser(80, 42);
 	printf("게임이 종료되었습니다");

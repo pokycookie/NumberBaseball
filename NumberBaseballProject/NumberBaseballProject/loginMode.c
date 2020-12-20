@@ -8,6 +8,7 @@
 
 void loginMode(void) {
 	struct auth USER;
+	int END = FALSE;
 
 	FILE* AuthDB = NULL;
 
@@ -31,19 +32,25 @@ void loginMode(void) {
 
 	removeArea(MENUX, MENUX + 100, MENUY, MENUY + 1);
 
-	setCurser(MENUX - 2, MENUY);
 	int authCode = authenticateUser(AuthDB, USER.ID, USER.PW);
 	if (authCode == 0) {
+		setCurser(MENUX - 6, MENUY);
 		printf("로그인이 정상적으로 처리되었습니다.");
+		printOkButton(MENUX - 2, MENUY + 2);
+		selectColumnMenu(MENUX - 2, MENUY + 2, 1);
 		mainMenuMode(USER.ID, TRUE);
+		END = TRUE;
 	}
 	else if (authCode == 1) {
+		setCurser(MENUX - 1, MENUY);
 		printf("잘못된 비밀번호입니다.");
 	}
 	else {
+		setCurser(MENUX - 3, MENUY);
 		printf("존재하지 않는 아이디입니다.");
 	}
-
-	printOkButton(MENUX - 2, MENUY + 2);
-	selectColumnMenu(MENUX - 2, MENUY + 2, 1);
+	if (!END) {
+		printOkButton(MENUX - 2, MENUY + 2);
+		selectColumnMenu(MENUX - 2, MENUY + 2, 1);
+	}
 }

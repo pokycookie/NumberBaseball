@@ -15,7 +15,7 @@
 // mode: Single, Multi, AI
 //
 // [FILE CONTENTS]
-// <ID> <tryCount> <recordTime> <realTime>
+// <Rank> <ID> <tryCount> <recordTime> <realTime>
 //
 //-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+
 
@@ -87,8 +87,8 @@ void sortRankDB(FILE* RankDB, struct rank rank) {
 	if (fopen_s(&RankDB, fileName, "r") == 0) {
 		while (TRUE) {
 			if (feof(RankDB) || count > 10000) break;
-			fscanf_s(RankDB, "%s %d %d %d %d %d %d %d %d %d",
-				tempRank[count].ID, sizeof(tempRank[count].ID), &tempRank[count].tryCount,
+			fscanf_s(RankDB, "%d %s %d %d %d %d %d %d %d %d %d",
+				&tempRank[count].ranking, tempRank[count].ID, sizeof(tempRank[count].ID), &tempRank[count].tryCount,
 				&tempRank[count].recordMin, &tempRank[count].recordSec,
 				&tempRank[count].realYear, &tempRank[count].realMonth, &tempRank[count].realDate, &tempRank[count].realHour, &tempRank[count].realMin, &tempRank[count].realSec
 			);
@@ -106,14 +106,28 @@ void sortRankDB(FILE* RankDB, struct rank rank) {
 				tempRank[i] = tempRank[j];
 				tempRank[j] = temp;
 			}
+			else if (tempRank[i].tryCount == tempRank[j].tryCount) {
+				if (tempRank[i].recordMin > tempRank[j].recordMin) {
+					temp = tempRank[i];
+					tempRank[i] = tempRank[j];
+					tempRank[j] = temp;
+				}
+				else if (tempRank[i].recordMin == tempRank[j].recordMin) {
+					if (tempRank[i].recordSec > tempRank[j].recordSec) {
+						temp = tempRank[i];
+						tempRank[i] = tempRank[j];
+						tempRank[j] = temp;
+					}
+				}
+			}
 		}
 	}
 
 	// Update DB
 	if (fopen_s(&RankDB, fileName, "w") == 0) {
 		for (int i = 0; i < count; i++) {
-			fprintf(RankDB, "%s %d %d %d %d %d %d %d %d %d\n",
-				tempRank[i].ID, tempRank[i].tryCount,
+			fprintf(RankDB, "%d %s %d %d %d %d %d %d %d %d %d\n",
+				i + 1, tempRank[i].ID, tempRank[i].tryCount,
 				tempRank[i].recordMin, tempRank[i].recordSec,
 				tempRank[i].realYear, tempRank[i].realMonth, tempRank[i].realDate, tempRank[i].realHour, tempRank[i].realMin, tempRank[i].realSec
 			);
@@ -129,8 +143,8 @@ void updateRankDB(FILE* RankDB, char* ID, struct rank rank) {
 	strcpy_s(fileName, sizeof(fileName), file.fileName);
 
 	if (fopen_s(&RankDB, fileName, "a") == 0) {
-		fprintf(RankDB, "%s %d %d %d %d %d %d %d %d %d\n",
-			ID, rank.tryCount, rank.recordTime.minute, rank.recordTime.second,
+		fprintf(RankDB, "%d %s %d %d %d %d %d %d %d %d %d\n",
+			0, ID, rank.tryCount, rank.recordTime.minute, rank.recordTime.second,
 			rank.realTime.tm_year + 1900, rank.realTime.tm_mon + 1, rank.realTime.tm_mday,
 			rank.realTime.tm_hour, rank.realTime.tm_min, rank.realTime.tm_sec);
 	}
@@ -149,8 +163,8 @@ void printRankBoard(FILE* RankDB, char* ID, struct rank rank, int isLogin) {
 	if (fopen_s(&RankDB, fileName, "r") == 0) {
 		while (TRUE) {
 			if (feof(RankDB) || count > 20) break;
-			fscanf_s(RankDB, "%s %d %d %d %d %d %d %d %d %d",
-				tempRankDB[count].ID, sizeof(tempRankDB[count].ID), &tempRankDB[count].tryCount,
+			fscanf_s(RankDB, "%d %s %d %d %d %d %d %d %d %d %d",
+				&tempRankDB[count].ranking, tempRankDB[count].ID, sizeof(tempRankDB[count].ID), &tempRankDB[count].tryCount,
 				&tempRankDB[count].recordMin, &tempRankDB[count].recordSec,
 				&tempRankDB[count].realYear, &tempRankDB[count].realMonth, &tempRankDB[count].realDate, &tempRankDB[count].realHour, &tempRankDB[count].realMin, &tempRankDB[count].realSec
 			);
@@ -167,7 +181,7 @@ void printRankBoard(FILE* RankDB, char* ID, struct rank rank, int isLogin) {
 
 		setCurser(30, 10 + i);
 		printf("%s", tempRankDB[i].ID);
-
+		
 		setCurser(47, 10 + i);
 		printf("%3d회", tempRankDB[i].tryCount);
 
@@ -204,8 +218,8 @@ struct rankDB findRankDB(FILE* RankDB, char* ID, struct rank rank) {
 	if (fopen_s(&RankDB, fileName, "r") == 0) {
 		while (TRUE) {
 			if (feof(RankDB)) break;
-			fscanf_s(RankDB, "%s %d %d %d %d %d %d %d %d %d",
-				tempRankDB.ID, sizeof(tempRankDB.ID), &tempRankDB.tryCount,
+			fscanf_s(RankDB, "%d %s %d %d %d %d %d %d %d %d %d",
+				&tempRankDB.ranking ,tempRankDB.ID, sizeof(tempRankDB.ID), &tempRankDB.tryCount,
 				&tempRankDB.recordMin, &tempRankDB.recordSec,
 				&tempRankDB.realYear, &tempRankDB.realMonth, &tempRankDB.realDate, &tempRankDB.realHour, &tempRankDB.realMin, &tempRankDB.realSec
 			);
@@ -217,6 +231,60 @@ struct rankDB findRankDB(FILE* RankDB, char* ID, struct rank rank) {
 		}
 	}
 	_fcloseall();
+}
+
+void findRankDBByID(FILE* RankDB, char* ID, struct rank rank) {
+	int count = 0;
+	char fileName[25];
+	struct rankDB tempRankDB[100];
+	struct fileName file = getFileName(rank);
+
+	strcpy_s(fileName, sizeof(fileName), file.fileName);
+
+	if (fopen_s(&RankDB, fileName, "r") == 0) {
+		while (TRUE) {
+			if (feof(RankDB)) break;
+			fscanf_s(RankDB, "%d %s %d %d %d %d %d %d %d %d %d",
+				&tempRankDB[count].ranking, tempRankDB[count].ID, sizeof(tempRankDB[count].ID), &tempRankDB[count].tryCount,
+				&tempRankDB[count].recordMin, &tempRankDB[count].recordSec,
+				&tempRankDB[count].realYear, &tempRankDB[count].realMonth, &tempRankDB[count].realDate, &tempRankDB[count].realHour, &tempRankDB[count].realMin, &tempRankDB[count].realSec
+			);
+			if(strcmp(tempRankDB[count].ID, ID) == 0)
+				count++;
+		}
+	}
+	_fcloseall();
+
+	for (int i = 0; i < count; i++) {
+		setCurser(23, 10 + i);
+		printf("%2d", tempRankDB[i].ranking);
+
+		setCurser(30, 10 + i);
+		printf("%s", tempRankDB[i].ID);
+
+		setCurser(47, 10 + i);
+		printf("%3d회", tempRankDB[i].tryCount);
+
+		setCurser(61, 10 + i);
+		if (tempRankDB[i].recordMin > 9 && tempRankDB[i].recordSec > 9) {
+			printf("%d분 %d초", tempRankDB[i].recordMin, tempRankDB[i].recordSec);
+		}
+		else if (tempRankDB[i].recordMin > 9 && tempRankDB[i].recordSec < 10) {
+			printf("%d분 0%d초", tempRankDB[i].recordMin, tempRankDB[i].recordSec);
+		}
+		else if (tempRankDB[i].recordMin < 10 && tempRankDB[i].recordSec > 9) {
+			printf("0%d분 %d초", tempRankDB[i].recordMin, tempRankDB[i].recordSec);
+		}
+		else {
+			printf("0%d분 0%d초", tempRankDB[i].recordMin, tempRankDB[i].recordSec);
+		}
+
+		setCurser(140, 10 + i);
+		printf("%4d/%2d/%2d %2d:%2d", tempRankDB[i].realYear, tempRankDB[i].realMonth, tempRankDB[i].realDate, tempRankDB[i].realHour, tempRankDB[i].realMin);
+
+		setColor(0, 15);
+		Sleep(300);
+	}
 }
 
 void printMyRanking(FILE* RankDB, char* ID, struct rank rank) {

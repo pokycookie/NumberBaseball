@@ -42,7 +42,7 @@ void setGameOptionMode(int gameMode, char* ID, int isLogin) {
 			removeArea(137, 169, 40, 40);
 			setCurser(142, 40);
 			printf("AI 난이도를 설정하세요");
-			selectAiDifficulty();
+			aiDifficulty = selectAiDifficulty(TRUE);
 
 			cursorView(FALSE);
 			break;
@@ -55,7 +55,7 @@ void setGameOptionMode(int gameMode, char* ID, int isLogin) {
 	if (!END) {
 		switch (gameMode) {
 		case SINGLEMODE: practiceMode(ID, isLogin, baseballLength); break;
-		case MULTIMODE: multiMode(baseballLength); break;
+		case MULTIMODE: multiMode(baseballLength, ID, isLogin); break;
 		case AIMODE: AiMode(ID, isLogin, baseballLength, aiDifficulty); break;
 		}
 	}

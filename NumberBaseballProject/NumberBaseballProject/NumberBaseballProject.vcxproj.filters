@@ -63,6 +63,12 @@
     <ClCompile Include="setGameOptionMode.c">
       <Filter>소스 파일\mode</Filter>
     </ClCompile>
+    <ClCompile Include="recordMode.c">
+      <Filter>소스 파일\mode</Filter>
+    </ClCompile>
+    <ClCompile Include="helpMode.c">
+      <Filter>소스 파일\mode</Filter>
+    </ClCompile>
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="declareFunction.h">

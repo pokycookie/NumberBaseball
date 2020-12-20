@@ -145,6 +145,7 @@
     <ClCompile Include="basicFunction.c" />
     <ClCompile Include="authFunction.c" />
     <ClCompile Include="designFunction.c" />
+    <ClCompile Include="helpMode.c" />
     <ClCompile Include="loginMode.c" />
     <ClCompile Include="main.c" />
     <ClCompile Include="mainMenuMode.c" />
@@ -152,6 +153,7 @@
     <ClCompile Include="practiceMode.c" />
     <ClCompile Include="rankFunction.c" />
     <ClCompile Include="rankMode.c" />
+    <ClCompile Include="recordMode.c" />
     <ClCompile Include="setGameOptionMode.c" />
     <ClCompile Include="signUpMode.c" />
   </ItemGroup>

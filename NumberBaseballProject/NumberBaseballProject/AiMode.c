@@ -39,7 +39,7 @@ void AiMode(char* ID, int isLogin, int baseballLength, int aiDifficulty) {
 		else {
 			break;
 		}
-		removeArea(22, 159, 6, 39);
+		removeArea(22, 158, 6, 39);
 		setCurser(80, 42);
 		printf("당신의 숫자를 정하세요");
 		removeArea(75, 105, 47, 47);
@@ -118,11 +118,13 @@ void AiMode(char* ID, int isLogin, int baseballLength, int aiDifficulty) {
 	struct time recordTime = convertTimeUnit((endTime - startTime) / 1000);
 
 	struct rank rank;
-	rank.mode = AIMODE, rank.baseballLength = baseballLength, rank.aiDifficulty = 3, rank.tryCount = player1.tryCount, rank.recordTime = recordTime;
+	rank.mode = AIMODE, rank.baseballLength = baseballLength, rank.aiDifficulty = aiDifficulty, rank.tryCount = player1.tryCount, rank.recordTime = recordTime;
 
 	time_t now = time(NULL);
 	localtime_s(&rank.realTime, &now);
 	
+	printGameResult(rank, "AI", AI.baseballNumber, ID, player1.baseballNumber, lose ? "AI" : ID, isLogin);
+
 	setCurser(80, 42);
 	printf("게임이 종료되었습니다");
 	removeArea(75, 105, 43, 48);

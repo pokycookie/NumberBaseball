@@ -41,6 +41,7 @@ void updateRankDB(FILE* RankDB, char* ID, struct rank rank);
 void printRankBoard(FILE* RankDB, char* ID, struct rank rank, int isLogin);
 void printMyRanking(FILE* RankDB, char* ID, struct rank rank);
 
+void findRankDBByID(FILE* RankDB, char* ID, struct rank rank);
 struct rankDB findRankDB(FILE* RankDB, char* ID, struct rank rank);
 
 // Design Function
@@ -59,14 +60,20 @@ int LNX(int displayNumber);
 
 void printGameOption(int gameMode);
 int selectGameOption(void);
-int selectAiDifficulty(void);
+int selectAiDifficulty(int isGameOption);
 int GOX(int displayNumber);
+
+void printGameMode(void);
+int selectGameMode(void);
+int GMX(int displayNumber);
+
+void printRecordMode(void);
+
+void printGameResult(struct rank rank, char* player1, int* baseballNumber1, char* player2, int* baseballNumber2, char* winner, int isLogin);
 
 void printMainLogo(int x, int y);
 void printLogin(void);
 void printMode(void);
-void printHelp(void);
-void printBaseballLength(void);
 void printPracticeModeForm(int mode, int aiDifficulty, int baseballLength);
 void printSignUpModeForm(void);
 void printLoginModeForm(void);
@@ -76,3 +83,4 @@ void printRankBoardForm(int mode, int length, int aiDifficulty);
 void printUserName(int mode, char* ID, int isLogin);
 void printUserInputArea(int mode, int isMyTurn);
 int getInputX(int baseballLength);
+void printArrow(int direction);
