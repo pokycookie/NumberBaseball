@@ -71,6 +71,12 @@ void setRankDB(FILE* RankDB, struct rank rank) {
 		}
 		else {
 			fopen_s(&RankDB, fileName, "w");
+			if (rank.mode != MULTIMODE) {
+				fprintf(RankDB, "%d %s %d %d %d %d %d %d %d %d %d\n", 0, "SYSTEM", 0, 0, 0, 0, 0, 0, 0, 0, 0);
+			}
+			else {
+				fprintf(RankDB, "%s %s %s %d %d %d %d %d %d %d %d\n", "SYSTEM", "SYSTEM", "SYSTEM", 0, 0, 0, 0, 0, 0, 0, 0);
+			}
 			break;
 		}
 	}
@@ -191,7 +197,9 @@ void printRankBoard(FILE* RankDB, char* ID, struct rank rank, int isLogin) {
 				&tempRankDB[count].realYear, &tempRankDB[count].realMonth, &tempRankDB[count].realDate, &tempRankDB[count].realHour, &tempRankDB[count].realMin, &tempRankDB[count].realSec
 			);
 			fflush(RankDB);
-			count++;
+			if (tempRankDB[count].tryCount != 0) {
+				count++;
+			}
 		}
 	}
 	_fcloseall();
@@ -267,6 +275,7 @@ void findRankDBByID(FILE* RankDB, char* ID, struct rank rank) {
 
 	if (fopen_s(&RankDB, fileName, "r") == 0) {
 		while (TRUE) {
+			fflush(RankDB);
 			if (feof(RankDB)) break;
 			if (rank.mode != MULTIMODE) {
 				fscanf_s(RankDB, "%d %s %d %d %d %d %d %d %d %d %d",
