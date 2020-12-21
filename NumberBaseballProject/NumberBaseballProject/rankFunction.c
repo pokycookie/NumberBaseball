@@ -80,7 +80,7 @@ void setRankDB(FILE* RankDB, struct rank rank) {
 void sortRankDB(FILE* RankDB, struct rank rank) {
 	int count = 0;
 	char fileName[25];
-	static struct rankDB tempRank[10000];
+	struct rankDB tempRank[100];
 	struct rankDB temp;
 	struct fileName file = getFileName(rank);
 
@@ -95,6 +95,7 @@ void sortRankDB(FILE* RankDB, struct rank rank) {
 				&tempRank[count].recordMin, &tempRank[count].recordSec,
 				&tempRank[count].realYear, &tempRank[count].realMonth, &tempRank[count].realDate, &tempRank[count].realHour, &tempRank[count].realMin, &tempRank[count].realSec
 			);
+			fflush(RankDB);
 			count++;
 		}
 		count--;
@@ -134,6 +135,7 @@ void sortRankDB(FILE* RankDB, struct rank rank) {
 				tempRank[i].recordMin, tempRank[i].recordSec,
 				tempRank[i].realYear, tempRank[i].realMonth, tempRank[i].realDate, tempRank[i].realHour, tempRank[i].realMin, tempRank[i].realSec
 			);
+			fflush(RankDB);
 		}
 	}
 	_fcloseall();
@@ -150,6 +152,7 @@ void updateRankDB(FILE* RankDB, char* ID, struct rank rank) {
 			0, ID, rank.tryCount, rank.recordTime.minute, rank.recordTime.second,
 			rank.realTime.tm_year + 1900, rank.realTime.tm_mon + 1, rank.realTime.tm_mday,
 			rank.realTime.tm_hour, rank.realTime.tm_min, rank.realTime.tm_sec);
+		fflush(RankDB);
 	}
 	_fcloseall();
 	sortRankDB(RankDB, rank);
@@ -166,6 +169,7 @@ void updateMulitRankDB(FILE* RankDB, char* ID1, char* ID2, char* winner, struct 
 			ID1, ID2, winner, rank.recordTime.minute, rank.recordTime.second,
 			rank.realTime.tm_year + 1900, rank.realTime.tm_mon + 1, rank.realTime.tm_mday,
 			rank.realTime.tm_hour, rank.realTime.tm_min, rank.realTime.tm_sec);
+		fflush(RankDB);
 	}
 	_fcloseall();
 }
@@ -186,6 +190,7 @@ void printRankBoard(FILE* RankDB, char* ID, struct rank rank, int isLogin) {
 				&tempRankDB[count].recordMin, &tempRankDB[count].recordSec,
 				&tempRankDB[count].realYear, &tempRankDB[count].realMonth, &tempRankDB[count].realDate, &tempRankDB[count].realHour, &tempRankDB[count].realMin, &tempRankDB[count].realSec
 			);
+			fflush(RankDB);
 			count++;
 		}
 	}
@@ -241,6 +246,7 @@ struct rankDB findRankDB(FILE* RankDB, char* ID, struct rank rank) {
 				&tempRankDB.recordMin, &tempRankDB.recordSec,
 				&tempRankDB.realYear, &tempRankDB.realMonth, &tempRankDB.realDate, &tempRankDB.realHour, &tempRankDB.realMin, &tempRankDB.realSec
 			);
+			fflush(RankDB);
 			if (compareRankDBAndRank(tempRankDB, rank, ID)) {
 				tempRankDB.ranking = count;
 				return tempRankDB;
@@ -268,8 +274,9 @@ void findRankDBByID(FILE* RankDB, char* ID, struct rank rank) {
 					&tempRankDB[count].recordMin, &tempRankDB[count].recordSec,
 					&tempRankDB[count].realYear, &tempRankDB[count].realMonth, &tempRankDB[count].realDate, &tempRankDB[count].realHour, &tempRankDB[count].realMin, &tempRankDB[count].realSec
 				);
-				if (strcmp(tempRankDB[count].ID, ID) == 0)
+				if (strcmp(tempRankDB[count].ID, ID) == 0) {
 					count++;
+				}
 			}
 			else {
 				fscanf_s(RankDB, "%s %s %s %d %d %d %d %d %d %d %d",
@@ -277,10 +284,11 @@ void findRankDBByID(FILE* RankDB, char* ID, struct rank rank) {
 					&tempRankDB[count].recordMin, &tempRankDB[count].recordSec,
 					&tempRankDB[count].realYear, &tempRankDB[count].realMonth, &tempRankDB[count].realDate, &tempRankDB[count].realHour, &tempRankDB[count].realMin, &tempRankDB[count].realSec
 				);
-				if (strcmp(tempRankDB[count].ID, ID) == 0 || strcmp(tempRankDB[count].subID, ID) == 0)
+				if (strcmp(tempRankDB[count].ID, ID) == 0 || strcmp(tempRankDB[count].subID, ID) == 0) {
 					count++;
+				}
 			}
-
+			fflush(RankDB);
 		}
 	}
 	_fcloseall();

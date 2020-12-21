@@ -19,6 +19,7 @@ void practiceMode(char* ID, int isLogin, int baseballLength) {
 	system("cls");
 	getBaseballNumber(baseballNumber, baseballLength);
 
+	/*
 	// For Debug -+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+
 	setCurser(0, 0);
 	printf("Random Number: ");
@@ -26,6 +27,7 @@ void practiceMode(char* ID, int isLogin, int baseballLength) {
 		printf("%d", baseballNumber[i]);
 	}
 	// For Debug -+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+
+	*/
 	
 	printPracticeModeForm(SINGLEMODE, FALSE ,baseballLength);
 	printUserName(SINGLEMODE, ID, FALSE, isLogin);
