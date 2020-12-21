@@ -788,6 +788,8 @@ void printLogin(void) {
 	setCurser(MENUX, MENUY + 2);
 	printf("▷비로그인");
 	setCurser(MENUX, MENUY + 3);
+	printf("▷도움말");
+	setCurser(MENUX, MENUY + 4);
 	printf("▷게임종료");
 }
 
@@ -1540,11 +1542,19 @@ void printRankBoardForm(int mode, int length, int aiDifficulty) {
 	for (int i = 0; i < 140; i++) {
 		printf("─");
 	}
-	setCurser(22, 7); printf("RANK");
-	setCurser(30, 7); printf("ID");
-	setCurser(44, 7); printf("Try Count");
-	setCurser(60, 7); printf("Record Time");
-	setCurser(140, 7); printf("DATE");
+	if (mode != MULTIMODE) {
+		setCurser(22, 7); printf("RANK");
+		setCurser(30, 7); printf("ID");
+		setCurser(44, 7); printf("TRY COUNT");
+		setCurser(60, 7); printf("RECORD TIME");
+		setCurser(140, 7); printf("DATE");
+	}
+	else {
+		setCurser(22, 7); printf("ID");
+		setCurser(54, 7); printf("WINNER");
+		setCurser(70, 7); printf("RECORD TIME");
+		setCurser(140, 7); printf("DATE");
+	}
 
 	setCurser(20, 8);
 	for (int i = 0; i < 140; i++) {
@@ -1578,21 +1588,21 @@ void printRankBoardForm(int mode, int length, int aiDifficulty) {
 	}
 }
 
-void printUserName(int mode, char* ID, int isLogin) {
+void printUserName(int mode, char* ID1, char* ID2, int isLogin) {
 	switch (mode) {
 	case SINGLEMODE: 
 		setCurser(161, 6);
-		isLogin ? printf("%s", ID) : printf("NON-LOGIN PLAYER");
+		isLogin ? printf("%s", ID1) : printf("NON-LOGIN PLAYER");
 		break;
 	case MULTIMODE:
 		setCurser(161, 6);
-		isLogin ? printf("%s", ID) : printf("NON-LOGIN PLAYER");
+		printf("%s", ID1);
 		setCurser(1, 6);
-		printf("도전자");
+		printf("%s", ID2);
 		break;
 	case AIMODE:
 		setCurser(161, 6);
-		isLogin ? printf("%s", ID) : printf("NON-LOGIN PLAYER");
+		isLogin ? printf("%s", ID1) : printf("NON-LOGIN PLAYER");
 		setCurser(1, 6);
 		printf("AI");
 		break;

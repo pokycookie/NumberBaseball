@@ -28,7 +28,7 @@ void practiceMode(char* ID, int isLogin, int baseballLength) {
 	// For Debug -+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+
 	
 	printPracticeModeForm(SINGLEMODE, FALSE ,baseballLength);
-	printUserName(SINGLEMODE, ID, isLogin);
+	printUserName(SINGLEMODE, ID, FALSE, isLogin);
 	printUserInputArea(SINGLEMODE, FALSE);
 
 	startTime = clock();

@@ -13,7 +13,7 @@ void main(void) {
 		system("cls");
 		printLogin();
 		printMainLogo(0, 0);
-		switch (selectColumnMenu(MENUX, MENUY, 4)) {
+		switch (selectColumnMenu(MENUX, MENUY, 5)) {
 		case 1:
 			// Login
 			system("cls");
@@ -29,7 +29,8 @@ void main(void) {
 			system("cls");
 			mainMenuMode("NULL", FALSE);
 			break;
-		case 4:
+		case 4: helpMode(); break;
+		case 5:
 			system("cls");
 			EXIT = TRUE;
 			break;

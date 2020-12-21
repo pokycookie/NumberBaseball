@@ -5,18 +5,18 @@
 #include "structure.h"
 #include "define.h"
 
-void multiMode(int baseballLength, char *ID, int isLogin) {
+void multiMode(int baseballLength, char *ID1, char* ID2) {
 	struct player player1; player1.tryCount = 0;
 	struct player player2; player2.tryCount = 0;
 	
 	int turn = 1;
 	int lose = FALSE;
-	int winner = 0; // 0: player1, 1: player2
+	int winner = 1; // 1: player1, 2: player2
 	int startTime, endTime;
 
 	system("cls");
 	printPracticeModeForm(MULTIMODE, FALSE, baseballLength);
-	printUserName(MULTIMODE, ID, isLogin);
+	printUserName(MULTIMODE, ID2, ID1, TRUE);
 	printUserInputArea(SINGLEMODE, FALSE);
 
 	// Set Player's Baseball Number
@@ -28,7 +28,7 @@ void multiMode(int baseballLength, char *ID, int isLogin) {
 		if (lose) break;
 		cursorView(TRUE);
 		setCurser(getInputX(baseballLength), 47);
-		if (getCurrentNumber(player1.baseballNumber, baseballLength, 0)) {
+		if (getCurrentNumber(player1.baseballNumber, baseballLength, TRUE)) {
 			switch (makeGameMenu()) {
 			case 1: break;
 			case 2: lose = TRUE; break;
@@ -53,7 +53,7 @@ void multiMode(int baseballLength, char *ID, int isLogin) {
 		if (lose) break;
 		cursorView(TRUE);
 		setCurser(getInputX(baseballLength), 47);
-		if (getCurrentNumber(player2.baseballNumber, baseballLength, 0)) {
+		if (getCurrentNumber(player2.baseballNumber, baseballLength, TRUE)) {
 			switch (makeGameMenu()) {
 			case 1: break;
 			case 2: lose = TRUE; break;
@@ -109,11 +109,11 @@ void multiMode(int baseballLength, char *ID, int isLogin) {
 				printf("TRY: %d", player1.tryCount);
 			}
 			if (player1.checkedData.strike == baseballLength) {
-				winner = 0;
+				winner = 1;
 				break;
 			}
 			if(lose){
-				winner = 1;
+				winner = 2;
 				break;
 			}
 			cursorView(FALSE);
@@ -152,18 +152,18 @@ void multiMode(int baseballLength, char *ID, int isLogin) {
 				printf("TRY: %d", player2.tryCount);
 			}
 			if (player2.checkedData.strike == baseballLength) {
-				winner = 1;
+				winner = 2;
 				break;
 			}
 			if (lose) {
-				winner = 0;
+				winner = 1;
 				break;
 			}
 			cursorView(FALSE);
 		}
 		turn = toggleTurn(turn);
 	}
-
+	// Game Finish
 	removeArea(68, 69, 45, 45);
 	removeArea(111, 112, 45, 45);
 
@@ -176,8 +176,15 @@ void multiMode(int baseballLength, char *ID, int isLogin) {
 	time_t now = time(NULL);
 	localtime_s(&rank.realTime, &now);
 
-	printGameResult(rank, "도전자", player1.baseballNumber, ID, player2.baseballNumber, winner == 0 ? "도전자" : ID, isLogin);
+	// Print Game Result
+	printGameResult(rank, ID1, player1.baseballNumber, ID2, player2.baseballNumber, winner == 1 ? ID1 : ID2, TRUE);
 
+	// Save DB
+	FILE* RankDB = NULL;
+	setRankDB(RankDB, rank);
+	updateMulitRankDB(RankDB, ID1, ID2, winner == 1 ? ID1: ID2, rank);
+
+	// OK Button
 	setCurser(80, 42);
 	printf("게임이 종료되었습니다");
 	removeArea(75, 105, 43, 48);

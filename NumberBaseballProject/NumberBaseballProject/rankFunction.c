@@ -14,8 +14,11 @@
 // RankDB_<Mode><Baseball Length>[AI Difficulty]
 // mode: Single, Multi, AI
 //
-// [FILE CONTENTS]
+// [FILE CONTENTS] - Single, Ai
 // <Rank> <ID> <tryCount> <recordTime> <realTime>
+//
+// [FILE CONTENTS] - Multi
+// <player1 ID> <player2 ID> <winner ID> <recordTime> <realTime>
 //
 //-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+
 
@@ -152,6 +155,21 @@ void updateRankDB(FILE* RankDB, char* ID, struct rank rank) {
 	sortRankDB(RankDB, rank);
 }
 
+void updateMulitRankDB(FILE* RankDB, char* ID1, char* ID2, char* winner, struct rank rank) {
+	char fileName[25];
+	struct fileName file = getFileName(rank);
+
+	strcpy_s(fileName, sizeof(fileName), file.fileName);
+
+	if (fopen_s(&RankDB, fileName, "a") == 0) {
+		fprintf(RankDB, "%s %s %s %d %d %d %d %d %d %d %d\n",
+			ID1, ID2, winner, rank.recordTime.minute, rank.recordTime.second,
+			rank.realTime.tm_year + 1900, rank.realTime.tm_mon + 1, rank.realTime.tm_mday,
+			rank.realTime.tm_hour, rank.realTime.tm_min, rank.realTime.tm_sec);
+	}
+	_fcloseall();
+}
+
 void printRankBoard(FILE* RankDB, char* ID, struct rank rank, int isLogin) {
 	char fileName[25];
 	struct rankDB tempRankDB[21];
@@ -244,46 +262,89 @@ void findRankDBByID(FILE* RankDB, char* ID, struct rank rank) {
 	if (fopen_s(&RankDB, fileName, "r") == 0) {
 		while (TRUE) {
 			if (feof(RankDB)) break;
-			fscanf_s(RankDB, "%d %s %d %d %d %d %d %d %d %d %d",
-				&tempRankDB[count].ranking, tempRankDB[count].ID, sizeof(tempRankDB[count].ID), &tempRankDB[count].tryCount,
-				&tempRankDB[count].recordMin, &tempRankDB[count].recordSec,
-				&tempRankDB[count].realYear, &tempRankDB[count].realMonth, &tempRankDB[count].realDate, &tempRankDB[count].realHour, &tempRankDB[count].realMin, &tempRankDB[count].realSec
-			);
-			if(strcmp(tempRankDB[count].ID, ID) == 0)
-				count++;
+			if (rank.mode != MULTIMODE) {
+				fscanf_s(RankDB, "%d %s %d %d %d %d %d %d %d %d %d",
+					&tempRankDB[count].ranking, tempRankDB[count].ID, sizeof(tempRankDB[count].ID), &tempRankDB[count].tryCount,
+					&tempRankDB[count].recordMin, &tempRankDB[count].recordSec,
+					&tempRankDB[count].realYear, &tempRankDB[count].realMonth, &tempRankDB[count].realDate, &tempRankDB[count].realHour, &tempRankDB[count].realMin, &tempRankDB[count].realSec
+				);
+				if (strcmp(tempRankDB[count].ID, ID) == 0)
+					count++;
+			}
+			else {
+				fscanf_s(RankDB, "%s %s %s %d %d %d %d %d %d %d %d",
+					tempRankDB[count].ID, sizeof(tempRankDB[count].ID), tempRankDB[count].subID, sizeof(tempRankDB[count].subID), tempRankDB[count].winner, sizeof(tempRankDB[count].winner),
+					&tempRankDB[count].recordMin, &tempRankDB[count].recordSec,
+					&tempRankDB[count].realYear, &tempRankDB[count].realMonth, &tempRankDB[count].realDate, &tempRankDB[count].realHour, &tempRankDB[count].realMin, &tempRankDB[count].realSec
+				);
+				if (strcmp(tempRankDB[count].ID, ID) == 0 || strcmp(tempRankDB[count].subID, ID) == 0)
+					count++;
+			}
+
 		}
 	}
 	_fcloseall();
 
-	for (int i = 0; i < count; i++) {
-		setCurser(23, 10 + i);
-		printf("%2d", tempRankDB[i].ranking);
+	if (rank.mode != MULTIMODE) {
+		for (int i = 0; i < count; i++) {
+			setCurser(23, 10 + i);
+			printf("%2d", tempRankDB[i].ranking);
 
-		setCurser(30, 10 + i);
-		printf("%s", tempRankDB[i].ID);
+			setCurser(30, 10 + i);
+			printf("%s", tempRankDB[i].ID);
 
-		setCurser(47, 10 + i);
-		printf("%3d회", tempRankDB[i].tryCount);
+			setCurser(47, 10 + i);
+			printf("%3d회", tempRankDB[i].tryCount);
 
-		setCurser(61, 10 + i);
-		if (tempRankDB[i].recordMin > 9 && tempRankDB[i].recordSec > 9) {
-			printf("%d분 %d초", tempRankDB[i].recordMin, tempRankDB[i].recordSec);
+			setCurser(61, 10 + i);
+			if (tempRankDB[i].recordMin > 9 && tempRankDB[i].recordSec > 9) {
+				printf("%d분 %d초", tempRankDB[i].recordMin, tempRankDB[i].recordSec);
+			}
+			else if (tempRankDB[i].recordMin > 9 && tempRankDB[i].recordSec < 10) {
+				printf("%d분 0%d초", tempRankDB[i].recordMin, tempRankDB[i].recordSec);
+			}
+			else if (tempRankDB[i].recordMin < 10 && tempRankDB[i].recordSec > 9) {
+				printf("0%d분 %d초", tempRankDB[i].recordMin, tempRankDB[i].recordSec);
+			}
+			else {
+				printf("0%d분 0%d초", tempRankDB[i].recordMin, tempRankDB[i].recordSec);
+			}
+
+			setCurser(140, 10 + i);
+			printf("%4d/%2d/%2d %2d:%2d", tempRankDB[i].realYear, tempRankDB[i].realMonth, tempRankDB[i].realDate, tempRankDB[i].realHour, tempRankDB[i].realMin);
+
+			setColor(0, 15);
+			Sleep(300);
 		}
-		else if (tempRankDB[i].recordMin > 9 && tempRankDB[i].recordSec < 10) {
-			printf("%d분 0%d초", tempRankDB[i].recordMin, tempRankDB[i].recordSec);
-		}
-		else if (tempRankDB[i].recordMin < 10 && tempRankDB[i].recordSec > 9) {
-			printf("0%d분 %d초", tempRankDB[i].recordMin, tempRankDB[i].recordSec);
-		}
-		else {
-			printf("0%d분 0%d초", tempRankDB[i].recordMin, tempRankDB[i].recordSec);
-		}
+	}
+	else {
+		for (int i = 0; i < count; i++) {
+			setCurser(22, 10 + i);
+			printf("%s VS %s", tempRankDB[i].ID, tempRankDB[i].subID);
 
-		setCurser(140, 10 + i);
-		printf("%4d/%2d/%2d %2d:%2d", tempRankDB[i].realYear, tempRankDB[i].realMonth, tempRankDB[i].realDate, tempRankDB[i].realHour, tempRankDB[i].realMin);
+			setCurser(54, 10 + i);
+			printf("%s", tempRankDB[i].winner);
 
-		setColor(0, 15);
-		Sleep(300);
+			setCurser(72, 10 + i);
+			if (tempRankDB[i].recordMin > 9 && tempRankDB[i].recordSec > 9) {
+				printf("%d분 %d초", tempRankDB[i].recordMin, tempRankDB[i].recordSec);
+			}
+			else if (tempRankDB[i].recordMin > 9 && tempRankDB[i].recordSec < 10) {
+				printf("%d분 0%d초", tempRankDB[i].recordMin, tempRankDB[i].recordSec);
+			}
+			else if (tempRankDB[i].recordMin < 10 && tempRankDB[i].recordSec > 9) {
+				printf("0%d분 %d초", tempRankDB[i].recordMin, tempRankDB[i].recordSec);
+			}
+			else {
+				printf("0%d분 0%d초", tempRankDB[i].recordMin, tempRankDB[i].recordSec);
+			}
+
+			setCurser(140, 10 + i);
+			printf("%4d/%2d/%2d %2d:%2d", tempRankDB[i].realYear, tempRankDB[i].realMonth, tempRankDB[i].realDate, tempRankDB[i].realHour, tempRankDB[i].realMin);
+
+			setColor(0, 15);
+			Sleep(300);
+		}
 	}
 }
 

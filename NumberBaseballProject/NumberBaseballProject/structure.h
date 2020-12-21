@@ -57,6 +57,8 @@ struct rank {
 // Rank DB Contents
 struct rankDB {
 	char ID[10];
+	char subID[10];
+	char winner[10];
 	int ranking;
 	int tryCount;
 	int recordMin;

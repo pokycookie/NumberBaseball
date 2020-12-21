@@ -16,7 +16,7 @@ void AiMode(char* ID, int isLogin, int baseballLength, int aiDifficulty) {
 	
 	system("cls");
 	printPracticeModeForm(AIMODE, aiDifficulty, baseballLength);
-	printUserName(AIMODE, ID, isLogin);
+	printUserName(AIMODE, ID, FALSE, isLogin);
 	printUserInputArea(AIMODE, FALSE);
 
 	AI.possibilityCount = makeAllPossibilityArr(AI.possibilityArr, baseballLength);

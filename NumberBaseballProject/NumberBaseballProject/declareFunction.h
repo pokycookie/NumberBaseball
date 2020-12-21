@@ -39,6 +39,7 @@ struct fileName getFileName(struct rank rank);
 void setRankDB(FILE* RankDB, struct rank rank);
 void updateRankDB(FILE* RankDB, char* ID, struct rank rank);
 void printRankBoard(FILE* RankDB, char* ID, struct rank rank, int isLogin);
+void updateMulitRankDB(FILE* RankDB, char* ID1, char* ID2, char* winner, struct rank rank);
 void printMyRanking(FILE* RankDB, char* ID, struct rank rank);
 
 void findRankDBByID(FILE* RankDB, char* ID, struct rank rank);
@@ -80,7 +81,7 @@ void printLoginModeForm(void);
 void printOkButton(int x, int y);
 int checkNumberInArray(int number, int* arr, int arrLength);
 void printRankBoardForm(int mode, int length, int aiDifficulty);
-void printUserName(int mode, char* ID, int isLogin);
+void printUserName(int mode, char* ID1, char* ID2, int isLogin);
 void printUserInputArea(int mode, int isMyTurn);
 int getInputX(int baseballLength);
 void printArrow(int direction);

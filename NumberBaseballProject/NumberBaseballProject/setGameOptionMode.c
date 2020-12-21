@@ -8,9 +8,16 @@ void setGameOptionMode(int gameMode, char* ID, int isLogin) {
 	int baseballLength;
 	int aiDifficulty = HARD;
 	int END = FALSE;
+	char secondID[10];
 
 	system("cls");
 	printGameOption(gameMode);
+	if (!isLogin && gameMode == MULTIMODE) {
+		setCurser(18, 4);
+		setColor(12, 15);
+		printf("※멀티모드는 로그인상태로만 이용하실 수 있습니다. 게임모드 선택창으로 돌아갑니다.");
+		setColor(0, 15);
+	}
 	if (gameMode != AIMODE) {
 		switch (selectGameOption()) {
 		case 1: baseballLength = 3; break;
@@ -55,7 +62,12 @@ void setGameOptionMode(int gameMode, char* ID, int isLogin) {
 	if (!END) {
 		switch (gameMode) {
 		case SINGLEMODE: practiceMode(ID, isLogin, baseballLength); break;
-		case MULTIMODE: multiMode(baseballLength, ID, isLogin); break;
+		case MULTIMODE:
+			if (!isLogin) break;
+			if (secondLoginMode(secondID, ID)) {
+				multiMode(baseballLength, ID, secondID);
+			}
+			break;
 		case AIMODE: AiMode(ID, isLogin, baseballLength, aiDifficulty); break;
 		}
 	}
