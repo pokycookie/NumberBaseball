@@ -901,7 +901,7 @@ void printGameOption(int gameMode) {
 		setCurser(144, 23); printf("자유롭게 설정하세요");
 
 		for (int i = 0; i < 32; i++) {
-			setCurser(137 + i ,38);
+			setCurser(137 + i ,37);
 			printf("─");
 		}
 	}
@@ -919,7 +919,7 @@ void printGameOption(int gameMode) {
 		setCurser(134, 21); printf("숫자야구 자릿수를 자유롭게 설정하세요");
 
 		for (int i = 0; i < 32; i++) {
-			setCurser(137 + i, 38);
+			setCurser(137 + i, 37);
 			printf("─");
 		}
 	}
@@ -944,6 +944,10 @@ int selectGameOption(void) {
 	setCurser(GOX(0) + 40, 7); printf("┓");
 	setCurser(GOX(0), 43); printf("┗");
 	setCurser(GOX(0) + 40, 43); printf("┛");
+
+	setColor(12, 12);
+	setCurser(GOX(0) + 2, 42); printf("■■■■■■■■■■■■■■■■■■■");
+	setColor(0, 15);
 
 	while (TRUE) {
 		int temp = arrowControl();
@@ -987,6 +991,8 @@ int selectGameOption(void) {
 			setCurser(GOX(n) + 40, 7); printf("┐");
 			setCurser(GOX(n), 43); printf("└");
 			setCurser(GOX(n) + 40, 43); printf("┘");
+
+			removeArea(GOX(n) + 2, GOX(n) + 39, 42, 42);
 		}
 
 		for (int i = 0; i < 23; i++) {
@@ -1001,6 +1007,8 @@ int selectGameOption(void) {
 			setCurser(100, 45 + i);
 			printf("│");
 		}
+		setColor(0, 15);
+		setCurser(78 + 2, 45 + 1); printf("                    ");
 		setCurser(78, 45); printf("┌");
 		setCurser(100, 45); printf("┐");
 		setCurser(78, 47); printf("└");
@@ -1024,6 +1032,10 @@ int selectGameOption(void) {
 			setCurser(GOX(currentCurser - 1) + 40, 7); printf("┓");
 			setCurser(GOX(currentCurser - 1), 43); printf("┗");
 			setCurser(GOX(currentCurser - 1) + 40, 43); printf("┛");
+
+			setColor(12, 12);
+			setCurser(GOX(currentCurser - 1) + 2, 42); printf("■■■■■■■■■■■■■■■■■■■");
+			setColor(0, 15);
 		}
 		else {
 			for (int i = 0; i < 23; i++) {
@@ -1043,6 +1055,12 @@ int selectGameOption(void) {
 			setCurser(78, 47); printf("┗");
 			setCurser(100, 47); printf("┛");
 			setCurser(88, 46); printf("BACK");
+
+			setColor(12, 12);
+			setCurser(78 + 2, 45 + 1); printf("                    ");
+			setColor(15, 12);
+			setCurser(78 + 10, 45 + 1); printf("BACK");
+			setColor(0, 15);
 		}
 	}
 	return currentCurser;
@@ -1061,7 +1079,7 @@ int selectAiDifficulty(int isGameOption) {
 	int currentCurser = EASY;
 
 	if (isGameOption) {
-		setCurser(148, 42);
+		setCurser(148, 40);
 		printf("◁  EASY  ▶");
 
 		while (1) {
@@ -1075,16 +1093,16 @@ int selectAiDifficulty(int isGameOption) {
 			else if (temp == 0) {
 				break;
 			}
-			removeArea(137, 169, 42, 42);
+			removeArea(137, 169, 40, 40);
 			switch (currentCurser) {
-			case EASY: setCurser(148, 42); printf("◁  EASY  ▶"); break;
-			case NORMAL: setCurser(148, 42); printf("◀ NORMAL ▶"); break;
-			case HARD: setCurser(148, 42); printf("◀  HARD  ▷"); break;
+			case EASY: setCurser(148, 40); printf("◁  EASY  ▶"); break;
+			case NORMAL: setCurser(148, 40); printf("◀ NORMAL ▶"); break;
+			case HARD: setCurser(148, 40); printf("◀  HARD  ▷"); break;
 			}
 		}
 	}
 	else {
-		setCurser(140, 42);
+		setCurser(140, 40);
 		printf("◁  EASY  ▶");
 
 		while (1) {
@@ -1098,11 +1116,11 @@ int selectAiDifficulty(int isGameOption) {
 			else if (temp == 0) {
 				break;
 			}
-			removeArea(131, 164, 42, 42);
+			removeArea(131, 164, 40, 40);
 			switch (currentCurser) {
-			case EASY: setCurser(140, 42); printf("◁  EASY  ▶"); break;
-			case NORMAL: setCurser(140, 42); printf("◀ NORMAL ▶"); break;
-			case HARD: setCurser(140, 42); printf("◀  HARD  ▷"); break;
+			case EASY: setCurser(140, 40); printf("◁  EASY  ▶"); break;
+			case NORMAL: setCurser(140, 40); printf("◀ NORMAL ▶"); break;
+			case HARD: setCurser(140, 40); printf("◀  HARD  ▷"); break;
 			}
 		}
 	}
@@ -1200,6 +1218,10 @@ int selectGameMode(void) {
 	setCurser(GMX(0), 43); printf("┗");
 	setCurser(GMX(0) + 40, 43); printf("┛");
 
+	setColor(12, 12);
+	setCurser(GMX(0) + 2, 42); printf("■■■■■■■■■■■■■■■■■■■");
+	setColor(0, 15);
+
 	while (TRUE) {
 		int temp = arrowControl();
 		if (temp == LEFT && currentCurser > 1 && currentCurser != 5) {
@@ -1244,6 +1266,8 @@ int selectGameMode(void) {
 			setCurser(GMX(n) + 40, 7); printf("┐");
 			setCurser(GMX(n), 43); printf("└");
 			setCurser(GMX(n) + 40, 43); printf("┘");
+			
+			removeArea(GMX(n) + 2, GMX(n) + 39, 42, 42);
 		}
 		for (int i = 0; i < 23; i++) {
 			setCurser(78 + i, 45);
@@ -1257,6 +1281,9 @@ int selectGameMode(void) {
 			setCurser(100, 45 + i);
 			printf("│");
 		}
+		setColor(0, 15);
+		setCurser(78 + 2, 45 + 1); printf("                    ");
+
 		setCurser(78, 45); printf("┌");
 		setCurser(100, 45); printf("┐");
 		setCurser(78, 47); printf("└");
@@ -1280,6 +1307,10 @@ int selectGameMode(void) {
 			setCurser(GMX(currentCurser - 1) + 40, 7); printf("┓");
 			setCurser(GMX(currentCurser - 1), 43); printf("┗");
 			setCurser(GMX(currentCurser - 1) + 40, 43); printf("┛");
+
+			setColor(12, 12);
+			setCurser(GMX(currentCurser - 1) + 2, 42); printf("■■■■■■■■■■■■■■■■■■■");
+			setColor(0, 15);
 		}
 		else {
 			for (int i = 0; i < 23; i++) {
@@ -1299,6 +1330,12 @@ int selectGameMode(void) {
 			setCurser(78, 47); printf("┗");
 			setCurser(100, 47); printf("┛");
 			setCurser(88, 46); printf("BACK");
+
+			setColor(12, 12);
+			setCurser(78 + 2, 45 + 1); printf("                    ");
+			setColor(15, 12);
+			setCurser(78 + 10, 45 + 1); printf("BACK");
+			setColor(0, 15);
 		}
 	}
 	return currentCurser;
@@ -1531,7 +1568,12 @@ void printOkButton(int x, int y) {
 	setCurser(x + 22, y); printf("┓");
 	setCurser(x, y + 2); printf("┗");
 	setCurser(x + 22, y + 2); printf("┛");
+
+	setColor(12, 12);
+	setCurser(x + 2, y + 1); printf("                    ");
+	setColor(15, 12);
 	setCurser(x + 11, y + 1); printf("OK");
+	setColor(0, 15);
 }
 
 void printRankBoardForm(int mode, int length, int aiDifficulty) {

@@ -36,7 +36,7 @@ void helpMode(void) {
 					printf("─");
 				}
 				setCurser(8, 6);
-				printf("모든 메뉴는 화살표를 이용해 이동할 수 있습니다.");
+				printf("모든 메뉴는 방향키를 이용해 이동할 수 있습니다.");
 				setCurser(8, 7);
 				printf("원하는 메뉴를 선택하기 위해서는 ENTER나 SPACE BAR를 사용하면 됩니다.");
 				setCurser(8, 8);

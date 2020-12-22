@@ -34,7 +34,7 @@ void mainMenuMode(char *ID, int isLogin) {
 				printRecordMode();
 				switch (selectGameMode()) {
 				case 1:
-					setCurser(22, 40);
+					setCurser(22, 39);
 					printf("확인할 자릿수를 설정하세요: ");
 					cursorView(TRUE);
 					baseballLength = getBaseballLength();
@@ -42,7 +42,7 @@ void mainMenuMode(char *ID, int isLogin) {
 					recordMode(ID, isLogin, SINGLEMODE, baseballLength, FALSE);
 					break;
 				case 2:
-					setCurser(77, 40);
+					setCurser(77, 39);
 					printf("확인할 자릿수를 설정하세요: ");
 					cursorView(TRUE);
 					baseballLength = getBaseballLength();
@@ -50,12 +50,12 @@ void mainMenuMode(char *ID, int isLogin) {
 					recordMode(ID, isLogin, MULTIMODE, baseballLength, FALSE);
 					break;
 				case 3:
-					setCurser(132, 40);
+					setCurser(132, 39);
 					printf("확인할 자릿수를 설정하세요: ");
 					cursorView(TRUE);
 					baseballLength = getBaseballLength();
-					removeArea(131, 164, 40, 40);
-					setCurser(132, 40);
+					removeArea(131, 164, 39, 39);
+					setCurser(132, 38);
 					printf("확인할 AI 난이도를 설정하세요");
 					aiDifficulty = selectAiDifficulty(FALSE);
 					recordMode(ID, isLogin, AIMODE, baseballLength, aiDifficulty);

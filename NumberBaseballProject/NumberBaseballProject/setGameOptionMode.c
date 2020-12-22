@@ -24,7 +24,7 @@ void setGameOptionMode(int gameMode, char* ID, int isLogin) {
 		case 2: baseballLength = 4; break;
 		case 3: baseballLength = 5; break;
 		case 4:
-			setCurser(137, 40);
+			setCurser(137, 39);
 			printf("숫자야구 자릿수를 설정하세요: ");
 			cursorView(TRUE);
 			baseballLength = getBaseballLength();
@@ -41,13 +41,13 @@ void setGameOptionMode(int gameMode, char* ID, int isLogin) {
 		case 2: baseballLength = 4; aiDifficulty = NORMAL; break;
 		case 3: baseballLength = 5; aiDifficulty = HARD; break;
 		case 4:
-			setCurser(137, 40);
+			setCurser(137, 39);
 			printf("숫자야구 자릿수를 설정하세요: ");
 			cursorView(TRUE);
 			baseballLength = getBaseballLength();
 
-			removeArea(137, 169, 40, 40);
-			setCurser(142, 40);
+			removeArea(137, 169, 39, 39);
+			setCurser(142, 38);
 			printf("AI 난이도를 설정하세요");
 			aiDifficulty = selectAiDifficulty(TRUE);
 
