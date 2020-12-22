@@ -10,7 +10,7 @@ void practiceMode(char* ID, int isLogin, int baseballLength) {
 	int baseballNumber[10];
 	int currentNumber[10];
 	int tryCount = 0;
-	int lose = FALSE, breakWhile = FALSE;
+	int lose = FALSE, goToMain = FALSE;
 	int startTime, endTime;
 	
 	struct resultData checkedData;
@@ -40,13 +40,14 @@ void practiceMode(char* ID, int isLogin, int baseballLength) {
 		printf("숫자를 입력하세요");
 		removeArea(75, 105, 47, 47);
 		while (TRUE) {
-			if (lose) break;
+			if (lose || goToMain) break;
 			setCurser(getInputX(baseballLength), 47);
 			cursorView(TRUE);
 			if (getCurrentNumber(currentNumber, baseballLength, 0)) {
 				switch (makeGameMenu()) {
 				case 1: removeArea(22, 158, 6, 39); break;
 				case 2: lose = TRUE; removeArea(22, 158, 6, 39); break;
+				case 3: goToMain = TRUE; removeArea(22, 158, 6, 39); break;
 				}
 			}
 			else {
@@ -57,7 +58,7 @@ void practiceMode(char* ID, int isLogin, int baseballLength) {
 			removeArea(75, 105, 47, 47);
 			cursorView(FALSE);
 		}
-		if (!lose) {
+		if (!lose && ! goToMain) {
 			checkedData = checkData(currentNumber, baseballNumber, baseballLength);
 			tryCount++;
 			removeArea(22, 158, 6, 39);
@@ -67,7 +68,7 @@ void practiceMode(char* ID, int isLogin, int baseballLength) {
 			setCurser(161, 39);
 			printf("TRY: %d", tryCount);
 		}
-		if (checkedData.strike == baseballLength || lose)
+		if (checkedData.strike == baseballLength || lose || goToMain)
 			break;
 	}
 
@@ -80,15 +81,17 @@ void practiceMode(char* ID, int isLogin, int baseballLength) {
 	time_t now = time(NULL);
 	localtime_s(&rank.realTime, &now);
 	
-	printGameResult(rank, "COMPUTER", baseballNumber, ID, FALSE, lose ? "COMPUTER" : ID, isLogin);
+	if(!goToMain){
+		printGameResult(rank, "COMPUTER", baseballNumber, ID, FALSE, lose ? "COMPUTER" : ID, isLogin);
 
-	setCurser(80, 42);
-	printf("게임이 종료되었습니다");
-	removeArea(75, 105, 43, 48);
-	printOkButton(MENUX - 2, MENUY + 2);
-	selectColumnMenu(MENUX - 2, MENUY + 2, 1);
+		setCurser(80, 42);
+		printf("게임이 종료되었습니다");
+		removeArea(75, 105, 43, 48);
+		printOkButton(MENUX - 2, MENUY + 2);
+		selectColumnMenu(MENUX - 2, MENUY + 2, 1);
 
-	rankMode(ID, lose ? FALSE : isLogin, rank);
+		rankMode(ID, lose ? FALSE : isLogin, rank);
+	}
 	
 	cursorView(FALSE);
 }

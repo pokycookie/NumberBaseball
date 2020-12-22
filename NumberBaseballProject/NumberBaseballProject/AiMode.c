@@ -9,9 +9,14 @@ void AiMode(char* ID, int isLogin, int baseballLength, int aiDifficulty) {
 	struct player player1; player1.tryCount = 0;
 	static struct AI AI; AI.tryCount = 0;
 
+
+	for (int i = 0; i < 10; i++) {
+		player1.baseballNumber[i] = 0;
+	}
+
 	int limit;
 	int turn = 1; // 1: Player, 2: AI
-	int lose = FALSE;
+	int lose = FALSE; int goToMain = FALSE;
 	int startTime, endTime;
 	
 	system("cls");
@@ -27,13 +32,14 @@ void AiMode(char* ID, int isLogin, int baseballLength, int aiDifficulty) {
 	printf("당신의 숫자를 정하세요");
 
 	while (TRUE) {
-		if (lose) break;
+		if (lose || goToMain) break;
 		cursorView(TRUE);
 		setCurser(getInputX(baseballLength), 47);
 		if (getCurrentNumber(player1.baseballNumber, baseballLength, 0)) {
 			switch (makeGameMenu()) {
 			case 1: break;
 			case 2: lose = TRUE; break;
+			case 3: goToMain = TRUE; removeArea(22, 158, 6, 39); break;
 			}
 		}
 		else {
@@ -51,19 +57,20 @@ void AiMode(char* ID, int isLogin, int baseballLength, int aiDifficulty) {
 	startTime = clock();
 
 	// Game Start
-	while (TRUE) {
+	while (!goToMain) {
 		if (turn == 1) {
 			setCurser(82, 42);
 			printf("숫자를 입력하세요");
 			removeArea(75, 105, 47, 47);
 			while (TRUE) {
-				if (lose) break;
+				if (lose || goToMain) break;
 				cursorView(TRUE);
 				setCurser(getInputX(baseballLength), 47);
 				if (getCurrentNumber(player1.currentNumber, baseballLength, 0)) {
 					switch (makeGameMenu()) {
 					case 1: removeArea(22, 158, 6, 39); break;
 					case 2: lose = TRUE; removeArea(22, 158, 6, 39); break;
+					case 3: goToMain = TRUE; removeArea(22, 158, 6, 39); break;
 					}
 				}
 				else {
@@ -73,7 +80,7 @@ void AiMode(char* ID, int isLogin, int baseballLength, int aiDifficulty) {
 				printf("숫자를 입력하세요");
 				removeArea(75, 105, 47, 47);
 			}
-			if (!lose) {
+			if (!lose && !goToMain) {
 				player1.checkedData = checkData(player1.currentNumber, AI.baseballNumber, baseballLength);
 				player1.tryCount++;
 				removeArea(22, 158, 6, 39);
@@ -87,7 +94,7 @@ void AiMode(char* ID, int isLogin, int baseballLength, int aiDifficulty) {
 				lose = FALSE;
 				break;
 			}
-			if (lose) {
+			if (lose || goToMain) {
 				break;
 			}
 		}
@@ -113,7 +120,7 @@ void AiMode(char* ID, int isLogin, int baseballLength, int aiDifficulty) {
 		removeArea(75, 105, 47, 47);
 		removeArea(71, 108, 42, 42);
 	}
-
+	
 	endTime = clock();
 	struct time recordTime = convertTimeUnit((endTime - startTime) / 1000);
 
@@ -123,15 +130,17 @@ void AiMode(char* ID, int isLogin, int baseballLength, int aiDifficulty) {
 	time_t now = time(NULL);
 	localtime_s(&rank.realTime, &now);
 	
-	printGameResult(rank, "AI", AI.baseballNumber, ID, player1.baseballNumber, lose ? "AI" : ID, isLogin);
+	if (!goToMain) {
+		printGameResult(rank, "AI", AI.baseballNumber, ID, player1.baseballNumber, lose ? "AI" : ID, isLogin);
 
-	setCurser(80, 42);
-	printf("게임이 종료되었습니다");
-	removeArea(75, 105, 43, 48);
-	printOkButton(MENUX - 2, MENUY + 2);
-	selectColumnMenu(MENUX - 2, MENUY + 2, 1);
+		setCurser(80, 42);
+		printf("게임이 종료되었습니다");
+		removeArea(75, 105, 43, 48);
+		printOkButton(MENUX - 2, MENUY + 2);
+		selectColumnMenu(MENUX - 2, MENUY + 2, 1);
 
-	rankMode(ID, lose ? FALSE : isLogin, rank);
+		rankMode(ID, lose ? FALSE : isLogin, rank);
+	}
 
 	cursorView(FALSE);
 }

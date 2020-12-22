@@ -135,8 +135,10 @@ int makeGameMenu() {
 	printf("▶계속하기");
 	setCurser(MENUX + 5, 15);
 	printf("▷포기하기");
+	setCurser(MENUX + 5, 16);
+	printf("▷메인메뉴");
 	
-	return selectColumnMenu(MENUX + 5, 14, 2);
+	return selectColumnMenu(MENUX + 5, 14, 3);
 }
 
 // Print Large Number
