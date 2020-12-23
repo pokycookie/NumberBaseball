@@ -371,7 +371,7 @@ void printMyRanking(FILE* RankDB, char* ID, struct rank rank) {
 	setColor(10, 15);
 
 	setCurser(23, 33);
-	printf("%2d", myRank.ranking);
+	printf("%2d", myRank.ranking - 1);
 
 	setCurser(30, 33);
 	printf("%s", myRank.ID);
